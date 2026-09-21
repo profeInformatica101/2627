@@ -1,439 +1,56 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sesión 1 · Algoritmos y Python · Tecnología y Digitalización 2.º ESO</title>
-<style>
-:root{
-  --ink:#17324a; --night:#102b44; --teal:#087267; --teal2:#0c8a78;
-  --paper:#eef4f6; --line:#d4e2e7; --soft:#f7fbfb; --warm:#fff5df;
-  --blue:#e8f1fb; --green:#e7f7ef; --purple:#f0eafa; --red:#fff0ed;
-  --muted:#536a78;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font:clamp(16px,1.5vw,19px)/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-button{font:inherit;cursor:pointer}
-button:focus-visible,a:focus-visible,summary:focus-visible{
-  outline:3px solid #b45a00; outline-offset:3px;
-}
-.hero{
-  background:radial-gradient(circle at 85% 0%,#2a8790,transparent 38%),
-             linear-gradient(125deg,#091d31,#183c56);
-  color:#fff; padding:1.2rem clamp(1rem,4vw,4rem) 2.3rem;
-}
-.hero .inner,main,.controls,.progress,.foot{max-width:1200px;margin:auto}
-.brand{font-size:.78rem;font-weight:850;letter-spacing:.12em;color:#b5f4df;text-transform:uppercase}
-.hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;margin:.7rem 0 .4rem}
-.hero p{margin:0;color:#dcefeb}
-.frame{
-  margin:-1.1rem clamp(.65rem,2vw,1.3rem) 0;background:#fff;border:1px solid var(--line);
-  border-radius:22px;box-shadow:0 16px 44px #102f461d;overflow:hidden;min-height:650px
-}
-.slide{padding:clamp(1.2rem,3vw,3rem)}
-.slide[hidden]{display:none!important}
-.eyebrow{font-size:.82rem;color:#077468;font-weight:850;letter-spacing:.1em}
-.time{display:inline-block;margin-left:.6rem;background:#e5f4ec;color:#155548;padding:.18rem .6rem;border-radius:30px;letter-spacing:0}
-.slide h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;margin:.35rem 0 1rem}
-.slide h3{margin:.2rem 0 .55rem;font-size:1.12rem}
-.lead{font-size:clamp(1.12rem,2vw,1.4rem)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-.card{background:var(--soft);border:1px solid var(--line);border-radius:15px;padding:1rem}
-.green{background:var(--green)}
-.warm{background:var(--warm)}
-.blue{background:var(--blue)}
-.purple{background:var(--purple)}
-.red{background:var(--red)}
-.task{border-left:5px solid var(--teal2);background:#e9f7f2;padding:.9rem 1.1rem;border-radius:0 12px 12px 0;margin:1rem 0}
-.tip{border-left:5px solid #bc7200;background:#fff6e6;padding:.8rem 1rem;border-radius:0 12px 12px 0}
-.big-arrow{text-align:center;font-size:2rem;font-weight:900;color:#477}
-pre{
-  margin:.2rem 0;background:#102b44;color:#f0fcfb;padding:1rem;border-radius:13px;overflow:auto;
-  font:clamp(.86rem,1.25vw,1rem)/1.6 ui-monospace,SFMono-Regular,Consolas,monospace
-}
-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
-p code,li code,td code{background:#e7eef1;padding:.08rem .25rem;border-radius:4px;font-size:.92em}
-.code-line{display:block}
-.kw{color:#ffd479;font-weight:800}.fn{color:#8fe3ff}.str{color:#b9f59f}.var{color:#ffd1ea}
-.mapping{display:grid;grid-template-columns:auto 1fr;gap:.5rem .7rem;align-items:center}
-.badge{display:inline-block;padding:.17rem .55rem;border-radius:999px;font-size:.82rem;font-weight:800}
-.b-in{background:#eee3ff;color:#5b3e8d}.b-out{background:#e2f0ff;color:#245a89}.b-act{background:#dff4e9;color:#15614a}.b-dec{background:#fff0cf;color:#8a5800}
-svg.flow{display:block;width:100%;height:auto;max-height:420px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:13px}
-svg text{font:700 15px system-ui,sans-serif;fill:#17324a}
-svg .small{font-size:13px}
-.node{fill:#e7f7ef;stroke:#17745f;stroke-width:2}
-.io{fill:#f0eafa;stroke:#7252a6;stroke-width:2}
-.decision{fill:#fff1d2;stroke:#a76400;stroke-width:2}
-.loop{fill:#e8f1fb;stroke:#34699a;stroke-width:2}
-.arrow{stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr)}
-.mini-flow{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;margin:.65rem 0}
-.mini-box{border:2px solid #17745f;background:#e7f7ef;padding:.45rem .65rem;border-radius:8px;font-weight:800;font-size:.9rem}
-.mini-diamond{transform:rotate(45deg);width:70px;height:70px;border:2px solid #a76400;background:#fff1d2;display:grid;place-items:center;margin:15px}
-.mini-diamond span{transform:rotate(-45deg);font-size:.78rem;font-weight:800;text-align:center}
-.arrow-txt{font-weight:900;color:#466}
-.variable-box{
-  border:3px solid #7252a6;background:#f4effc;border-radius:14px;padding:1rem;text-align:center
-}
-.variable-box .name{font:800 1.15rem ui-monospace,monospace}
-.variable-box .value{font-size:1.7rem;font-weight:900;color:#5c408c}
-table{border-collapse:collapse;width:100%}
-th,td{border-bottom:1px solid var(--line);padding:.5rem .65rem;text-align:left}
-th{background:#eaf3f3}
-.check{list-style:none;padding:0}
-.check li{margin:.5rem 0}
-details{background:#f7faf9;border:1px solid var(--line);border-radius:10px;padding:.65rem .9rem;margin:.8rem 0}
-summary{cursor:pointer;font-weight:780;color:#075c89}
-.actions{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
-button{border:2px solid #157468;border-radius:10px;padding:.45rem .8rem;color:#135f55;background:#fff;font-weight:760}
-button.primary{background:#087267;color:#fff}
-button:disabled{opacity:.4;cursor:default}
-.progress{padding:0 clamp(.65rem,2vw,1.3rem)}
-progress{display:block;width:100%;height:.5rem;accent-color:#087267}
-#count{font-size:.88rem;color:var(--muted);font-weight:750;margin:.35rem 0}
-.controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.6rem;padding:0 clamp(.65rem,2vw,1.3rem)}
-#next{justify-self:end}
-.dots{display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
-.dot{width:2rem;height:2rem;border-radius:50%;padding:0;font-size:.8rem}
-.dot[aria-current=step]{background:var(--night);border-color:var(--night);color:#fff}
-.foot{color:var(--muted);font-size:.85rem;padding:1.4rem clamp(.65rem,2vw,1.3rem) 2.2rem}
-@media(max-width:780px){
-  .grid2,.grid3{grid-template-columns:1fr}.frame{min-height:0}
-  .controls{grid-template-columns:1fr 1fr}.dots{grid-column:1/-1;grid-row:2}
-}
-@media print{
-  body{background:white;font:11pt/1.4 system-ui}.hero{background:white;color:black}.hero p,.brand{color:black}
-  .frame{box-shadow:none;border:0;margin:0}.slide,.slide[hidden]{display:block!important;break-after:page;padding:.7rem 1rem}
-  .controls,.progress,.foot,.actions{display:none!important}pre{white-space:pre-wrap;background:#edf3f5;color:black}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Plan anual · Tecnología y Digitalización · 2.º ESO · Huelva 2026–2027</title>
+  <style>
+    :root{--ink:#183447;--muted:#526976;--blue:#075b8d;--green:#087663;--gold:#f8d77b;--line:#cedeE4;--paper:#f4f8f8;--white:#fff;--focus:#a43800}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#075587}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.skip{position:absolute;top:-100px;left:1rem;background:#fff;padding:.7rem;z-index:9}.skip:focus{top:1rem}header{background:linear-gradient(125deg,#102f48,#126d70);color:#fff;padding:3rem max(1.2rem,calc((100vw - 1160px)/2)) 2.6rem}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800;color:#bfe9dc}h1{font-size:clamp(2rem,5vw,3.45rem);line-height:1.08;margin:.45rem 0}header p{max-width:850px;color:#e5f7f3}.wrap{max-width:1160px;margin:auto;padding:1.2rem}.intro{background:#fff;border:1px solid var(--line);border-radius:17px;padding:1.25rem;margin-top:-1.5rem;position:relative;box-shadow:0 9px 28px #17323c12}.stats{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1rem}.stats span,.tag{background:#e4f3ed;color:#155041;border-radius:30px;padding:.3rem .68rem;font-weight:750;font-size:.88rem}.notice{border-left:5px solid var(--green);background:#e9f5f0;border-radius:0 12px 12px 0;padding:1rem 1.2rem;margin:1.2rem 0}.notice p{margin:.25rem 0}.nav,.filters{display:flex;gap:.45rem;flex-wrap:wrap}.nav{margin:1.2rem 0}.nav a,button{border:1px solid #78919b;background:#fff;color:var(--ink);border-radius:9px;padding:.5rem .8rem;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}.nav a:hover,button:hover{background:#e9f4f1}button[aria-pressed=true]{background:var(--ink);color:#fff}.section{margin:2.5rem 0}.section>p{max-width:900px}h2{font-size:1.75rem;line-height:1.2}h3{line-height:1.25}.tablewrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:13px}table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:.72rem}th{background:#e8f2f3}tr:last-child td{border-bottom:0}.toolbar{display:flex;align-items:end;gap:.8rem;flex-wrap:wrap;margin:1.2rem 0}.toolbar label{font-weight:750}.toolbar input{display:block;margin-top:.25rem;border:1px solid #849ca6;border-radius:9px;padding:.6rem;font:inherit;width:min(390px,82vw)}.count{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:1rem}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.15rem;box-shadow:0 3px 14px #17323c0b}.card[hidden]{display:none}.top{display:flex;justify-content:space-between;align-items:center;gap:.5rem}.num{background:var(--gold);border-radius:9px;padding:.24rem .58rem;font-weight:850}.date{color:var(--muted);font-size:.84rem;font-weight:700;text-align:right}.card h3{font-size:1.25rem;margin:.9rem 0 .35rem}.challenge{color:#145563;font-weight:700}.product{background:#f2f7f5;border-radius:9px;padding:.65rem}.card details{border-top:1px solid var(--line);padding:.65rem 0}.card details:last-child{padding-bottom:0}summary{cursor:pointer;color:var(--blue);font-weight:750}.card ul{padding-left:1.25rem}.card li{margin:.28rem 0}.codes{font-size:.9rem;color:var(--muted)}.eval{border:1px solid #c6dde9;background:#f1f7fb;border-radius:9px;padding:.7rem}.eval p{margin:.35rem 0}.level{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}.level div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.8rem}.level strong{color:var(--blue)}.small{font-size:.86rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:1.2rem 0 3rem;color:var(--muted)}
+    @media(max-width:760px){.level{grid-template-columns:1fr 1fr}}@media(max-width:470px){.level{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{header{background:#fff;color:#000;padding:1rem 0}header p,.eyebrow{color:#000}.toolbar,.nav,.skip{display:none}.intro{margin:0;box-shadow:none}.grid{display:block}.card{break-inside:avoid;box-shadow:none;margin:.8rem 0}details:not([open])>*:not(summary){display:block}a{color:#000}}
+  </style>
 </head>
 <body>
-<header class="hero">
-  <div class="inner">
-    <div class="brand">IES Campo de Tejada · Tecnología y Digitalización · 2.º ESO</div>
-    <h1>Del diagrama al <span style="color:#a8efd5">programa</span></h1>
-    <p>Sesión 1 · Algoritmos, diagramas de flujo y Python · 55 minutos</p>
-  </div>
-</header>
+<a class="skip" href="#contenido">Saltar al contenido principal</a>
+<header><div class="eyebrow">IES Campo de Tejada · Paterna del Campo</div><h1>Tecnología y Digitalización<br>2.º de ESO</h1><p>Plan anual 2026–2027: el curso ha comenzado con algoritmia, diagramas de flujo y Python. A partir de este punto de partida avanzamos hacia el diseño, la fabricación, la digitalización, el control y la sostenibilidad.</p></header>
+<main id="contenido" class="wrap">
+  <section class="intro" aria-label="Resumen del plan"><p><strong>12 situaciones de aprendizaje · 96 sesiones planificadas.</strong> La primera situación ya está iniciada con algoritmia y Python. La programación deja margen para evaluación, actividades de centro, incidencias de taller y días locales. El número exacto de clases depende de los tres días semanales asignados a cada grupo.</p><div class="stats"><span>SA 01 · iniciada</span><span>1.er tramo · 38 sesiones</span><span>2.º tramo · 26 sesiones</span><span>3.er tramo · 32 sesiones</span><span>15 criterios cubiertos</span></div></section>
+  <nav class="nav" aria-label="Índice"><a href="#calendario">Calendario</a><a href="#situaciones">12 situaciones</a><a href="#evaluacion">Cómo evaluar</a><a href="#matriz">Matriz curricular</a><a href="#fuentes">Normativa</a></nav>
 
-<main>
-<div class="frame">
+  <section id="calendario" class="section"><h2>Ajuste al calendario escolar de Huelva</h2><p>La Resolución de 29 de mayo de 2026 de la Delegación Territorial de Huelva establece para ESO <strong>175 días lectivos</strong>, con clases del <strong>15 de septiembre de 2026 al 22 de junio de 2027</strong>. Esta temporalización usa esos límites y los periodos vacacionales provinciales.</p><div class="tablewrap"><table><thead><tr><th>Tramo de trabajo</th><th>Interrupciones consideradas</th><th>Situaciones</th><th>Sesiones previstas</th></tr></thead><tbody><tr><td>15 septiembre–22 diciembre</td><td>12 octubre, 2 noviembre y 7–8 diciembre</td><td>SA 01–04</td><td>38</td></tr><tr><td>8 enero–19 marzo</td><td>26 febrero y 1 marzo</td><td>SA 05–08</td><td>26</td></tr><tr><td>29 marzo–22 junio</td><td>Semana Santa: 22–28 marzo; 1 mayo no afecta por caer en sábado</td><td>SA 09–12</td><td>32</td></tr></tbody></table></div><div class="notice"><p><strong>Paterna del Campo:</strong> los días vacacionales y festivos locales deben confirmarse con el calendario municipal y el del IES. No se han aplicado automáticamente los días locales aprobados para Huelva capital.</p><p><strong>Vacaciones oficiales:</strong> Navidad, del 23 de diciembre al 7 de enero, ambos inclusive; Semana Santa, del 22 al 28 de marzo, ambos inclusive.</p></div></section>
 
-<section class="slide" id="slide1">
-  <p class="eyebrow">PASO 01/10 <span class="time">0–5 min</span></p>
-  <h2>¿Cómo damos instrucciones a un ordenador?</h2>
-  <p class="lead">Un ordenador no adivina lo que queremos. Necesita instrucciones <strong>claras, ordenadas y sin pasos escondidos</strong>.</p>
-  <div class="grid3">
-    <div class="card green"><h3>1 · Secuencia</h3><p>Hacer pasos uno detrás de otro.</p><div class="mini-flow"><span class="mini-box">A</span><span class="arrow-txt">→</span><span class="mini-box">B</span><span class="arrow-txt">→</span><span class="mini-box">C</span></div></div>
-    <div class="card warm"><h3>2 · Decisión</h3><p>Elegir un camino según una condición.</p><div class="mini-flow"><div class="mini-diamond"><span>¿Sí?</span></div><span class="arrow-txt">→ 2 caminos</span></div></div>
-    <div class="card blue"><h3>3 · Repetición</h3><p>Volver a hacer algo varias veces.</p><div class="mini-flow"><span class="mini-box">Revisar</span><span class="arrow-txt">↺</span></div></div>
-  </div>
-  <div class="task"><strong>Reto de hoy:</strong> crear un pequeño ayudante que pregunte tu nombre y compruebe tres veces si sobra alguna luz encendida.</div>
-</section>
+  <section id="situaciones" class="section"><h2>Secuencia de las 12 situaciones de aprendizaje</h2><p>La secuencia parte del trabajo que ya se está realizando: algoritmo, diagrama de flujo y primera implementación en Python. Los códigos corresponden a los criterios y saberes de 2.º ESO. Las situaciones integran los saberes, pero la valoración del aprendizaje se registra mediante los <strong>criterios de evaluación</strong>.</p><div class="toolbar"><div><label for="buscar">Buscar contenido, criterio o saber</label><input id="buscar" type="search" placeholder="Ej.: 5.1, mecanismos, seguridad"></div><div class="filters" role="group" aria-label="Filtrar por tramo"><button type="button" data-filter="0" aria-pressed="true">Todo</button><button type="button" data-filter="1" aria-pressed="false">1.º</button><button type="button" data-filter="2" aria-pressed="false">2.º</button><button type="button" data-filter="3" aria-pressed="false">3.º</button></div><button type="button" id="imprimir">Imprimir</button></div><p id="contador" class="count" role="status" aria-live="polite"></p><div id="cards" class="grid"></div></section>
 
-<section class="slide" id="slide2" hidden>
-  <p class="eyebrow">PASO 02/10 <span class="time">5–10 min</span></p>
-  <h2>Antes del código: el algoritmo</h2>
-  <p>Un <strong>algoritmo</strong> es una lista ordenada de pasos para resolver una tarea.</p>
-  <div class="grid2">
-    <div class="card">
-      <h3>Algoritmo en lenguaje cotidiano</h3>
-      <ol>
-        <li>Mostrar un saludo.</li>
-        <li>Preguntar el nombre.</li>
-        <li>Guardar la respuesta.</li>
-        <li>Mostrar el nombre.</li>
-      </ol>
-      <p>Esto todavía <strong>no es Python</strong>. Es la idea antes de programar.</p>
-    </div>
-    <div>
-      <svg class="flow" viewBox="0 0 460 340" role="img" aria-label="Diagrama simple de saludo">
-        <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
-        <ellipse class="node" cx="230" cy="35" rx="65" ry="24"/><text x="230" y="41" text-anchor="middle">INICIO</text>
-        <path class="arrow" d="M230 59 V90"/>
-        <rect class="node" x="135" y="92" width="190" height="48" rx="7"/><text x="230" y="122" text-anchor="middle">Mostrar saludo</text>
-        <path class="arrow" d="M230 140 V170"/>
-        <path class="io" d="M135 172 H325 L338 220 H122 Z"/><text x="230" y="202" text-anchor="middle">Preguntar nombre</text>
-        <path class="arrow" d="M230 220 V252"/>
-        <ellipse class="node" cx="230" cy="282" rx="65" ry="24"/><text x="230" y="288" text-anchor="middle">FIN</text>
-      </svg>
-    </div>
-  </div>
-  <div class="task"><strong>Libreta:</strong> copia el algoritmo con tus propias palabras y dibuja este diagrama usando solo 4 figuras.</div>
-</section>
+  <section id="evaluacion" class="section"><h2>Cómo evaluar los criterios y los saberes</h2><div class="notice"><p><strong>Principio básico:</strong> los criterios indican el desempeño que se evalúa; los saberes son los conocimientos, procedimientos y actitudes que el alumnado moviliza para demostrarlo. Por tanto, no se asigna una nota aislada a cada saber.</p></div><ol><li><strong>Seleccionar el criterio</strong> antes de diseñar la tarea.</li><li><strong>Definir una evidencia observable</strong>: diagrama, programa, plano, prototipo, explicación o registro de pruebas.</li><li><strong>Elegir un instrumento</strong> ajustado a esa evidencia: lista de cotejo, rúbrica, escala de observación, prueba práctica, portfolio o breve prueba escrita.</li><li><strong>Registrar el nivel del criterio</strong>, no solamente la entrega del producto.</li><li><strong>Volver a observarlo</strong> en otra situación cuando sea posible, dando valor al progreso y a la evidencia más sólida.</li></ol><h3>Escala común de cuatro niveles</h3><div class="level"><div><strong>4 · Avanzado</strong><br>Resuelve con autonomía, justifica decisiones y transfiere lo aprendido.</div><div><strong>3 · Adecuado</strong><br>Cumple el criterio con pequeños errores que no impiden el resultado.</div><div><strong>2 · En proceso</strong><br>Logro parcial; necesita guía frecuente o deja elementos relevantes sin resolver.</div><div><strong>1 · Inicial</strong><br>Todavía no aporta una evidencia suficiente del criterio.</div></div><p class="small">Puede trasladarse a una escala numérica: 1 = 1–4; 2 = 5–6; 3 = 7–8; 4 = 9–10. Conviene conservar también la descripción cualitativa. La calificación trimestral se obtiene con los criterios trabajados hasta ese momento; la final incorpora los 15 criterios. Si el centro dispone de un modelo de calificación aprobado, debe respetarse.</p><h3>Instrumentos previstos</h3><div class="tablewrap"><table><thead><tr><th>Instrumento</th><th>Qué permite comprobar</th><th>Uso principal</th></tr></thead><tbody><tr><td>Lista de cotejo</td><td>Presencia de pasos, símbolos, conexiones, normas o elementos concretos.</td><td>Diagramas, planos, montaje y seguridad.</td></tr><tr><td>Rúbrica analítica</td><td>Calidad del diseño, funcionamiento, justificación, comunicación y mejora.</td><td>Programas, prototipos y proyectos.</td></tr><tr><td>Prueba práctica</td><td>Aplicación individual y autonomía real.</td><td>Python, mecanismos, circuitos, CAD y gestión de archivos.</td></tr><tr><td>Registro de observación</td><td>Proceso, uso de herramientas, cooperación y respuesta ante errores.</td><td>Taller y trabajo en equipo.</td></tr><tr><td>Portfolio o cuaderno</td><td>Evolución mediante bocetos, diagramas, cálculos, pruebas y reflexiones.</td><td>Todo el curso.</td></tr><tr><td>Prueba breve escrita/oral</td><td>Comprensión individual del vocabulario y de relaciones técnicas.</td><td>Consolidación, nunca como única evidencia.</td></tr></tbody></table></div></section>
 
-<section class="slide" id="slide3" hidden>
-  <p class="eyebrow">PASO 03/10 <span class="time">10–15 min</span></p>
-  <h2>Entrada, salida y variable: una “caja con nombre”</h2>
-  <div class="grid2">
-    <div>
-      <pre><code><span class="var">nombre</span> = <span class="fn">input</span>(<span class="str">"¿Cómo te llamas? "</span>)
-<span class="fn">print</span>(<span class="str">"Hola"</span>, <span class="var">nombre</span>)</code></pre>
-      <div class="mapping">
-        <span class="badge b-in">ENTRADA</span><span><code>input()</code> pregunta y recibe información.</span>
-        <span class="badge b-act">GUARDAR</span><span><code>nombre = ...</code> guarda la respuesta.</span>
-        <span class="badge b-out">SALIDA</span><span><code>print()</code> muestra información.</span>
-      </div>
-    </div>
-    <div class="card purple">
-      <h3>Imagina una caja</h3>
-      <div class="variable-box">
-        <div class="name">nombre</div>
-        <div class="value">"Lucía"</div>
-      </div>
-      <p>La variable <code>nombre</code> puede guardar un dato. Si el usuario escribe <strong>Lucía</strong>, después podemos usar ese valor.</p>
-    </div>
-  </div>
-  <div class="task"><strong>Predice:</strong> si escribes <code>Mario</code>, ¿qué aparecerá en pantalla? Escríbelo antes de probar.</div>
-</section>
+  <section id="matriz" class="section"><h2>Matriz de criterios, saberes y evaluación</h2><p>Cada criterio aparece al menos una vez; los criterios centrales se observan en varias situaciones.</p><div class="tablewrap"><table><thead><tr><th>Criterio</th><th>Qué se observa</th><th>Saberes asociados</th><th>Situaciones</th><th>Instrumentos recomendados</th></tr></thead><tbody id="criterionRows"></tbody></table></div></section>
 
-<section class="slide" id="slide4" hidden>
-  <p class="eyebrow">PASO 04/10 <span class="time">15–21 min</span></p>
-  <h2>Estructura 1 · Secuencia</h2>
-  <p class="lead">En una secuencia, Python ejecuta las instrucciones <strong>de arriba hacia abajo</strong>.</p>
-  <div class="grid2">
-    <svg class="flow" viewBox="0 0 450 360" role="img" aria-label="Diagrama de una secuencia">
-      <defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
-      <ellipse class="node" cx="225" cy="35" rx="62" ry="23"/><text x="225" y="41" text-anchor="middle">INICIO</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 58 V88"/>
-      <rect class="node" x="105" y="90" width="240" height="48" rx="7"/><text x="225" y="120" text-anchor="middle">Mostrar título</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 138 V168"/>
-      <path class="io" d="M115 170 H335 L350 218 H100 Z"/><text x="225" y="200" text-anchor="middle">Preguntar nombre</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 218 V248"/>
-      <rect class="node" x="105" y="250" width="240" height="48" rx="7"/><text x="225" y="280" text-anchor="middle">Mostrar saludo</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 298 V320"/>
-      <ellipse class="node" cx="225" cy="337" rx="55" ry="20"/><text x="225" y="343" text-anchor="middle">FIN</text>
-    </svg>
-    <div>
-      <pre><code><span class="fn">print</span>(<span class="str">"Ayudante de clase"</span>)
-<span class="var">nombre</span> = <span class="fn">input</span>(<span class="str">"¿Cómo te llamas? "</span>)
-<span class="fn">print</span>(<span class="str">"Hola"</span>, <span class="var">nombre</span>)</code></pre>
-      <div class="card green">
-        <h3>Diagrama ↔ código</h3>
-        <p><strong>Mostrar</strong> → <code>print()</code></p>
-        <p><strong>Preguntar</strong> → <code>input()</code></p>
-        <p><strong>Guardar</strong> → una variable como <code>nombre</code></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide" id="slide5" hidden>
-  <p class="eyebrow">PASO 05/10 <span class="time">21–28 min</span></p>
-  <h2>Estructura 2 · Decisión con <code>if</code></h2>
-  <div class="grid2">
-    <svg class="flow" viewBox="0 0 520 390" role="img" aria-label="Diagrama de decisión sobre una luz">
-      <defs><marker id="arr3" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
-      <path class="io" d="M150 35 H370 L386 88 H134 Z"/><text x="260" y="66" text-anchor="middle">Preguntar: ¿sobra luz?</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M260 88 V120"/>
-      <path class="decision" d="M260 122 L355 175 L260 228 L165 175 Z"/><text x="260" y="180" text-anchor="middle">¿respuesta = "si"?</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M165 175 H88 V275"/><text x="120" y="160">Sí</text>
-      <rect class="node" x="25" y="277" width="155" height="50" rx="7"/><text x="102" y="307" text-anchor="middle">Mostrar “Apágala”</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M355 175 H435 V275"/><text x="392" y="160">No</text>
-      <rect class="node" x="340" y="277" width="155" height="50" rx="7"/><text x="417" y="307" text-anchor="middle">Mostrar “Gracias”</text>
-    </svg>
-    <div>
-      <pre><code><span class="var">respuesta</span> = <span class="fn">input</span>(<span class="str">"¿Sobra una luz? (si/no) "</span>)
-
-<span class="kw">if</span> <span class="var">respuesta</span> == <span class="str">"si"</span>:
-    <span class="fn">print</span>(<span class="str">"Apágala"</span>)
-<span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="str">"Gracias"</span>)</code></pre>
-      <div class="tip"><strong>Idea clave:</strong> el rombo del diagrama se convierte en una pregunta en Python. <code>if</code> significa “si ocurre esto…”.</div>
-      <p><strong>Predice:</strong> ¿qué línea se ejecuta si escribimos <code>no</code>?</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" id="slide6" hidden>
-  <p class="eyebrow">PASO 06/10 <span class="time">28–34 min</span></p>
-  <h2>Estructura 3 · Repetición con <code>for</code></h2>
-  <div class="grid2">
-    <div>
-      <pre><code><span class="kw">for</span> <span class="var">vez</span> <span class="kw">in</span> <span class="fn">range</span>(3):
-    <span class="fn">print</span>(<span class="str">"Revisar las luces"</span>)</code></pre>
-      <div class="card blue">
-        <h3>¿Qué significa?</h3>
-        <p><code>range(3)</code> hace que el bloque se repita <strong>3 veces</strong>.</p>
-        <p>Las líneas con sangría pertenecen al <code>for</code>.</p>
-      </div>
-      <div class="task"><strong>Prueba mental:</strong> cuenta con los dedos cuántas veces aparecerá “Revisar las luces”.</div>
-    </div>
-    <svg class="flow" viewBox="0 0 470 380" role="img" aria-label="Diagrama simple de repetición tres veces">
-      <defs><marker id="arr4" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
-      <rect class="loop" x="125" y="35" width="220" height="50" rx="7"/><text x="235" y="65" text-anchor="middle">Repetir 3 veces</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M235 85 V130"/>
-      <rect class="node" x="125" y="132" width="220" height="55" rx="7"/><text x="235" y="166" text-anchor="middle">Revisar las luces</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M125 160 H65 V60 H123"/>
-      <text class="small" x="52" y="113">volver</text>
-      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M235 187 V260"/>
-      <text class="small" x="250" y="230">al terminar</text>
-      <ellipse class="node" cx="235" cy="300" rx="62" ry="24"/><text x="235" y="306" text-anchor="middle">FIN</text>
-    </svg>
-  </div>
-</section>
-
-<section class="slide" id="slide7" hidden>
-  <p class="eyebrow">PASO 07/10 <span class="time">34–40 min</span></p>
-  <h2>Seguimos el programa paso a paso</h2>
-  <p>Antes de ejecutar, vamos a <strong>predecir</strong> qué pasará.</p>
-  <div class="grid2">
-    <pre><code><span class="kw">for</span> <span class="var">ronda</span> <span class="kw">in</span> <span class="fn">range</span>(1, 4):
-    <span class="fn">print</span>(<span class="str">"Ronda"</span>, <span class="var">ronda</span>)
-    <span class="var">respuesta</span> = <span class="fn">input</span>(<span class="str">"¿Sobra una luz? "</span>)
-
-    <span class="kw">if</span> <span class="var">respuesta</span> == <span class="str">"si"</span>:
-        <span class="fn">print</span>(<span class="str">"Apágala"</span>)
-    <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="str">"Gracias"</span>)</code></pre>
-    <div>
-      <table>
-        <thead><tr><th>Ronda</th><th>Respuesta</th><th>Predicción</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>si</td><td>__________</td></tr>
-          <tr><td>2</td><td>no</td><td>__________</td></tr>
-          <tr><td>3</td><td>si</td><td>__________</td></tr>
-        </tbody>
-      </table>
-      <div class="task"><strong>En pareja:</strong> una persona hace de ordenador y la otra le da las respuestas <code>si → no → si</code>. Después intercambiad los papeles.</div>
-    </div>
-  </div>
-</section>
-
-<section class="slide" id="slide8" hidden>
-  <p class="eyebrow">PASO 08/10 <span class="time">40–49 min</span></p>
-  <h2>Construimos el programa completo</h2>
-  <p>Ahora unimos <strong>secuencia + repetición + decisión</strong>.</p>
-  <div class="actions"><button class="primary" id="copy" type="button">Copiar código</button><span id="copyStatus" aria-live="polite"></span></div>
-  <pre><code id="codigo">print("Ayudante para ahorrar luz")
-
-nombre = input("¿Cómo te llamas? ")
-print("Hola", nombre)
-
-for ronda in range(1, 4):
-    print("Ronda", ronda)
-    respuesta = input("¿Sobra alguna luz encendida? (si/no) ")
-
-    if respuesta == "si":
-        print("Apaga la luz que no necesites")
-    else:
-        print("Gracias por comprobarlo")
-
-print("Hasta luego", nombre)</code></pre>
-  <div class="grid3">
-    <div class="card green"><h3>Secuencia</h3><p>Saludar, preguntar y despedirse.</p></div>
-    <div class="card blue"><h3>Repetición</h3><p>El <code>for</code> hace 3 rondas.</p></div>
-    <div class="card warm"><h3>Decisión</h3><p>El <code>if</code> elige un mensaje.</p></div>
-  </div>
-</section>
-
-<section class="slide" id="slide9" hidden>
-  <p class="eyebrow">PASO 09/10 <span class="time">49–53 min</span></p>
-  <h2>¿Algo falla? Aprende a depurar</h2>
-  <div class="grid3">
-    <div class="card red"><h3>1 · Falta <code>:</code></h3><pre><code>if respuesta == "si":</code></pre><p>Los dos puntos son obligatorios.</p></div>
-    <div class="card red"><h3>2 · Sangría</h3><pre><code>if respuesta == "si":
-    print("Apágala")</code></pre><p>Las instrucciones interiores deben estar desplazadas.</p></div>
-    <div class="card red"><h3>3 · <code>=</code> y <code>==</code></h3><p><code>=</code> guarda un valor.</p><p><code>==</code> compara dos valores.</p></div>
-  </div>
-  <div class="task"><strong>Mini reto:</strong> cambia el programa para repetir <strong>5 veces</strong>. No cambies nada más.</div>
-</section>
-
-<section class="slide" id="slide10" hidden>
-  <p class="eyebrow">PASO 10/10 <span class="time">53–55 min</span></p>
-  <h2>Salida de clase: demuestra lo que has entendido</h2>
-  <div class="grid2">
-    <div class="card">
-      <h3>Responde sin mirar</h3>
-      <ol>
-        <li>¿Qué es un algoritmo?</li>
-        <li>¿Para qué sirve una variable?</li>
-        <li>¿Qué hace <code>if</code>?</li>
-        <li>¿Qué hace <code>for</code>?</li>
-        <li>Dibuja un rombo y escribe dentro una condición.</li>
-      </ol>
-    </div>
-    <div class="card green">
-      <h3>Entrega</h3>
-      <ul class="check">
-        <li>☐ Algoritmo escrito en la libreta.</li>
-        <li>☐ Tres diagramas simples: secuencia, decisión y repetición.</li>
-        <li>☐ Tabla de predicción <code>si/no/si</code>.</li>
-        <li>☐ Programa <code>sesion1.py</code> o código escrito en papel.</li>
-      </ul>
-    </div>
-  </div>
-  <details>
-    <summary>Ampliación para quien termine antes</summary>
-    <p>Añade una segunda decisión:</p>
-    <pre><code>ventana = input("¿Hay luz natural? (si/no) ")
-
-if ventana == "si":
-    print("Aprovecha la luz natural")</code></pre>
-    <p>Dibuja primero el nuevo rombo en la libreta y después añádelo al programa.</p>
-  </details>
-</section>
-
-</div>
+  <section id="fuentes" class="section"><h2>Normativa y fuentes</h2><ul><li><a href="https://www.juntadeandalucia.es/boja/2023/104/36">Orden de 30 de mayo de 2023, currículo de ESO en Andalucía</a>.</li><li><a href="https://www.juntadeandalucia.es/boja/2023/104/BOJA23-104-00246-9727-02_00284752.pdf">Anexo II: Tecnología y Digitalización</a>, competencias, criterios y saberes de 2.º ESO.</li><li><a href="https://www.juntadeandalucia.es/boja/2023/104/BOJA23-104-00289-9727-01_00284752.pdf">Anexo I: distribución horaria</a>, tres sesiones semanales.</li><li><a href="https://feusoandalucia.es/wp-content/uploads/2026/05/Resolucion-calendario-26-27F.pdf">Resolución del calendario escolar de Huelva 2026–2027</a>, copia firmada difundida por FEUSO.</li></ul><p class="small">Los títulos, retos, productos, sesiones e instrumentos son decisiones de planificación docente. Los códigos curriculares proceden de la normativa citada. Python es una elección metodológica: el currículo exige algoritmos, diagramas y programación, pero no impone un lenguaje.</p></section>
 </main>
-
-<div class="progress">
-  <progress id="bar" max="10" value="1" aria-label="Progreso"></progress>
-  <p id="count"></p>
-</div>
-<nav class="controls" aria-label="Navegación">
-  <button id="previous" type="button">← Anterior</button>
-  <div class="dots" id="dots"></div>
-  <button id="next" class="primary" type="button">Siguiente →</button>
-</nav>
-<footer class="foot">Usa los botones o las flechas ← →. La sesión puede proyectarse o imprimirse.</footer>
-
+<footer><div class="wrap">Tecnología y Digitalización · 2.º ESO · Curso 2026–2027</div></footer>
 <script>
-(()=>{
- const slides=[...document.querySelectorAll('.slide')];
- const dots=document.getElementById('dots');
- const prev=document.getElementById('previous');
- const next=document.getElementById('next');
- const bar=document.getElementById('bar');
- const count=document.getElementById('count');
- let i=0;
- slides.forEach((s,n)=>{
-   const b=document.createElement('button');
-   b.className='dot'; b.type='button'; b.textContent=n+1;
-   b.setAttribute('aria-label','Ir al paso '+(n+1));
-   b.addEventListener('click',()=>show(n));
-   dots.appendChild(b);
- });
- function show(n){
-   i=Math.max(0,Math.min(n,slides.length-1));
-   slides.forEach((s,k)=>s.hidden=k!==i);
-   [...dots.children].forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'));
-   prev.disabled=i===0; next.disabled=i===slides.length-1;
-   bar.value=i+1; count.textContent='Paso '+(i+1)+' de '+slides.length;
-   window.scrollTo(0,0);
- }
- prev.addEventListener('click',()=>show(i-1));
- next.addEventListener('click',()=>show(i+1));
- document.addEventListener('keydown',e=>{
-   if(e.key==='ArrowRight') show(i+1);
-   if(e.key==='ArrowLeft') show(i-1);
- });
- document.getElementById('copy').addEventListener('click',async()=>{
-   const status=document.getElementById('copyStatus');
-   try{
-     await navigator.clipboard.writeText(document.getElementById('codigo').textContent);
-     status.textContent='Código copiado.';
-   }catch{
-     status.textContent='Selecciona el código y cópialo manualmente.';
-   }
- });
- show(0);
-})();
+const situations=[
+ {n:1,t:1,date:'15 sep.–2 oct. · iniciada',sessions:8,title:'Algoritmia y Python: del diagrama al programa',challenge:'¿Cómo convertimos una solución cotidiana en un diagrama y en código?',product:'Diagrama de flujo en la libreta, traza y programa breve en Python con secuencia, decisión y repetición.',criteria:['5.1','5.2'],knowledge:['C.1','C.2','C.4'],steps:['Punto de partida ya iniciado: problema, algoritmo, instrucción, entrada y salida.','Representar en la libreta la secuencia, la decisión y la repetición mediante un diagrama de flujo.','Implementar en Python con print(), input(), if/else y for; probar al menos tres casos.','Localizar un error, corregirlo y explicar el cambio realizado.'],evidence:'Diagrama coherente, código Python funcional, tres pruebas y explicación individual de las tres estructuras básicas.',instruments:'Lista de cotejo del diagrama y de la traza para el criterio 5.1; rúbrica del programa y prueba práctica breve para el criterio 5.2.'},
+ {n:2,t:1,date:'5–23 oct.',sessions:8,title:'Mi entorno digital seguro',challenge:'¿Cómo protegemos nuestro trabajo y usamos los equipos con responsabilidad?',product:'Estructura de carpetas, copia de seguridad, contenido digital breve y protocolo de seguridad.',criteria:['1.3','6.1','6.2','6.3'],knowledge:['A.8','D.1','D.2','D.3','D.4'],steps:['Identificar hardware, software y una incidencia sencilla.','Organizar archivos y comprobar una copia de seguridad.','Analizar riesgos de privacidad, phishing, ciberacoso y bienestar digital.','Crear un contenido con autoría y etiqueta digital correctas.'],evidence:'Resuelve una tarea digital, protege la información y justifica decisiones seguras.',instruments:'Prueba práctica, lista de cotejo de archivos y seguridad, rúbrica del contenido.'},
+ {n:3,t:1,date:'26 oct.–20 nov.',sessions:10,title:'Detectamos una necesidad',challenge:'¿Qué problema cercano merece una solución tecnológica?',product:'Ficha de necesidad, análisis de un objeto, comparación de fuentes y tres ideas de solución.',criteria:['1.1','1.2','2.1'],knowledge:['A.1','A.2','A.3','A.8','B.1'],steps:['Observar el centro o el entorno sin registrar datos personales.','Contrastar dos fuentes y justificar su utilidad.','Analizar función, partes, materiales y funcionamiento de un objeto.','Proponer tres soluciones y elegir una con criterios de sostenibilidad.'],evidence:'Problema definido con datos, análisis razonado y solución inicial viable.',instruments:'Rúbrica de investigación y diseño, ficha de análisis y defensa oral breve.'},
+ {n:4,t:1,date:'23 nov.–22 dic.',sessions:12,title:'Del boceto al plan de construcción',challenge:'¿Podría otro equipo fabricar nuestra idea?',product:'Boceto, plano sencillo, elección de materiales, presupuesto y plan de tareas.',criteria:['2.1','2.2','4.1'],knowledge:['A.1','A.7','A.8','B.1','B.2','B.3'],steps:['Comparar materiales atendiendo a propiedades e impacto.','Dibujar y acotar la solución con claridad.','Organizar materiales, herramientas, responsabilidades y tiempos.','Revisar el documento mediante intercambio entre equipos.'],evidence:'Documentación comprensible y planificación realizable y segura.',instruments:'Rúbrica de diseño, lista de cotejo del plano y escala de planificación.'},
+ {n:5,t:2,date:'8–29 ene.',sessions:7,title:'Estructuras que resisten',challenge:'¿Cómo logramos resistencia y estabilidad usando poco material?',product:'Puente de papel o cartón con predicción, ensayo de carga y mejora.',criteria:['2.2','3.1'],knowledge:['A.4','A.7'],steps:['Reconocer tracción, compresión, flexión, torsión y cortante.','Probar barras y triángulos antes de construir.','Fabricar con límite de material y normas de taller.','Medir el resultado, localizar el fallo y proponer una mejora.'],evidence:'Modelo estable, uso seguro y explicación entre forma, esfuerzo y fallo.',instruments:'Registro de observación del taller, rúbrica del prototipo y ficha de ensayo.'},
+ {n:6,t:2,date:'1–19 feb.',sessions:8,title:'Máquinas que reducen el esfuerzo',challenge:'¿Cómo podemos mover una carga de forma más sencilla?',product:'Montaje o maqueta con palanca, poleas o engranajes y tabla de pruebas.',criteria:['2.2','3.1'],knowledge:['A.5','A.7'],steps:['Identificar esfuerzo, resistencia y punto de apoyo.','Experimentar con palancas de los tres géneros.','Analizar cualitativamente poleas y engranajes.','Elegir y construir el mecanismo adecuado para un reto.'],evidence:'Mecanismo funcional y explicación del cambio de fuerza, velocidad o sentido.',instruments:'Prueba práctica, lista de cotejo de montaje y explicación individual.'},
+ {n:7,t:2,date:'22 feb.–5 mar.',sessions:5,title:'Circuitos que cumplen una función',challenge:'¿Cómo encendemos o controlamos una señal de forma segura?',product:'Circuito físico o simulado con esquema normalizado y diagnóstico de avería.',criteria:['2.2','3.1'],knowledge:['A.6','A.7'],steps:['Identificar generador, conductores, receptores y control.','Interpretar símbolos y magnitudes eléctricas básicas.','Montar con baja tensión tras verificar el esquema.','Localizar una avería y documentar su corrección.'],evidence:'Esquema coherente, circuito funcional y aplicación de normas de seguridad.',instruments:'Lista de cotejo de seguridad y esquema, prueba práctica y registro de averías.'},
+ {n:8,t:2,date:'8–19 mar.',sessions:6,title:'Comunicamos con precisión',challenge:'¿Cómo representamos y difundimos una solución técnica?',product:'Plano 2D o modelo CAD elemental, memoria breve y presentación accesible.',criteria:['4.1','6.2'],knowledge:['B.1','B.2','B.3','D.2'],steps:['Aplicar vocabulario y convenciones gráficas básicas.','Representar un objeto en CAD o mediante alternativa en papel.','Integrar imágenes, esquema y fuentes en una memoria breve.','Presentar y responder una pregunta técnica.'],evidence:'Representación legible y comunicación respetuosa, técnica y atribuida.',instruments:'Rúbrica de documentación y exposición, lista de cotejo CAD.'},
+ {n:9,t:3,date:'29 mar.–16 abr.',sessions:8,title:'Tecnología, Andalucía y sostenibilidad',challenge:'¿Toda innovación supone una mejora?',product:'Línea del tiempo o estudio de caso sobre tecnología andaluza con balance de impactos.',criteria:['7.1','7.2'],knowledge:['E.1','E.2'],steps:['Relacionar una tecnología con una necesidad y su contexto.','Identificar beneficios, costes sociales y efectos ambientales.','Vincular una mejora con los Objetivos de Desarrollo Sostenible.','Debatir un uso emergente desde criterios éticos.'],evidence:'Argumentación basada en datos que reconoce beneficios, límites y alternativas.',instruments:'Rúbrica de estudio de caso, guía de debate y reflexión individual.'},
+ {n:10,t:3,date:'19 abr.–7 may.',sessions:8,title:'Datos para ahorrar energía',challenge:'¿Qué decisión tecnológica podemos justificar con datos?',product:'Tabla, gráfico y recomendación para reducir el consumo de un dispositivo o espacio.',criteria:['1.1','4.1','6.2','7.1'],knowledge:['A.2','B.3','D.2','E.1','E.2'],steps:['Buscar datos de fuentes identificables.','Organizar y representar valores con una herramienta adecuada.','Distinguir potencia, tiempo de uso y energía en un caso guiado.','Comunicar una recomendación realista y sostenible.'],evidence:'Datos trazables, gráfico legible y conclusión coherente.',instruments:'Lista de cotejo de fuentes y datos, rúbrica del informe y pregunta individual.'},
+ {n:11,t:3,date:'10–28 may.',sessions:8,title:'Un objeto que responde',challenge:'¿Cómo conseguimos que un sistema detecte algo y actúe?',product:'Simulación o prototipo con entrada, programa, salida y registro de depuración.',criteria:['3.1','5.1','5.2','5.3'],knowledge:['A.6','C.1','C.2','C.3','C.4'],steps:['Definir entrada, condición, salida y comportamiento esperado.','Diseñar el algoritmo antes de programar.','Programar y probar el sistema de control.','Añadir conexión a internet cuando los medios lo permitan y documentar la depuración.'],evidence:'Sistema que responde a una entrada, pruebas registradas y explicación del algoritmo.',instruments:'Rúbrica de sistema programado, prueba práctica y diario de depuración. El 5.3 se registra solo si existe automatización y conexión.'},
+ {n:12,t:3,date:'31 may.–22 jun.',sessions:8,title:'Feria de soluciones de Campo de Tejada',challenge:'¿Podemos mejorar y defender una solución creada durante el curso?',product:'Prototipo o demostración mejorada, documentación técnica, exposición y reflexión final.',criteria:['1.1','2.1','2.2','3.1','4.1','7.1','7.2'],knowledge:['A.1','A.2','A.7','A.8','B.1','B.3','E.1','E.2'],steps:['Seleccionar una solución y definir qué se mejorará.','Planificar, fabricar o modelar y registrar decisiones.','Preparar una presentación accesible con impacto y sostenibilidad.','Exponer, responder preguntas y realizar una autoevaluación argumentada.'],evidence:'Producto viable, proceso documentado, defensa individual y mejora justificada.',instruments:'Rúbrica de proyecto, observación del proceso, exposición y autoevaluación.'}
+];
+const criteria=[
+ ['1.1','Define problemas y contrasta fuentes fiables.','A.1 · A.2 · A.8','SA 03 · 10 · 12','Rúbrica de investigación y lista de fuentes'],['1.2','Analiza objetos y sistemas sencillos.','A.2 · A.3','SA 03','Ficha de análisis y explicación oral'],['1.3','Adopta medidas preventivas sobre dispositivos, datos y salud.','A.8','SA 02','Caso práctico y lista de cotejo'],['2.1','Idea soluciones eficaces, creativas y sostenibles.','A.1 · A.8 · B.1 · B.2 · B.3','SA 03 · 04 · 12','Rúbrica de diseño'],['2.2','Selecciona y organiza materiales, herramientas y tareas.','A.7','SA 04 · 05 · 06 · 07 · 12','Plan de trabajo y observación'],['3.1','Fabrica modelos aplicando conocimientos técnicos y seguridad.','A.4 · A.5 · A.6','SA 05 · 06 · 07 · 11 · 12','Rúbrica de prototipo y registro de taller'],['4.1','Representa y comunica el proceso y la solución.','B.1 · B.2 · B.3','SA 04 · 08 · 10 · 12','Portfolio, plano y exposición'],['5.1','Diseña e interpreta algoritmos y diagramas de flujo.','C.1 · C.3 · C.4','SA 01 · 11','Lista de cotejo, traza y prueba práctica'],['5.2','Programa aplicaciones sencillas con elementos básicos.','C.1 · C.2 · C.3','SA 01 · 11','Rúbrica de código y casos de prueba'],['5.3','Automatiza objetos mediante sistemas de control conectados.','C.3 · C.4','SA 11','Rúbrica del sistema y demostración'],['6.1','Usa dispositivos de forma eficiente y segura.','D.1 · D.2 · D.3 · D.4','SA 02','Prueba práctica y observación'],['6.2','Crea y difunde contenidos con autoría y etiqueta digital.','D.2','SA 02 · 08 · 10','Rúbrica de contenido'],['6.3','Organiza y almacena información de forma segura.','D.3 · D.4','SA 02','Prueba práctica de carpetas y copia'],['7.1','Valora la influencia social y ambiental de la tecnología.','E.1 · E.2','SA 09 · 10 · 12','Estudio de caso y argumentación'],['7.2','Valora aportaciones éticas de tecnologías emergentes.','E.1 · E.2','SA 09 · 12','Debate y reflexión individual']
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+document.getElementById('cards').innerHTML=situations.map(s=>`<article class="card" data-term="${s.t}"><div class="top"><span class="num">SA ${String(s.n).padStart(2,'0')}</span><span class="date">${esc(s.date)} · ${s.sessions} sesiones</span></div><h3>${esc(s.title)}</h3><p class="challenge">${esc(s.challenge)}</p><p class="product"><strong>Producto:</strong> ${esc(s.product)}</p><p class="codes"><strong>Criterios:</strong> ${s.criteria.join(' · ')}<br><strong>Saberes:</strong> ${s.knowledge.map(x=>'TYD.2.'+x).join(' · ')}</p><details><summary>Secuencia de trabajo</summary><ul>${s.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details><details><summary>Evaluación vinculada</summary><div class="eval"><p><strong>Evidencia:</strong> ${esc(s.evidence)}</p><p><strong>Instrumentos:</strong> ${esc(s.instruments)}</p></div></details></article>`).join('');
+document.getElementById('criterionRows').innerHTML=criteria.map(c=>`<tr><th scope="row">${esc(c[0])}</th><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${esc(c[3])}</td><td>${esc(c[4])}</td></tr>`).join('');
+let term='0';const cards=[...document.querySelectorAll('.card')],search=document.getElementById('buscar');function update(){const q=search.value.trim().toLocaleLowerCase('es');let visible=0;for(const card of cards){const ok=(term==='0'||card.dataset.term===term)&&card.textContent.toLocaleLowerCase('es').includes(q);card.hidden=!ok;if(ok)visible++}document.getElementById('contador').textContent=`${visible} de 12 situaciones visibles`;}document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{term=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));update()}));search.addEventListener('input',update);document.getElementById('imprimir').addEventListener('click',()=>{document.querySelectorAll('details').forEach(d=>d.open=true);window.print()});update();
 </script>
 </body>
 </html>
