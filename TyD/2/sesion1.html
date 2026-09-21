@@ -1,43 +1,494 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Sesión 1 · Algoritmos y Python · Tecnología y Digitalización 2.º ESO</title><style>
-:root{--night:#102b44;--teal:#087267;--ink:#19344a;--muted:#4b6473;--line:#d3e2e6;--paper:#edf3f5;--focus:#a1440a}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:clamp(16px,1.5vw,19px)/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer}a{color:#075c89}button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
-.skip{position:absolute;left:1rem;top:-5rem;padding:.6rem;background:white;z-index:10}.skip:focus{top:1rem}.hero{background:radial-gradient(circle at 84% 0%,#2a8790,transparent 38%),linear-gradient(125deg,#091d31,#183c56);color:#fff;padding:1.1rem clamp(1rem,4vw,4rem) 2.2rem}.hero .inner{max-width:1200px;margin:auto}.brand{font-size:.78rem;font-weight:850;letter-spacing:.14em;color:#b5f4df;text-transform:uppercase}.hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin:1rem 0 .4rem;letter-spacing:-.03em}.hero p{margin:0;color:#dcefeb}.hero .accent{color:#a8efd5}
-main,.controls,.progress,.foot{max-width:1200px;margin:auto}.frame{margin:-1.1rem clamp(.65rem,2vw,1.3rem) 0;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 44px #102f461d;overflow:hidden;min-height:610px}.slide{padding:clamp(1.2rem,3vw,3rem);animation:up .2s ease}.slide[hidden]{display:none!important}.eyebrow{font-size:.82rem;color:#077468;font-weight:850;letter-spacing:.11em}.time{display:inline-block;margin-left:.7rem;letter-spacing:0;background:#e5f4ec;color:#155548;padding:.2rem .65rem;border-radius:30px}.slide h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.03em;line-height:1.15;margin:.4rem 0 1rem}.slide h3{margin:.2rem 0 .5rem;font-size:1.12rem}.lead{font-size:clamp(1.15rem,2vw,1.45rem)}.tile{background:#f0f7f7;border:1px solid #cee6e3;border-radius:15px;padding:1.1rem}.warm{background:#fff5e5;border-color:#ead6b9}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}.num{display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:#d8f2e9;color:#096653;font-weight:900}.split{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:start}.task{border-left:5px solid #10816e;background:#e8f6f1;padding:.9rem 1.1rem;border-radius:0 12px 12px 0;margin:1.25rem 0}.symbols{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}.symbols .tile{display:grid;justify-items:center;align-content:center;gap:.65rem;min-height:180px;text-align:center}.symbols small,.small,figcaption{color:var(--muted);font-size:.86rem}.shape{display:grid;place-items:center;border:2px solid #157668;background:#dcf3e9;width:104px;height:50px;font-size:.83rem;font-weight:800}.oval{border-radius:60%}.rectangle{border-radius:5px}.slant{transform:skewX(-14deg)}.rhombus{transform:rotate(45deg);width:62px;height:62px;margin:5px}.rhombus span{transform:rotate(-45deg)}
-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}p code,li code,td code{background:#e6eef1;padding:.08rem .24rem;border-radius:4px;font-size:.9em}pre{margin:.1rem 0;background:#102b44;color:#f0fcfb;padding:1.1rem;border-radius:13px;overflow:auto;font:clamp(.85rem,1.25vw,1rem)/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4}pre code{background:none}.actions{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:.7rem 0}button{border:2px solid #157468;border-radius:10px;padding:.45rem .8rem;color:#135f55;background:#fff;font-weight:760}button:hover:not(:disabled){background:#e1f6ed}button.primary{background:#087267;color:#fff}button.primary:hover:not(:disabled){background:#07574e}button:disabled{opacity:.42;cursor:default}details{background:#f7faf9;border:1px solid var(--line);border-radius:10px;padding:.65rem .9rem;margin:.8rem 0}summary{cursor:pointer;font-weight:780;color:#075c89}ul,ol{padding-left:1.35rem}li{margin:.35rem 0}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid var(--line);padding:.5rem .65rem;text-align:left}th{background:#eaf3f3}.check{list-style:none;padding:0}.check label{display:flex;gap:.7rem;align-items:start;cursor:pointer}.check input{accent-color:#087267;transform:scale(1.2);margin-top:.4rem}
-.diagram-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1fr)}figure{margin:0}.diagram{display:block;max-width:400px;width:100%;height:auto;margin:auto;border:1px solid var(--line);border-radius:10px}figcaption{text-align:center}svg text{font:700 15px system-ui,sans-serif;fill:#14354e}svg .small{font-size:13px}svg .path{stroke:#255568;stroke-width:2.5;fill:none;marker-end:url(#arrow)}svg .node{fill:#e9f5f2;stroke:#147864;stroke-width:2}svg .decision{fill:#fff2d7;stroke:#ad670c;stroke-width:2}svg .loop{fill:#e4eef9;stroke:#34699a;stroke-width:2}
-.progress{padding:0 clamp(.65rem,2vw,1.3rem)}progress{display:block;width:100%;height:.5rem;accent-color:#087267}#count{font-size:.88rem;color:var(--muted);font-weight:750;margin:.35rem 0}.controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.6rem;padding:0 clamp(.65rem,2vw,1.3rem)}#next{justify-self:end}.dots{display:flex;gap:.3rem;flex-wrap:wrap;justify-content:center}.dot{width:2.1rem;height:2.1rem;border-radius:50%;padding:0;font-size:.83rem}.dot[aria-current=step]{background:var(--night);border-color:var(--night);color:#fff}.foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;color:var(--muted);font-size:.85rem;padding:1.5rem clamp(.65rem,2vw,1.3rem) 2.5rem}.foot p{margin:0}
-@media(max-width:760px){.frame{min-height:0}.split,.diagram-layout{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}.symbols{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr 1fr}.dots{grid-column:1/-1;grid-row:2}.diagram{max-height:68vh;width:auto}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.slide{animation:none}}@keyframes up{from{opacity:.7;transform:translateY(7px)}to{opacity:1;transform:none}}@media print{body{background:white;font:11pt/1.4 system-ui}.hero{background:white;color:black;padding:.5rem}.hero .brand,.hero p{color:black}.frame{box-shadow:none;border:0;margin:0}.slide,.slide[hidden]{display:block!important;break-after:page;padding:.6rem 1rem;animation:none}.controls,.progress,.foot,.skip,.actions{display:none!important}.task,.tile{background:white}.diagram{max-height:550px;width:auto}pre{white-space:pre-wrap;background:#edf3f5;color:black}}
-</style></head><body><a class="skip" href="#slide1">Saltar a la sesión</a><header class="hero"><div class="inner"><div class="brand">IES Campo de Tejada · Tecnología y Digitalización · 2.º ESO</div><h1>De una idea a un <span class="accent">programa</span></h1><p>Sesión 01 · Algoritmo, diagrama de flujo y Python · 55 minutos</p></div></header><main id="principal"><div class="frame" aria-label="Presentación paso a paso"><section class="slide" id="slide1" aria-labelledby="title1"><p class="eyebrow">PASO 01/09 <span class="time">0–4 min</span></p><h2 id="title1" tabindex="-1">Hoy creamos un ayudante para ahorrar luz</h2><p class="lead">Vamos a explicar una idea con palabras, dibujarla en la libreta y programarla en Python.</p><div class="tiles"><div class="tile"><span class="num">1</span><h3>Secuencia</h3><p>Instrucciones en orden.</p></div><div class="tile"><span class="num">2</span><h3>Decisión</h3><p>Elegir entre dos rutas.</p></div><div class="tile"><span class="num">3</span><h3>Repetición</h3><p>Hacer algo varias veces.</p></div></div><div class="task"><b>Pregunta:</b> ¿cómo sabe un ordenador qué mensaje debe mostrar si respondemos «si» o «no»?</div></section><section class="slide" id="slide2" aria-labelledby="title2"><p class="eyebrow">PASO 02/09 <span class="time">4–10 min</span></p><h2 id="title2" tabindex="-1">Primero, un algoritmo</h2><p class="lead">Un <strong>algoritmo</strong> es una serie ordenada de instrucciones que permite resolver una tarea.</p><div class="split"><div class="tile"><h3>En parejas: robot y programador</h3><ol><li>Una persona hace de robot: solo cumple instrucciones literales.</li><li>La otra le dice cómo saludar, preguntar y responder.</li><li>Intercambiad papeles. ¿Qué paso faltaba?</li></ol></div><div class="tile warm"><h3>En tu libreta</h3><p>Escribe «Sesión 1: algoritmo para ahorrar luz» y explica qué es un algoritmo con una frase propia.</p></div></div></section><section class="slide" id="slide3" aria-labelledby="title3"><p class="eyebrow">PASO 03/09 <span class="time">10–16 min</span></p><h2 id="title3" tabindex="-1">Un diagrama usa figuras y flechas</h2><p>Las flechas indican el orden; cada figura representa un tipo de paso.</p><div class="symbols"><div class="tile"><span class="shape oval">Inicio</span><b>Óvalo</b><small>Comienzo o final.</small></div><div class="tile"><span class="shape slant">Leer</span><b>Paralelogramo</b><small>Entrada o salida.</small></div><div class="tile"><span class="shape rectangle">Guardar</span><b>Rectángulo</b><small>Acción.</small></div><div class="tile"><span class="shape rhombus"><span>¿Sí?</span></span><b>Rombo</b><small>Pregunta con dos caminos.</small></div></div><div class="task"><b>Libreta:</b> dibuja los cuatro símbolos con su significado. Haz un minidiagrama «Inicio → preguntar nombre → fin».</div></section><section class="slide" id="slide4" aria-labelledby="title4"><p class="eyebrow">PASO 04/09 <span class="time">16–22 min</span></p><h2 id="title4" tabindex="-1">Estructura 1: secuencia</h2><div class="split"><pre><code>print("Ayudante para ahorrar luz")
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sesión 1 · Algoritmos y Python · Tecnología y Digitalización 2.º ESO</title>
+<style>
+:root{
+  --ink:#17324a; --night:#102b44; --teal:#087267; --teal2:#0c8a78;
+  --paper:#eef4f6; --line:#d4e2e7; --soft:#f7fbfb; --warm:#fff5df;
+  --blue:#e8f1fb; --green:#e7f7ef; --purple:#f0eafa; --red:#fff0ed;
+  --muted:#536a78;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:clamp(16px,1.5vw,19px)/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,summary:focus-visible{
+  outline:3px solid #b45a00; outline-offset:3px;
+}
+.hero{
+  background:radial-gradient(circle at 85% 0%,#2a8790,transparent 38%),
+             linear-gradient(125deg,#091d31,#183c56);
+  color:#fff; padding:1.2rem clamp(1rem,4vw,4rem) 2.3rem;
+}
+.hero .inner,main,.controls,.progress,.foot{max-width:1200px;margin:auto}
+.brand{font-size:.78rem;font-weight:850;letter-spacing:.12em;color:#b5f4df;text-transform:uppercase}
+.hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;margin:.7rem 0 .4rem}
+.hero p{margin:0;color:#dcefeb}
+.frame{
+  margin:-1.1rem clamp(.65rem,2vw,1.3rem) 0;background:#fff;border:1px solid var(--line);
+  border-radius:22px;box-shadow:0 16px 44px #102f461d;overflow:hidden;min-height:650px
+}
+.slide{padding:clamp(1.2rem,3vw,3rem)}
+.slide[hidden]{display:none!important}
+.eyebrow{font-size:.82rem;color:#077468;font-weight:850;letter-spacing:.1em}
+.time{display:inline-block;margin-left:.6rem;background:#e5f4ec;color:#155548;padding:.18rem .6rem;border-radius:30px;letter-spacing:0}
+.slide h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;margin:.35rem 0 1rem}
+.slide h3{margin:.2rem 0 .55rem;font-size:1.12rem}
+.lead{font-size:clamp(1.12rem,2vw,1.4rem)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:15px;padding:1rem}
+.green{background:var(--green)}
+.warm{background:var(--warm)}
+.blue{background:var(--blue)}
+.purple{background:var(--purple)}
+.red{background:var(--red)}
+.task{border-left:5px solid var(--teal2);background:#e9f7f2;padding:.9rem 1.1rem;border-radius:0 12px 12px 0;margin:1rem 0}
+.tip{border-left:5px solid #bc7200;background:#fff6e6;padding:.8rem 1rem;border-radius:0 12px 12px 0}
+.big-arrow{text-align:center;font-size:2rem;font-weight:900;color:#477}
+pre{
+  margin:.2rem 0;background:#102b44;color:#f0fcfb;padding:1rem;border-radius:13px;overflow:auto;
+  font:clamp(.86rem,1.25vw,1rem)/1.6 ui-monospace,SFMono-Regular,Consolas,monospace
+}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+p code,li code,td code{background:#e7eef1;padding:.08rem .25rem;border-radius:4px;font-size:.92em}
+.code-line{display:block}
+.kw{color:#ffd479;font-weight:800}.fn{color:#8fe3ff}.str{color:#b9f59f}.var{color:#ffd1ea}
+.mapping{display:grid;grid-template-columns:auto 1fr;gap:.5rem .7rem;align-items:center}
+.badge{display:inline-block;padding:.17rem .55rem;border-radius:999px;font-size:.82rem;font-weight:800}
+.b-in{background:#eee3ff;color:#5b3e8d}.b-out{background:#e2f0ff;color:#245a89}.b-act{background:#dff4e9;color:#15614a}.b-dec{background:#fff0cf;color:#8a5800}
+svg.flow{display:block;width:100%;height:auto;max-height:420px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:13px}
+svg text{font:700 15px system-ui,sans-serif;fill:#17324a}
+svg .small{font-size:13px}
+.node{fill:#e7f7ef;stroke:#17745f;stroke-width:2}
+.io{fill:#f0eafa;stroke:#7252a6;stroke-width:2}
+.decision{fill:#fff1d2;stroke:#a76400;stroke-width:2}
+.loop{fill:#e8f1fb;stroke:#34699a;stroke-width:2}
+.arrow{stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr)}
+.mini-flow{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;margin:.65rem 0}
+.mini-box{border:2px solid #17745f;background:#e7f7ef;padding:.45rem .65rem;border-radius:8px;font-weight:800;font-size:.9rem}
+.mini-diamond{transform:rotate(45deg);width:70px;height:70px;border:2px solid #a76400;background:#fff1d2;display:grid;place-items:center;margin:15px}
+.mini-diamond span{transform:rotate(-45deg);font-size:.78rem;font-weight:800;text-align:center}
+.arrow-txt{font-weight:900;color:#466}
+.concept-flow{display:flex;align-items:center;justify-content:center;gap:.38rem;min-height:94px;margin:.45rem 0;flex-wrap:wrap}
+.concept-node{display:grid;place-items:center;min-width:62px;min-height:43px;padding:.42rem .65rem;border:2.5px solid #17745f;background:#e7f7ef;color:#17324a;font-weight:850;font-size:.86rem;text-align:center}
+.concept-node.start{border-radius:50%}.concept-node.process{border-radius:7px}.concept-node.io-shape{transform:skew(-12deg);border-color:#7252a6;background:#f0eafa}.concept-node.io-shape span{transform:skew(12deg)}
+.concept-node.question{width:68px;height:68px;min-width:68px;min-height:68px;padding:.2rem;transform:rotate(45deg);border-color:#a76400;background:#fff1d2;border-radius:5px}.concept-node.question span{transform:rotate(-45deg);font-size:.72rem;line-height:1.05}
+.concept-arrow{font-size:1.55rem;line-height:1;color:#38586b;font-weight:950}.loop-arrow{font-size:2.25rem;color:#34699a;font-weight:950}
+.symbol-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;margin:1rem 0}
+.symbol-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:.8rem;text-align:center}.symbol-card p{font-size:.9rem;margin:.45rem 0 0}.symbol-card strong{display:block;margin-top:.4rem;color:#16445c}
+.symbol{height:70px;display:grid;place-items:center}.symbol .oval,.symbol .rectangle,.symbol .parallelogram,.symbol .diamond{display:grid;place-items:center;border:3px solid #17745f;background:#e7f7ef;font-weight:850;font-size:.82rem}
+.symbol .oval{width:108px;height:52px;border-radius:50%}.symbol .rectangle{width:115px;height:54px;border-radius:7px}.symbol .parallelogram{width:120px;height:54px;transform:skew(-14deg);border-color:#7252a6;background:#f0eafa}.symbol .parallelogram span{transform:skew(14deg)}.symbol .diamond{width:62px;height:62px;transform:rotate(45deg);border-color:#a76400;background:#fff1d2;border-radius:5px}.symbol .diamond span{transform:rotate(-45deg);font-size:.72rem}.symbol .flow-arrow{font-size:2.8rem;line-height:1;color:#38586b;font-weight:950}
+.reading-rule{display:grid;grid-template-columns:auto 1fr;gap:.55rem .75rem;align-items:start;background:#eef6fa;border:1px solid #c7dce8;border-radius:12px;padding:.8rem 1rem}.reading-rule .number{display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:#075c89;color:#fff;font-weight:900}
+.diagram-caption{text-align:center;color:var(--muted);font-size:.88rem;margin:.3rem 0}.branch-yes{fill:#def4e8;stroke:#17745f;stroke-width:2}.branch-no{fill:#fff0ed;stroke:#a64b35;stroke-width:2}
+.variable-box{
+  border:3px solid #7252a6;background:#f4effc;border-radius:14px;padding:1rem;text-align:center
+}
+.variable-box .name{font:800 1.15rem ui-monospace,monospace}
+.variable-box .value{font-size:1.7rem;font-weight:900;color:#5c408c}
+table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:.5rem .65rem;text-align:left}
+th{background:#eaf3f3}
+.check{list-style:none;padding:0}
+.check li{margin:.5rem 0}
+details{background:#f7faf9;border:1px solid var(--line);border-radius:10px;padding:.65rem .9rem;margin:.8rem 0}
+summary{cursor:pointer;font-weight:780;color:#075c89}
+.actions{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+button{border:2px solid #157468;border-radius:10px;padding:.45rem .8rem;color:#135f55;background:#fff;font-weight:760}
+button.primary{background:#087267;color:#fff}
+button:disabled{opacity:.4;cursor:default}
+.progress{padding:0 clamp(.65rem,2vw,1.3rem)}
+progress{display:block;width:100%;height:.5rem;accent-color:#087267}
+#count{font-size:.88rem;color:var(--muted);font-weight:750;margin:.35rem 0}
+.controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.6rem;padding:0 clamp(.65rem,2vw,1.3rem)}
+#next{justify-self:end}
+.dots{display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
+.dot{width:2rem;height:2rem;border-radius:50%;padding:0;font-size:.8rem}
+.dot[aria-current=step]{background:var(--night);border-color:var(--night);color:#fff}
+.foot{color:var(--muted);font-size:.85rem;padding:1.4rem clamp(.65rem,2vw,1.3rem) 2.2rem}
+@media(max-width:780px){
+  .grid2,.grid3{grid-template-columns:1fr}.frame{min-height:0}
+  .symbol-grid{grid-template-columns:1fr 1fr}
+  .controls{grid-template-columns:1fr 1fr}.dots{grid-column:1/-1;grid-row:2}
+}
+@media(max-width:460px){.symbol-grid{grid-template-columns:1fr}}
+@media print{
+  body{background:white;font:11pt/1.4 system-ui}.hero{background:white;color:black}.hero p,.brand{color:black}
+  .frame{box-shadow:none;border:0;margin:0}.slide,.slide[hidden]{display:block!important;break-after:page;padding:.7rem 1rem}
+  .controls,.progress,.foot,.actions{display:none!important}pre{white-space:pre-wrap;background:#edf3f5;color:black}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="brand">IES Campo de Tejada · Tecnología y Digitalización · 2.º ESO</div>
+    <h1>Del diagrama al <span style="color:#a8efd5">programa</span></h1>
+    <p>Sesión 1 · Algoritmos, diagramas de flujo y Python · 55 minutos</p>
+  </div>
+</header>
+
+<main>
+<div class="frame">
+
+<section class="slide" id="slide1">
+  <p class="eyebrow">PASO 01/11 <span class="time">0–5 min</span></p>
+  <h2>¿Cómo damos instrucciones a un ordenador?</h2>
+  <p class="lead">Un ordenador no adivina lo que queremos. Necesita instrucciones <strong>claras, ordenadas y sin pasos escondidos</strong>.</p>
+  <div class="grid3">
+    <div class="card green"><h3>1 · Secuencia</h3><p>Hacer pasos uno detrás de otro.</p><div class="concept-flow" aria-label="Paso A, después paso B y después paso C"><span class="concept-node process">A</span><span class="concept-arrow">→</span><span class="concept-node process">B</span><span class="concept-arrow">→</span><span class="concept-node process">C</span></div></div>
+    <div class="card warm"><h3>2 · Decisión</h3><p>Elegir <strong>un camino</strong> según una condición.</p><div class="concept-flow" aria-label="Una pregunta conduce a un camino sí o a un camino no"><span class="concept-node question"><span>¿Se cumple?</span></span><span><b style="color:#17745f">SÍ →</b><br><b style="color:#a64b35">NO →</b></span></div></div>
+    <div class="card blue"><h3>3 · Repetición</h3><p>Volver a hacer una acción un número de veces.</p><div class="concept-flow" aria-label="Revisar tres veces"><span class="concept-node process">Revisar</span><span class="loop-arrow">↻</span><strong>× 3</strong></div></div>
+  </div>
+  <div class="task"><strong>Reto de hoy:</strong> crear un pequeño ayudante que pregunte tu nombre y compruebe tres veces si sobra alguna luz encendida.</div>
+</section>
+
+<section class="slide" id="slide2" hidden>
+  <p class="eyebrow">PASO 02/11 <span class="time">5–11 min</span></p>
+  <h2>Las piezas de un diagrama de flujo</h2>
+  <p class="lead">Cada figura tiene un significado. <strong>No elegimos la forma por decoración:</strong> la forma explica qué tipo de paso estamos realizando.</p>
+  <div class="symbol-grid">
+    <article class="symbol-card"><div class="symbol"><div class="oval">INICIO / FIN</div></div><strong>Óvalo</strong><p>Marca dónde comienza o termina el algoritmo.</p></article>
+    <article class="symbol-card"><div class="symbol"><div class="rectangle">ACCIÓN</div></div><strong>Rectángulo</strong><p>Indica una operación: calcular, guardar o mostrar.</p></article>
+    <article class="symbol-card"><div class="symbol"><div class="parallelogram"><span>ENTRADA</span></div></div><strong>Paralelogramo</strong><p>Sirve para introducir o mostrar información.</p></article>
+    <article class="symbol-card"><div class="symbol"><div class="diamond"><span>¿PREGUNTA?</span></div></div><strong>Rombo</strong><p>Plantea una condición con salidas <b>Sí</b> y <b>No</b>.</p></article>
+    <article class="symbol-card"><div class="symbol"><span class="flow-arrow">→</span></div><strong>Flecha</strong><p>Indica el orden y la dirección de los pasos.</p></article>
+  </div>
+  <div class="reading-rule">
+    <span class="number">1</span><span>Empieza en <strong>INICIO</strong> y sigue siempre las flechas.</span>
+    <span class="number">2</span><span>Dentro de cada figura escribe una instrucción breve y concreta.</span>
+    <span class="number">3</span><span>En cada rombo rotula las dos salidas: <strong>Sí</strong> y <strong>No</strong>.</span>
+    <span class="number">4</span><span>Comprueba que todos los caminos llegan a otro paso o a <strong>FIN</strong>.</span>
+  </div>
+  <div class="task"><strong>Libreta:</strong> dibuja las cinco figuras, escribe su nombre y anota para qué sirve cada una.</div>
+</section>
+
+<section class="slide" id="slide3" hidden>
+  <p class="eyebrow">PASO 03/11 <span class="time">11–16 min</span></p>
+  <h2>Antes del código: el algoritmo</h2>
+  <p>Un <strong>algoritmo</strong> es una lista ordenada de pasos para resolver una tarea.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Algoritmo en lenguaje cotidiano</h3>
+      <ol>
+        <li>Mostrar un saludo.</li>
+        <li>Preguntar el nombre.</li>
+        <li>Guardar la respuesta.</li>
+        <li>Mostrar el nombre.</li>
+      </ol>
+      <p>Esto todavía <strong>no es Python</strong>. Es la idea antes de programar.</p>
+    </div>
+    <div>
+      <svg class="flow" viewBox="0 0 460 410" role="img" aria-label="Diagrama completo: inicio, mostrar saludo, pedir nombre, guardar el nombre, mostrar saludo personalizado y fin">
+        <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
+        <ellipse class="node" cx="230" cy="28" rx="65" ry="22"/><text x="230" y="34" text-anchor="middle">INICIO</text>
+        <path class="arrow" d="M230 50 V72"/>
+        <path class="io" d="M135 74 H325 L337 116 H123 Z"/><text x="230" y="100" text-anchor="middle">Mostrar “Hola”</text>
+        <path class="arrow" d="M230 116 V138"/>
+        <path class="io" d="M135 140 H325 L337 182 H123 Z"/><text x="230" y="166" text-anchor="middle">Pedir nombre</text>
+        <path class="arrow" d="M230 182 V204"/>
+        <rect class="node" x="120" y="206" width="220" height="44" rx="7"/><text x="230" y="233" text-anchor="middle">Guardar en “nombre”</text>
+        <path class="arrow" d="M230 250 V272"/>
+        <path class="io" d="M110 274 H350 L362 316 H98 Z"/><text x="230" y="300" text-anchor="middle">Mostrar “Hola” + nombre</text>
+        <path class="arrow" d="M230 316 V340"/>
+        <ellipse class="node" cx="230" cy="365" rx="65" ry="22"/><text x="230" y="371" text-anchor="middle">FIN</text>
+      </svg>
+      <p class="diagram-caption">Lee de arriba abajo: cada flecha conduce al paso siguiente.</p>
+    </div>
+  </div>
+  <div class="task"><strong>Libreta:</strong> copia el algoritmo con tus propias palabras y reproduce las seis figuras del diagrama, contando INICIO y FIN.</div>
+</section>
+
+<section class="slide" id="slide4" hidden>
+  <p class="eyebrow">PASO 04/11 <span class="time">16–21 min</span></p>
+  <h2>Entrada, salida y variable: una “caja con nombre”</h2>
+  <div class="grid2">
+    <div>
+      <pre><code><span class="var">nombre</span> = <span class="fn">input</span>(<span class="str">"¿Cómo te llamas? "</span>)
+<span class="fn">print</span>(<span class="str">"Hola"</span>, <span class="var">nombre</span>)</code></pre>
+      <div class="mapping">
+        <span class="badge b-in">ENTRADA</span><span><code>input()</code> pregunta y recibe información.</span>
+        <span class="badge b-act">GUARDAR</span><span><code>nombre = ...</code> guarda la respuesta.</span>
+        <span class="badge b-out">SALIDA</span><span><code>print()</code> muestra información.</span>
+      </div>
+    </div>
+    <div class="card purple">
+      <h3>Imagina una caja</h3>
+      <div class="variable-box">
+        <div class="name">nombre</div>
+        <div class="value">"Lucía"</div>
+      </div>
+      <p>La variable <code>nombre</code> puede guardar un dato. Si el usuario escribe <strong>Lucía</strong>, después podemos usar ese valor.</p>
+    </div>
+  </div>
+  <div class="task"><strong>Predice:</strong> si escribes <code>Mario</code>, ¿qué aparecerá en pantalla? Escríbelo antes de probar.</div>
+</section>
+
+<section class="slide" id="slide5" hidden>
+  <p class="eyebrow">PASO 05/11 <span class="time">21–27 min</span></p>
+  <h2>Estructura 1 · Secuencia</h2>
+  <p class="lead">En una secuencia, Python ejecuta las instrucciones <strong>de arriba hacia abajo</strong>.</p>
+  <div class="grid2">
+    <svg class="flow" viewBox="0 0 450 360" role="img" aria-label="Diagrama de una secuencia">
+      <defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
+      <ellipse class="node" cx="225" cy="35" rx="62" ry="23"/><text x="225" y="41" text-anchor="middle">INICIO</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 58 V88"/>
+      <rect class="node" x="105" y="90" width="240" height="48" rx="7"/><text x="225" y="120" text-anchor="middle">Mostrar título</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 138 V168"/>
+      <path class="io" d="M115 170 H335 L350 218 H100 Z"/><text x="225" y="200" text-anchor="middle">Preguntar nombre</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 218 V248"/>
+      <rect class="node" x="105" y="250" width="240" height="48" rx="7"/><text x="225" y="280" text-anchor="middle">Mostrar saludo</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr2)" d="M225 298 V320"/>
+      <ellipse class="node" cx="225" cy="337" rx="55" ry="20"/><text x="225" y="343" text-anchor="middle">FIN</text>
+    </svg>
+    <div>
+      <pre><code><span class="fn">print</span>(<span class="str">"Ayudante de clase"</span>)
+<span class="var">nombre</span> = <span class="fn">input</span>(<span class="str">"¿Cómo te llamas? "</span>)
+<span class="fn">print</span>(<span class="str">"Hola"</span>, <span class="var">nombre</span>)</code></pre>
+      <div class="card green">
+        <h3>Diagrama ↔ código</h3>
+        <p><strong>Mostrar</strong> → <code>print()</code></p>
+        <p><strong>Preguntar</strong> → <code>input()</code></p>
+        <p><strong>Guardar</strong> → una variable como <code>nombre</code></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide6" hidden>
+  <p class="eyebrow">PASO 06/11 <span class="time">27–34 min</span></p>
+  <h2>Estructura 2 · Decisión con <code>if</code></h2>
+  <div class="grid2">
+    <div>
+    <svg class="flow" viewBox="0 0 520 430" role="img" aria-label="Diagrama de decisión sobre una luz con caminos Sí y No que terminan en un final común">
+      <defs><marker id="arr3" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
+      <ellipse class="node" cx="260" cy="27" rx="62" ry="21"/><text x="260" y="33" text-anchor="middle">INICIO</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M260 48 V67"/>
+      <path class="io" d="M150 69 H370 L386 116 H134 Z"/><text x="260" y="98" text-anchor="middle">Preguntar: ¿sobra luz?</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M260 116 V139"/>
+      <path class="decision" d="M260 141 L355 194 L260 247 L165 194 Z"/><text x="260" y="199" text-anchor="middle">¿respuesta = “si”?</text>
+      <path style="stroke:#17745f;stroke-width:2.6;fill:none;marker-end:url(#arr3)" d="M165 194 H92 V264"/><text x="116" y="181" style="fill:#17745f">SÍ</text>
+      <rect class="branch-yes" x="24" y="266" width="160" height="50" rx="7"/><text x="104" y="296" text-anchor="middle">Mostrar “Apágala”</text>
+      <path style="stroke:#a64b35;stroke-width:2.6;fill:none;marker-end:url(#arr3)" d="M355 194 H428 V264"/><text x="390" y="181" style="fill:#a64b35">NO</text>
+      <rect class="branch-no" x="336" y="266" width="160" height="50" rx="7"/><text x="416" y="296" text-anchor="middle">Mostrar “Gracias”</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none" d="M104 316 V350 H260"/>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none" d="M416 316 V350 H260"/>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr3)" d="M260 350 V373"/>
+      <ellipse class="node" cx="260" cy="397" rx="62" ry="21"/><text x="260" y="403" text-anchor="middle">FIN</text>
+    </svg>
+    <p class="diagram-caption"><strong>Solo se recorre una rama.</strong> Después, ambos caminos llegan a FIN.</p>
+    </div>
+    <div>
+      <pre><code><span class="var">respuesta</span> = <span class="fn">input</span>(<span class="str">"¿Sobra una luz? (si/no) "</span>)
+
+<span class="kw">if</span> <span class="var">respuesta</span> == <span class="str">"si"</span>:
+    <span class="fn">print</span>(<span class="str">"Apágala"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Gracias"</span>)</code></pre>
+      <div class="tip"><strong>Idea clave:</strong> el rombo del diagrama se convierte en una pregunta en Python. <code>if</code> significa “si ocurre esto…”.</div>
+      <p><strong>Predice:</strong> ¿qué línea se ejecuta si escribimos <code>no</code>?</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide7" hidden>
+  <p class="eyebrow">PASO 07/11 <span class="time">34–40 min</span></p>
+  <h2>Estructura 3 · Repetición con <code>for</code></h2>
+  <div class="grid2">
+    <div>
+      <pre><code><span class="kw">for</span> <span class="var">vez</span> <span class="kw">in</span> <span class="fn">range</span>(3):
+    <span class="fn">print</span>(<span class="str">"Revisar las luces"</span>)</code></pre>
+      <div class="card blue">
+        <h3>¿Qué significa?</h3>
+        <p><code>range(3)</code> hace que el bloque se repita <strong>3 veces</strong>.</p>
+        <p>Las líneas con sangría pertenecen al <code>for</code>.</p>
+      </div>
+      <div class="task"><strong>Prueba mental:</strong> cuenta con los dedos cuántas veces aparecerá “Revisar las luces”.</div>
+    </div>
+    <div>
+    <svg class="flow" viewBox="0 0 520 430" role="img" aria-label="Diagrama de repetición con contador desde uno hasta tres">
+      <defs><marker id="arr4" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#38586b"/></marker></defs>
+      <ellipse class="node" cx="200" cy="27" rx="62" ry="21"/><text x="200" y="33" text-anchor="middle">INICIO</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M200 48 V67"/>
+      <rect class="loop" x="110" y="69" width="180" height="44" rx="7"/><text x="200" y="96" text-anchor="middle">ronda = 1</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M200 113 V138"/>
+      <path class="decision" d="M200 140 L290 190 L200 240 L110 190 Z"/><text x="200" y="195" text-anchor="middle">¿ronda ≤ 3?</text>
+      <path style="stroke:#17745f;stroke-width:2.6;fill:none;marker-end:url(#arr4)" d="M290 190 H335"/><text x="302" y="177" style="fill:#17745f">SÍ</text>
+      <rect class="branch-yes" x="337" y="165" width="160" height="50" rx="7"/><text x="417" y="195" text-anchor="middle">Revisar las luces</text>
+      <path style="stroke:#38586b;stroke-width:2.4;fill:none;marker-end:url(#arr4)" d="M417 215 V252"/>
+      <rect class="loop" x="337" y="254" width="160" height="48" rx="7"/><text x="417" y="283" text-anchor="middle">ronda = ronda + 1</text>
+      <path style="stroke:#34699a;stroke-width:2.6;fill:none;marker-end:url(#arr4)" d="M497 278 H510 V125 H200 V138"/>
+      <text class="small" x="401" y="116" style="fill:#34699a">VOLVER A COMPROBAR</text>
+      <path style="stroke:#a64b35;stroke-width:2.6;fill:none;marker-end:url(#arr4)" d="M110 190 H63 V347 H132"/><text x="69" y="177" style="fill:#a64b35">NO</text>
+      <ellipse class="node" cx="200" cy="347" rx="62" ry="22"/><text x="200" y="353" text-anchor="middle">FIN</text>
+    </svg>
+    <p class="diagram-caption"><strong>1 → 2 → 3 → FIN.</strong> Tras cada vuelta, el contador aumenta y se comprueba de nuevo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide8" hidden>
+  <p class="eyebrow">PASO 08/11 <span class="time">40–45 min</span></p>
+  <h2>Seguimos el programa paso a paso</h2>
+  <p>Antes de ejecutar, vamos a <strong>predecir</strong> qué pasará.</p>
+  <div class="grid2">
+    <pre><code><span class="kw">for</span> <span class="var">ronda</span> <span class="kw">in</span> <span class="fn">range</span>(1, 4):
+    <span class="fn">print</span>(<span class="str">"Ronda"</span>, <span class="var">ronda</span>)
+    <span class="var">respuesta</span> = <span class="fn">input</span>(<span class="str">"¿Sobra una luz? "</span>)
+
+    <span class="kw">if</span> <span class="var">respuesta</span> == <span class="str">"si"</span>:
+        <span class="fn">print</span>(<span class="str">"Apágala"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">"Gracias"</span>)</code></pre>
+    <div>
+      <table>
+        <thead><tr><th>Ronda</th><th>Respuesta</th><th>Predicción</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>si</td><td>__________</td></tr>
+          <tr><td>2</td><td>no</td><td>__________</td></tr>
+          <tr><td>3</td><td>si</td><td>__________</td></tr>
+        </tbody>
+      </table>
+      <div class="task"><strong>En pareja:</strong> una persona hace de ordenador y la otra le da las respuestas <code>si → no → si</code>. Después intercambiad los papeles.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="slide9" hidden>
+  <p class="eyebrow">PASO 09/11 <span class="time">45–51 min</span></p>
+  <h2>Construimos el programa completo</h2>
+  <p>Ahora unimos <strong>secuencia + repetición + decisión</strong>.</p>
+  <div class="actions"><button class="primary" id="copy" type="button">Copiar código</button><span id="copyStatus" aria-live="polite"></span></div>
+  <pre><code id="codigo">print("Ayudante para ahorrar luz")
+
 nombre = input("¿Cómo te llamas? ")
-print("Hola,", nombre)</code></pre><div class="tile"><h3>Lee de arriba abajo</h3><p><code>print()</code> muestra texto. <code>input()</code> recibe una respuesta. <code>nombre</code> es una <strong>variable</strong> donde guardamos esa respuesta.</p><p>Si escribes «Ana», ¿qué mostrará la última línea?</p></div></div><div class="task"><b>Libreta:</b> añade «mostrar saludo» y «preguntar nombre» a tu diagrama. Escribe qué guarda <code>nombre</code>.</div></section><section class="slide" id="slide5" aria-labelledby="title5"><p class="eyebrow">PASO 05/09 <span class="time">22–28 min</span></p><h2 id="title5" tabindex="-1">Estructura 2: decisión</h2><div class="split"><pre><code>respuesta = input("¿Sobra una luz? (si/no) ")
-if respuesta == "si":
-    print("Apágala")
-else:
-    print("Gracias por comprobarlo")</code></pre><div class="tile warm"><h3>Dos rutas: solo una se cumple</h3><p><code>if</code> comprueba la respuesta. <code>else</code> indica qué hacer en los demás casos.</p><p>¿Qué mostrará al escribir <code>no</code>?</p></div></div><div class="task"><b>Libreta:</b> dibuja un rombo «¿respuesta = si?». Traza dos flechas llamadas «sí» y «no» con sus mensajes.</div></section><section class="slide" id="slide6" aria-labelledby="title6"><p class="eyebrow">PASO 06/09 <span class="time">28–34 min</span></p><h2 id="title6" tabindex="-1">Estructura 3: repetición</h2><div class="split"><pre><code>for ronda in range(1, 4):
-    print("Ronda", ronda)
-    print("¿Sobra una luz?")</code></pre><div class="tile"><h3>Tres rondas</h3><p><code>range(1, 4)</code> produce 1, 2 y 3. El 4 <strong>no</strong> está incluido. Las líneas sangradas se repiten.</p><p>¿Cuántas veces aparece la pregunta?</p></div></div><div class="task"><b>Libreta:</b> añade una flecha que regrese a «preguntar» y otra que salga cuando terminen las tres rondas.</div></section><section class="slide" id="slide7" aria-labelledby="title7"><p class="eyebrow">PASO 07/09 <span class="time">34–40 min</span></p><h2 id="title7" tabindex="-1">Juntamos las tres estructuras</h2><div class="split diagram-layout"><div><p class="lead">Recorre el diagrama con el dedo y las respuestas <code>si → no → si</code>.</p><ol><li>¿Cuántas veces eliges la rama «Apágala»?</li><li>¿Cuántas veces eliges «Gracias»?</li><li>¿Dónde termina la repetición?</li></ol><div class="task"><b>Libreta:</b> completa el diagrama iniciado. Puedes abreviar el texto, pero conserva el rombo de decisión y la flecha de vuelta.</div></div><figure><svg class="diagram" viewBox="0 0 590 870" role="img" aria-labelledby="dt dd"><title id="dt">Diagrama de flujo del ayudante para ahorrar luz</title><desc id="dd">Empieza, saluda, pide el nombre y establece el contador en uno. Mientras el contador sea menor o igual que tres, pregunta si sobra una luz encendida. Si la respuesta es si, aconseja apagarla; si no, agradece. Aumenta el contador y vuelve a comprobarlo. Tras tres rondas, se despide y termina.</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#255568"/></marker></defs>
-  <ellipse class="node" cx="295" cy="37" rx="70" ry="25"/><text x="295" y="43" text-anchor="middle">INICIO</text>
-  <path class="path" d="M295 62 V82"/><rect class="node" x="173" y="84" width="244" height="46" rx="7"/><text x="295" y="113" text-anchor="middle">Saludar</text>
-  <path class="path" d="M295 130 V148"/><path class="node" d="M185 150 H405 L420 198 H170 Z"/><text x="295" y="179" text-anchor="middle">Preguntar y guardar nombre</text>
-  <path class="path" d="M295 198 V219"/><rect class="node" x="173" y="222" width="244" height="46" rx="7"/><text x="295" y="250" text-anchor="middle">contador = 1</text>
-  <path class="path" d="M295 268 V293"/><path class="loop" d="M295 293 L396 344 L295 395 L194 344 Z"/><text class="small" x="295" y="349" text-anchor="middle">¿contador ≤ 3?</text>
-  <path class="path" d="M295 395 V419"/><text class="small" x="307" y="412">Sí</text><path class="node" d="M171 422 H419 L434 474 H156 Z"/><text class="small" x="295" y="452" text-anchor="middle">Preguntar: ¿sobra una luz?</text>
-  <path class="path" d="M295 474 V497"/><path class="decision" d="M295 498 L388 547 L295 596 L202 547 Z"/><text class="small" x="295" y="551" text-anchor="middle">¿respuesta = si?</text>
-  <path class="path" d="M202 547 H140 V622"/><text class="small" x="168" y="536">Sí</text><path class="node" d="M25 625 H225 L237 668 H13 Z"/><text class="small" x="125" y="651" text-anchor="middle">«Apágala»</text>
-  <path class="path" d="M388 547 H451 V622"/><text class="small" x="406" y="536">No</text><path class="node" d="M357 625 H557 L569 668 H345 Z"/><text class="small" x="457" y="651" text-anchor="middle">«Gracias»</text>
-  <path class="path" d="M125 668 V704 H246"/><path class="path" d="M457 668 V704 H344"/><rect class="node" x="246" y="681" width="98" height="46" rx="7"/><text class="small" x="295" y="709" text-anchor="middle">contador + 1</text>
-  <path class="path" d="M246 704 H57 V344 H194"/><path class="path" d="M396 344 H521 V737"/><text class="small" x="421" y="332">No</text><path class="node" d="M398 739 H536 L550 780 H384 Z"/><text class="small" x="467" y="765" text-anchor="middle">Despedirse</text><path class="path" d="M467 780 V825 H352"/><ellipse class="node" cx="295" cy="825" rx="56" ry="25"/><text x="295" y="831" text-anchor="middle">FIN</text>
- </svg><figcaption>El rombo superior controla las rondas; el inferior elige el mensaje.</figcaption></figure></div></section><section class="slide" id="slide8" aria-labelledby="title8"><p class="eyebrow">PASO 08/09 <span class="time">40–52 min</span></p><h2 id="title8" tabindex="-1">Lo escribimos en Python</h2><p>Guarda <code>sesion1.py</code>. Puedes copiar el código para dedicar tiempo a comprenderlo y probarlo. Responde <code>si</code>, <code>no</code>, <code>si</code> sin tilde.</p><div class="actions"><button id="copy" type="button" class="primary">Copiar código</button><span id="copyStatus" role="status" aria-live="polite"></span></div><pre><code id="codigo">print("Ayudante para ahorrar luz")
-nombre = input("¿Cómo te llamas? ")
+print("Hola", nombre)
 
 for ronda in range(1, 4):
     print("Ronda", ronda)
     respuesta = input("¿Sobra alguna luz encendida? (si/no) ")
 
     if respuesta == "si":
-        print("Apaga la luz que no necesites,", nombre)
+        print("Apaga la luz que no necesites")
     else:
-        print("Gracias por comprobarlo,", nombre)
+        print("Gracias por comprobarlo")
 
-print("Hasta luego,", nombre)</code></pre><details><summary>¿Hay un error? Abre esta ayuda</summary><ul><li><b>IndentationError:</b> conserva los espacios antes de cada línea del <code>for</code> y de las dos ramas.</li><li><b>SyntaxError:</b> revisa comillas y dos puntos <code>:</code>.</li><li><b>Mensaje inesperado:</b> escribe <code>si</code> en minúsculas y sin tilde.</li></ul></details><p class="small">Sin ordenadores: ejecuta el código con tu pareja, siguiendo línea por línea el diagrama y registrando los mensajes.</p></section><section class="slide" id="slide9" aria-labelledby="title9"><p class="eyebrow">PASO 09/09 <span class="time">52–55 min</span></p><h2 id="title9" tabindex="-1">Comprueba y entrega</h2><div class="split"><div><table><thead><tr><th>Ronda</th><th>Respuesta</th><th>Esperado</th></tr></thead><tbody><tr><td>1</td><td>si</td><td>Apaga la luz</td></tr><tr><td>2</td><td>no</td><td>Gracias</td></tr><tr><td>3</td><td>si</td><td>Apaga la luz</td></tr></tbody></table><div class="task"><b>Salida:</b> ¿qué hace <code>if</code>? ¿Qué hace <code>for</code>? ¿Qué contiene la variable <code>nombre</code>?</div></div><div class="tile"><h3>Lo que debes entregar</h3><ul class="check"><li><label><input type="checkbox"> Diagrama en la libreta, con dos ramas y flecha de vuelta.</label></li><li><label><input type="checkbox"> Programa <code>sesion1.py</code> o código en papel.</label></li><li><label><input type="checkbox"> Predicción y resultado con <code>si/no/si</code>.</label></li></ul><details><summary>Ampliación</summary><p>Para cinco rondas, usa <code>range(1, 6)</code>. Predice el resultado antes de probar.</p></details></div></div><details><summary>Guía docente y currículo</summary><p>Competencia específica 5. Criterios <b>5.1</b> (algoritmos y diagramas de flujo) y <b>5.2</b> (programación sencilla). Saberes <b>TYD.2.C.1</b>, <b>TYD.2.C.2</b> y <b>TYD.2.C.4</b>. El alumnado descubre las tres estructuras con ayuda y las practicará de forma gradual durante el resto de la SA 1. Sin dispositivos pueden recogerse evidencias de 5.1; la ejecución en Python queda pendiente.</p><p><a href="https://profeinformatica101.github.io/2627/CyR/3ESO.html">Referencia de organización: CyR 3.º ESO</a> · <a href="https://www.juntadeandalucia.es/boja/2023/104/BOJA23-104-00246-9727-02_00284752.pdf">Currículo oficial andaluz, anexo II</a>.</p></details></section></div></main><div class="progress"><progress id="bar" max="9" value="1" aria-label="Progreso de la presentación"></progress><p id="count" role="status" aria-live="polite"></p></div><nav class="controls" aria-label="Navegación de la sesión"><button type="button" id="previous">← Anterior</button><div class="dots" id="dots" role="group" aria-label="Elegir un paso"></div><button type="button" class="primary" id="next">Siguiente →</button></nav><footer class="foot"><p>Usa los botones o las flechas ← →. Se puede proyectar, imprimir y usar sin conexión.</p><button type="button" id="print">Imprimir toda la sesión</button></footer><script>(()=>{const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),prev=document.getElementById('previous'),next=document.getElementById('next'),progress=document.getElementById('bar'),count=document.getElementById('count');let index=0;slides.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='dot';b.textContent=String(i+1);b.setAttribute('aria-label','Ir al paso '+(i+1)+': '+s.querySelector('h2').textContent);b.addEventListener('click',()=>show(i));dots.append(b)});function show(i,focus=true){index=Math.max(0,Math.min(i,slides.length-1));slides.forEach((s,j)=>s.hidden=j!==index);[...dots.children].forEach((b,j)=>{if(j===index)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});prev.disabled=index===0;next.disabled=index===slides.length-1;progress.value=index+1;count.textContent='Paso '+(index+1)+' de '+slides.length+' · '+slides[index].querySelector('h2').textContent;history.replaceState(null,'','#slide'+(index+1));if(focus)slides[index].querySelector('h2').focus({preventScroll:true});window.scrollTo(0,0)}const hash=Number((location.hash.match(/^#slide([1-9])$/)||[])[1]);show(hash?hash-1:0,false);prev.addEventListener('click',()=>show(index-1));next.addEventListener('click',()=>show(index+1));window.addEventListener('hashchange',()=>{const n=Number((location.hash.match(/^#slide([1-9])$/)||[])[1]);if(n&&n-1!==index)show(n-1,false)});document.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)||document.activeElement.closest('summary'))return;if((e.key==='ArrowRight'||e.key==='PageDown')&&index<slides.length-1){e.preventDefault();show(index+1)}if((e.key==='ArrowLeft'||e.key==='PageUp')&&index>0){e.preventDefault();show(index-1)}});document.getElementById('copy').addEventListener('click',async()=>{const s=document.getElementById('copyStatus');try{await navigator.clipboard.writeText(document.getElementById('codigo').textContent);s.textContent='Código copiado.'}catch{s.textContent='Selecciona el código y cópialo manualmente.'}});document.getElementById('print').addEventListener('click',()=>window.print())})();</script></body></html>
+print("Hasta luego", nombre)</code></pre>
+  <div class="grid3">
+    <div class="card green"><h3>Secuencia</h3><p>Saludar, preguntar y despedirse.</p></div>
+    <div class="card blue"><h3>Repetición</h3><p>El <code>for</code> hace 3 rondas.</p></div>
+    <div class="card warm"><h3>Decisión</h3><p>El <code>if</code> elige un mensaje.</p></div>
+  </div>
+</section>
+
+<section class="slide" id="slide10" hidden>
+  <p class="eyebrow">PASO 10/11 <span class="time">51–54 min</span></p>
+  <h2>¿Algo falla? Aprende a depurar</h2>
+  <div class="grid3">
+    <div class="card red"><h3>1 · Falta <code>:</code></h3><pre><code>if respuesta == "si":</code></pre><p>Los dos puntos son obligatorios.</p></div>
+    <div class="card red"><h3>2 · Sangría</h3><pre><code>if respuesta == "si":
+    print("Apágala")</code></pre><p>Las instrucciones interiores deben estar desplazadas.</p></div>
+    <div class="card red"><h3>3 · <code>=</code> y <code>==</code></h3><p><code>=</code> guarda un valor.</p><p><code>==</code> compara dos valores.</p></div>
+  </div>
+  <div class="task"><strong>Mini reto:</strong> cambia el programa para repetir <strong>5 veces</strong>. No cambies nada más.</div>
+</section>
+
+<section class="slide" id="slide11" hidden>
+  <p class="eyebrow">PASO 11/11 <span class="time">54–55 min</span></p>
+  <h2>Salida de clase: demuestra lo que has entendido</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Responde sin mirar</h3>
+      <ol>
+        <li>¿Qué es un algoritmo?</li>
+        <li>¿Para qué sirve una variable?</li>
+        <li>¿Qué hace <code>if</code>?</li>
+        <li>¿Qué hace <code>for</code>?</li>
+        <li>Dibuja un rombo y escribe dentro una condición.</li>
+      </ol>
+    </div>
+    <div class="card green">
+      <h3>Entrega</h3>
+      <ul class="check">
+        <li>☐ Algoritmo escrito en la libreta.</li>
+        <li>☐ Tres diagramas simples: secuencia, decisión y repetición.</li>
+        <li>☐ Tabla de predicción <code>si/no/si</code>.</li>
+        <li>☐ Programa <code>sesion1.py</code> o código escrito en papel.</li>
+      </ul>
+    </div>
+  </div>
+  <details>
+    <summary>Ampliación para quien termine antes</summary>
+    <p>Añade una segunda decisión:</p>
+    <pre><code>ventana = input("¿Hay luz natural? (si/no) ")
+
+if ventana == "si":
+    print("Aprovecha la luz natural")</code></pre>
+    <p>Dibuja primero el nuevo rombo en la libreta y después añádelo al programa.</p>
+  </details>
+</section>
+
+</div>
+</main>
+
+<div class="progress">
+  <progress id="bar" max="11" value="1" aria-label="Progreso"></progress>
+  <p id="count"></p>
+</div>
+<nav class="controls" aria-label="Navegación">
+  <button id="previous" type="button">← Anterior</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" class="primary" type="button">Siguiente →</button>
+</nav>
+<footer class="foot">Usa los botones o las flechas ← →. La sesión puede proyectarse o imprimirse.</footer>
+
+<script>
+(()=>{
+ const slides=[...document.querySelectorAll('.slide')];
+ const dots=document.getElementById('dots');
+ const prev=document.getElementById('previous');
+ const next=document.getElementById('next');
+ const bar=document.getElementById('bar');
+ const count=document.getElementById('count');
+ let i=0;
+ slides.forEach((s,n)=>{
+   const b=document.createElement('button');
+   b.className='dot'; b.type='button'; b.textContent=n+1;
+   b.setAttribute('aria-label','Ir al paso '+(n+1));
+   b.addEventListener('click',()=>show(n));
+   dots.appendChild(b);
+ });
+ function show(n){
+   i=Math.max(0,Math.min(n,slides.length-1));
+   slides.forEach((s,k)=>s.hidden=k!==i);
+   [...dots.children].forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'));
+   prev.disabled=i===0; next.disabled=i===slides.length-1;
+   bar.value=i+1; count.textContent='Paso '+(i+1)+' de '+slides.length;
+   window.scrollTo(0,0);
+ }
+ prev.addEventListener('click',()=>show(i-1));
+ next.addEventListener('click',()=>show(i+1));
+ document.addEventListener('keydown',e=>{
+   if(e.key==='ArrowRight') show(i+1);
+   if(e.key==='ArrowLeft') show(i-1);
+ });
+ document.getElementById('copy').addEventListener('click',async()=>{
+   const status=document.getElementById('copyStatus');
+   try{
+     await navigator.clipboard.writeText(document.getElementById('codigo').textContent);
+     status.textContent='Código copiado.';
+   }catch{
+     status.textContent='Selecciona el código y cópialo manualmente.';
+   }
+ });
+ show(0);
+})();
+</script>
+</body>
+</html>
