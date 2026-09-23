@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Computación y Robótica: Estructuras de Control - Secuencial, condicionales y bucles." />
+  <title>Computación y Robótica · Estructuras de Control</title>
+
+  <!-- Prism para resaltar Python -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <!-- Mermaid para diagramas de flujo -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+
+  <style>
+    :root{
+      --navy:#14324a;
+      --blue:#3776ab;
+      --blue-2:#2f80ed;
+      --blue-soft:#eaf3fb;
+      --scratch:#ffab19;
+      --scratch-dark:#d98a00;
+      --white:#fff;
+      --bg:#f4f7fb;
+      --surface:#fff;
+      --surface-2:#f8fafc;
+      --text:#17324d;
+      --muted:#63778a;
+      --border:#d8e2ec;
+      --green:#198754;
+      --green-soft:#e8f7ef;
+      --red:#c0392b;
+      --red-soft:#fff0ee;
+      --purple:#7f56d9;
+      --shadow:0 12px 30px rgba(20,50,74,.10);
+      --radius:18px;
+    }
+
+    body.dark{
+      --bg:#0d1722;
+      --surface:#142332;
+      --surface-2:#1a2b3d;
+      --text:#eef5fb;
+      --muted:#b6c4d0;
+      --border:#2f4659;
+      --blue-soft:#17354f;
+      --green-soft:#163629;
+      --red-soft:#42201d;
+      --shadow:0 15px 34px rgba(0,0,0,.28);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:.25s ease;
+    }
+
+    button,input{font:inherit}
+    button{cursor:pointer}
+
+    .app{
+      width:min(1500px,calc(100% - 26px));
+      margin:0 auto;
+      padding:12px 0 26px;
+    }
+
+    .top-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      margin-bottom:10px;
+    }
+
+    .icon-btn{
+      min-width:48px;
+      min-height:48px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:var(--surface);
+      color:var(--text);
+      box-shadow:0 4px 12px rgba(20,50,74,.06);
+      font-size:1.1rem;
+    }
+
+    .overview{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:14px;
+      margin-bottom:14px;
+    }
+
+    .overview-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:10px;
+    }
+
+    .overview-title{
+      margin:0;
+      font-size:1rem;
+    }
+
+    .overview-meta{
+      color:var(--muted);
+      font-size:.88rem;
+      font-weight:800;
+    }
+
+    .section-row{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .section-btn{
+      border:1px solid var(--border);
+      background:var(--surface-2);
+      color:var(--text);
+      border-radius:13px;
+      padding:10px 12px;
+      text-align:left;
+      min-height:66px;
+    }
+
+    .section-btn.active{
+      border-color:var(--blue-2);
+      background:var(--blue-soft);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--blue-2) 12%,transparent);
+    }
+
+    .section-btn strong{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      font-size:.9rem;
+    }
+
+    .mini-track{
+      margin-top:8px;
+      height:7px;
+      border-radius:999px;
+      overflow:hidden;
+      background:color-mix(in srgb,var(--border) 78%,transparent);
+    }
+
+    .mini-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--scratch),#ffd166);
+      transition:width .3s ease;
+    }
+
+    .stage{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      align-items:start;
+    }
+
+    .main-card,.side-card{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .main-card{padding:20px}
+    .side-card{
+      padding:16px;
+      position:sticky;
+      top:12px;
+    }
+
+    .problem-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:10px;
+    }
+
+    .problem-id{
+      font-weight:900;
+      color:var(--muted);
+      font-size:.9rem;
+      margin-bottom:5px;
+    }
+
+    .problem-title{
+      margin:0;
+      font-size:clamp(2rem,3.2vw,3rem);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .difficulty{
+      min-width:150px;
+      text-align:right;
+    }
+
+    .difficulty-label{
+      display:block;
+      font-size:.78rem;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .difficulty-bars{
+      display:flex;
+      justify-content:flex-end;
+      gap:5px;
+    }
+
+    .difficulty-bars span{
+      width:32px;
+      height:9px;
+      border-radius:99px;
+      background:var(--border);
+    }
+
+    .difficulty-bars span.on{
+      background:var(--scratch);
+    }
+
+    .statement{
+      background:var(--surface-2);
+      border:1px solid var(--border);
+      border-left:6px solid var(--scratch);
+      border-radius:15px;
+      padding:15px 17px;
+      margin:13px 0;
+      font-size:1.15rem;
+      line-height:1.48;
+    }
+
+    .structure-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--blue-soft);
+      border:1px solid color-mix(in srgb,var(--blue) 40%,var(--border));
+      color:var(--text);
+      font-size:.85rem;
+      font-weight:900;
+      margin-bottom:14px;
+    }
+
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+      margin-bottom:15px;
+    }
+
+    .tab-btn{
+      min-height:48px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 14px;
+      background:#eef2f6;
+      color:#44586a;
+      font-size:1rem;
+      font-weight:900;
+    }
+
+    body.dark .tab-btn{
+      background:#223446;
+      color:#c5d3df;
+    }
+
+    .tab-btn.active{
+      background:var(--blue-2);
+      color:#fff;
+      border-color:var(--blue-2);
+      box-shadow:0 6px 14px rgba(47,128,237,.22);
+    }
+
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    .panel-box{
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:15px;
+      background:var(--surface-2);
+    }
+
+    .panel-box h3,.panel-box h4{
+      margin-top:0;
+    }
+
+    .why-content{
+      font-size:1.02rem;
+      line-height:1.6;
+    }
+
+    .why-content pre{
+      background:#0b1622;
+      color:#e7f3ff;
+      padding:12px;
+      border-radius:12px;
+      overflow:auto;
+    }
+
+    .hint-area{
+      margin-top:16px;
+      border-top:1px dashed var(--border);
+      padding-top:14px;
+    }
+
+    .hint-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+    }
+
+    .hint{
+      margin-top:10px;
+      background:#fff8de;
+      color:#4f3c00;
+      border:1px solid #f0cf62;
+      border-radius:12px;
+      padding:11px 13px;
+      font-weight:700;
+    }
+
+    body.dark .hint{
+      background:#463a16;
+      color:#fff2b5;
+      border-color:#8a7328;
+    }
+
+    .btn{
+      min-height:48px;
+      border:0;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn-primary{background:var(--blue-2);color:#fff}
+    .btn-python{background:#3776ab;color:#fff}
+    .btn-scratch{background:#ffab19;color:#3d2b00}
+    .btn-soft{
+      background:var(--surface-2);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    .btn-success{background:var(--green);color:#fff}
+
+    .compare-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .compare-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:var(--surface);
+    }
+
+    .compare-head{
+      padding:11px 14px;
+      font-weight:900;
+      font-size:1rem;
+    }
+
+    .compare-head.scratch{
+      background:#ffab19;
+      color:#3b2a00;
+    }
+
+    .compare-head.python{
+      background:#3776ab;
+      color:#fff;
+    }
+
+    .compare-body{
+      padding:14px;
+    }
+
+    .scratch-step{
+      display:block;
+      margin:7px 0;
+      padding:8px 11px;
+      border-radius:9px;
+      background:#ffab19;
+      color:#3d2b00;
+      font-weight:900;
+      box-shadow:inset 0 -2px 0 rgba(0,0,0,.12);
+      width:fit-content;
+      max-width:100%;
+    }
+
+    pre[class*="language-"]{
+      font-size:1.05rem !important;
+      line-height:1.58 !important;
+      margin:0 !important;
+      border-radius:13px !important;
+      max-height:460px;
+      overflow:auto;
+    }
+
+    .mermaid-wrap{
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:10px;
+      background:#fff;
+      overflow:auto;
+      min-height:320px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    body.dark .mermaid-wrap{
+      background:#f8fbff;
+    }
+
+    .test-grid{
+      display:grid;
+      grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);
+      gap:14px;
+    }
+
+    .fields{
+      display:grid;
+      gap:11px;
+    }
+
+    .field{
+      display:grid;
+      gap:6px;
+    }
+
+    .field label{
+      font-weight:900;
+      font-size:.9rem;
+    }
+
+    .field input{
+      width:100%;
+      min-height:48px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      background:var(--surface);
+      color:var(--text);
+      padding:10px 12px;
+      outline:none;
+    }
+
+    .field input:focus{
+      border-color:var(--blue-2);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--blue-2) 15%,transparent);
+    }
+
+    .console{
+      min-height:190px;
+      max-height:300px;
+      overflow-y:auto;
+      border-radius:14px;
+      border:1px solid #24394c;
+      background:#081521;
+      color:#e5f2ff;
+      padding:14px;
+      font-family:"SFMono-Regular",Consolas,monospace;
+      font-size:1rem;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+
+    .console.ok{border-color:#1d9b5f}
+    .console.bad{border-color:#d9584b}
+
+    .side-title{
+      margin:0 0 4px;
+      font-size:1.08rem;
+    }
+
+    .side-sub{
+      color:var(--muted);
+      font-size:.84rem;
+      margin:0 0 12px;
+    }
+
+    .problem-list{
+      display:grid;
+      gap:8px;
+      max-height:58vh;
+      overflow:auto;
+      padding-right:3px;
+    }
+
+    .problem-link{
+      border:1px solid var(--border);
+      background:var(--surface-2);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 11px;
+      text-align:left;
+      min-height:50px;
+    }
+
+    .problem-link.active{
+      background:var(--blue-soft);
+      border-color:var(--blue-2);
+    }
+
+    .problem-link.done{
+      border-left:5px solid var(--green);
+    }
+
+    .problem-link strong{
+      display:block;
+      font-size:.88rem;
+    }
+
+    .problem-link span{
+      display:block;
+      color:var(--muted);
+      font-size:.76rem;
+      margin-top:3px;
+    }
+
+    .completion-box{
+      margin-top:14px;
+      border-top:1px solid var(--border);
+      padding-top:13px;
+    }
+
+    .completion-box label{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      font-weight:900;
+    }
+
+    .completion-box input{
+      width:20px;
+      height:20px;
+      accent-color:var(--green);
+    }
+
+    .nav-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .progress-big{
+      height:10px;
+      border-radius:999px;
+      overflow:hidden;
+      background:var(--border);
+      margin-top:12px;
+    }
+
+    .progress-big-fill{
+      height:100%;
+      background:linear-gradient(90deg,var(--green),#48c78e);
+      width:0%;
+      transition:width .3s ease;
+    }
+
+    .footer-note{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.78rem;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translate(-50%,18px);
+      opacity:0;
+      pointer-events:none;
+      padding:10px 14px;
+      border-radius:12px;
+      background:var(--navy);
+      color:#fff;
+      font-weight:900;
+      z-index:1000;
+      transition:.2s ease;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translate(-50%,0);
+    }
+
+    body.presentation .top-actions{
+      position:fixed;
+      top:8px;
+      right:8px;
+      z-index:100;
+      opacity:.28;
+    }
+    body.presentation .top-actions:hover{opacity:1}
+
+    @media (max-width:1050px){
+      .stage{grid-template-columns:1fr}
+      .side-card{position:static}
+      .problem-list{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        max-height:none;
+      }
+    }
+
+    @media (max-width:900px){
+      .section-row{grid-template-columns:1fr}
+      .compare-grid,.test-grid{grid-template-columns:1fr}
+      .problem-top{flex-direction:column}
+      .difficulty{
+        min-width:0;
+        text-align:left;
+      }
+      .difficulty-bars{justify-content:flex-start}
+      .problem-list{grid-template-columns:1fr}
+      .main-card{padding:15px}
+      .app{width:min(100% - 16px,1500px)}
+      .mermaid-wrap{min-height:260px}
+    }
+
+    @media (max-width:600px){
+      .tabs{display:grid;grid-template-columns:1fr 1fr}
+      .tab-btn{width:100%}
+      .nav-row{grid-template-columns:1fr}
+      .problem-title{font-size:2rem}
+      .statement{font-size:1rem}
+    }
+
+    /* Navegación compacta: libera el ancho del proyector */
+    .classroom-nav{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 7px 18px rgba(20,50,74,.07);
+      padding:10px 12px;
+      margin-bottom:12px;
+    }
+
+    .classroom-nav-top{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:space-between;
+      margin-bottom:8px;
+    }
+
+    .classroom-nav-title{
+      margin:0;
+      font-size:.88rem;
+      color:var(--muted);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .classroom-nav .problem-list{
+      display:grid;
+      grid-template-columns:repeat(8,minmax(105px,1fr));
+      gap:6px;
+      max-height:none;
+      overflow:visible;
+      padding:0;
+    }
+
+    .classroom-nav .problem-link{
+      min-height:44px;
+      padding:7px 8px;
+      text-align:center;
+    }
+
+    .classroom-nav .problem-link strong{
+      font-size:.81rem;
+      line-height:1.2;
+    }
+
+    .classroom-nav .problem-link span{
+      display:none;
+    }
+
+    .classroom-controls{
+      display:grid;
+      grid-template-columns:auto minmax(130px,1fr) auto auto;
+      gap:8px;
+      align-items:center;
+      border-top:1px solid var(--border);
+      padding-top:9px;
+      margin-top:9px;
+    }
+
+    .classroom-controls .completion-box{
+      display:contents;
+      margin:0;
+      padding:0;
+      border:0;
+    }
+
+    .classroom-controls .completion-box label{
+      font-size:.85rem;
+      white-space:nowrap;
+    }
+
+    .classroom-controls .progress-big{
+      margin:0;
+    }
+
+    .classroom-controls .nav-row{
+      display:contents;
+      margin:0;
+    }
+
+    /* El contenido didáctico ocupa todo el ancho */
+    .main-card{
+      width:100%;
+    }
+
+    .compare-grid{
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    }
+
+    /* En el proyector damos prioridad al contenido y reducimos huecos */
+    @media (min-width:1051px){
+      .main-card{padding:18px 22px}
+      .mermaid-wrap{min-height:390px}
+      .why-content{font-size:1.08rem}
+      pre[class*="language-"]{font-size:1.12rem !important}
+    }
+
+    @media (max-width:1200px){
+      .classroom-nav .problem-list{
+        grid-template-columns:repeat(4,1fr);
+      }
+    }
+
+    @media (max-width:700px){
+      .classroom-nav .problem-list{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .classroom-controls{
+        grid-template-columns:1fr 1fr;
+      }
+      .classroom-controls .completion-box label,
+      .classroom-controls .progress-big{
+        grid-column:1 / -1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <main class="app">
+    <div class="top-actions">
+      <button class="icon-btn" id="fullscreenBtn" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+      <button class="icon-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+      <button class="icon-btn" id="resetBtn" title="Reiniciar progreso" aria-label="Reiniciar progreso">↺</button>
+    </div>
+
+    <section class="overview">
+      <div class="overview-head">
+        <h1 class="overview-title">Computación y Robótica · Estructuras de Control</h1>
+        <div class="overview-meta" id="overallMeta">0 / 8 completados</div>
+      </div>
+      <div class="section-row" id="sectionRow"></div>
+    </section>
+
+    <section class="classroom-nav" aria-label="Navegación de problemas">
+      <div class="classroom-nav-top">
+        <h2 class="classroom-nav-title">Problemas</h2>
+      </div>
+
+      <div class="problem-list" id="problemList"></div>
+
+      <div class="classroom-controls">
+        <div class="completion-box">
+          <label>
+            <input type="checkbox" id="completeCheck">
+            Completado
+          </label>
+
+          <div class="progress-big">
+            <div class="progress-big-fill" id="progressFill"></div>
+          </div>
+
+          <div class="nav-row">
+            <button class="btn btn-soft" id="prevBtn">← Anterior</button>
+            <button class="btn btn-soft" id="nextBtn">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <article class="main-card">
+        <div class="problem-top">
+          <div>
+            <div class="problem-id" id="problemId"></div>
+            <h2 class="problem-title" id="problemTitle"></h2>
+          </div>
+          <div class="difficulty">
+            <span class="difficulty-label">Dificultad</span>
+            <div class="difficulty-bars" id="difficultyBars"></div>
+          </div>
+        </div>
+
+        <div class="statement" id="statement"></div>
+        <div class="structure-chip" id="structureChip"></div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" data-tab="problem">Problema</button>
+          <button class="tab-btn" data-tab="why">¿Por qué?</button>
+          <button class="tab-btn" data-tab="compare">Scratch ↔ Python</button>
+          <button class="tab-btn" data-tab="flow">Flujo</button>
+          <button class="tab-btn" data-tab="try">Probar</button>
+        </div>
+
+        <section class="tab-panel active" id="tab-problem">
+          <div class="panel-box">
+            <h3>🎯 Tu reto</h3>
+            <p id="problemTask" style="font-size:1.08rem;line-height:1.55"></p>
+            <p><strong>💡 Idea clave:</strong> <span id="tip"></span></p>
+
+            <div class="hint-area">
+              <div class="hint-actions">
+                <button class="btn btn-soft" id="hintBtn">💡 Mostrar pista</button>
+                <button class="btn btn-soft" id="resetHintsBtn">Ocultar pistas</button>
+                <span id="hintCounter" style="color:var(--muted);font-weight:900"></span>
+              </div>
+              <div id="hintsContainer"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-why">
+          <div class="panel-box why-content" id="explanation"></div>
+        </section>
+
+        <section class="tab-panel" id="tab-compare">
+          <div class="compare-grid">
+            <div class="compare-card">
+              <div class="compare-head scratch">🟧 Scratch</div>
+              <div class="compare-body">
+                <div id="scratchSteps"></div>
+                <div style="margin-top:14px">
+                  <a class="btn btn-scratch" href="https://scratch.mit.edu/projects/editor/" target="_blank" rel="noopener">
+                    🎮 Abrir Scratch
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="compare-card">
+              <div class="compare-head python">🐍 Python</div>
+              <div class="compare-body">
+                <pre><code id="pythonCode" class="language-python"></code></pre>
+                <div style="margin-top:12px">
+                  <button class="btn btn-python" id="copyBtn">Copiar código</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-flow">
+          <div class="mermaid-wrap">
+            <div id="mermaidTarget"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="tab-try">
+          <div class="test-grid">
+            <div class="panel-box">
+              <h3>Probar el programa</h3>
+              <div class="fields" id="fields"></div>
+              <button class="btn btn-primary" id="runBtn" style="width:100%;margin-top:13px">
+                ▶ Ejecutar
+              </button>
+            </div>
+
+            <div>
+              <div class="console" id="console">Introduce los datos y pulsa «Ejecutar».</div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <div class="footer-note">
+      Progreso guardado localmente en este navegador · Ctrl/Cmd + L no es necesario · Alt+← / Alt+→ navega entre problemas.
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const sections = [
+      { id:"sec", name:"1 · Secuencial", problemIds:["1.1","1.2","1.3"] },
+      { id:"cond", name:"2 · Condicionales", problemIds:["2.1","2.2","2.3"] },
+      { id:"loop", name:"3 · Bucles", problemIds:["3.1","3.2"] }
+    ];
+
+    const problems = [
+      {
+        id:"1.1",
+        title:"Saludar por Nombre",
+        difficulty:1,
+        statement:"Pide el nombre al usuario y saluda diciendo «¡Hola, [nombre]!».",
+        structure:"Entrada → Variable → Salida",
+        tip:"Guarda la respuesta en una variable para poder reutilizarla.",
+        code:`nombre = input("¿Cuál es tu nombre? ")
+print(f"¡Hola, {nombre}!")`,
+        explanation:`
+          <h4>¿Por qué?</h4>
+          <p>Cuando el usuario escribe su nombre, el programa necesita <strong>guardarlo</strong>. Para eso utilizamos una variable.</p>
+          <p><code>input()</code> recoge un dato y lo guarda en <code>nombre</code>.</p>
+          <p>Después <code>print()</code> utiliza el contenido de esa variable para construir el saludo.</p>
+          <p style="font-size:1.3rem;text-align:center"><strong>Entrada → guardar → mostrar</strong></p>
+        `,
+        hints:[
+          "Primero necesitas preguntar el nombre.",
+          "Guarda la respuesta en una variable llamada nombre.",
+          "Usa print() para mostrar el saludo."
+        ],
+        scratchSteps:[
+          'preguntar "¿Cuál es tu nombre?" y esperar',
+          'fijar [nombre] a (respuesta)',
+          'decir (unir "¡Hola, " nombre)'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir nombre/]
+    B --> C[Guardar nombre]
+    C --> D[/Mostrar saludo/]
+    D --> E([Fin])
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,E inicio;
+    class B entrada;
+    class C proceso;
+    class D salida;
+        `,
+        fields:[
+          {name:"nombre",label:"Nombre:",type:"text",value:"Ana"}
+        ],
+        run(values){
+          const nombre=(values.nombre||"").trim();
+          if(!nombre) return "✗ Escribe un nombre.";
+          return `✓ Entrada recibida: ${nombre}\n\n¡Hola, ${nombre}!`;
+        }
+      },
+
+      {
+        id:"1.2",
+        title:"Sumar Dos Números",
+        difficulty:1,
+        statement:"Pide dos números, súmalos y muestra el resultado.",
+        structure:"Entrada → Operación → Salida",
+        tip:"Convierte la entrada en número antes de sumar.",
+        code:`num1 = int(input("Primer número: "))
+num2 = int(input("Segundo número: "))
+
+suma = num1 + num2
+
+print(f"La suma es: {suma}")`,
+        explanation:`
+          <h4>¿Por qué?</h4>
+          <p>Necesitamos recoger dos datos distintos y guardarlos en dos variables.</p>
+          <p>Después realizamos una operación matemática con esas variables.</p>
+          <p>La instrucción <code>int()</code> convierte el texto introducido por el usuario en un número entero.</p>
+          <p style="font-size:1.3rem;text-align:center"><strong>num1 + num2 → suma</strong></p>
+        `,
+        hints:[
+          "Necesitas dos variables distintas.",
+          "Convierte cada input usando int().",
+          "Crea una tercera variable: suma = num1 + num2."
+        ],
+        scratchSteps:[
+          'preguntar "Primer número:" y esperar',
+          'fijar [A] a (respuesta)',
+          'preguntar "Segundo número:" y esperar',
+          'fijar [B] a (respuesta)',
+          'fijar [suma] a ((A) + (B))',
+          'decir (suma)'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir número 1/]
+    B --> C[Guardar num1]
+    C --> D[/Pedir número 2/]
+    D --> E[Guardar num2]
+    E --> F[suma = num1 + num2]
+    F --> G[/Mostrar suma/]
+    G --> H([Fin])
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,H inicio;
+    class B,D entrada;
+    class C,E,F proceso;
+    class G salida;
+        `,
+        fields:[
+          {name:"num1",label:"Primer número:",type:"number",value:5},
+          {name:"num2",label:"Segundo número:",type:"number",value:3}
+        ],
+        run(values){
+          const a=Number(values.num1),b=Number(values.num2);
+          if(!Number.isFinite(a)||!Number.isFinite(b)) return "✗ Introduce dos números válidos.";
+          return `✓ ${a} + ${b} = ${a+b}`;
+        }
+      },
+
+      {
+        id:"1.3",
+        title:"Perímetro de un Rectángulo",
+        difficulty:2,
+        statement:"Pide el alto y el ancho de un rectángulo y calcula su perímetro.",
+        structure:"Entrada → Variables → Operación → Salida",
+        tip:"Un rectángulo tiene dos lados de alto y dos de ancho.",
+        code:`alto = float(input("Alto: "))
+ancho = float(input("Ancho: "))
+
+perimetro = 2 * alto + 2 * ancho
+
+print(f"Perímetro: {perimetro} cm")`,
+        explanation:`
+          <h4>¿Por qué funciona?</h4>
+          <p>Primero necesitamos conocer dos datos: <strong>alto</strong> y <strong>ancho</strong>.</p>
+          <p>Los guardamos en variables para utilizarlos después.</p>
+          <p style="font-size:1.3rem;text-align:center"><strong>perímetro = 2 × alto + 2 × ancho</strong></p>
+          <p>Finalmente mostramos el resultado con <code>print()</code>.</p>
+        `,
+        hints:[
+          "Necesitas guardar dos datos: alto y ancho.",
+          "Multiplica el alto por 2 y el ancho por 2.",
+          "La fórmula completa es: 2 * alto + 2 * ancho."
+        ],
+        scratchSteps:[
+          'preguntar "Alto:" y esperar',
+          'fijar [alto] a (respuesta)',
+          'preguntar "Ancho:" y esperar',
+          'fijar [ancho] a (respuesta)',
+          'fijar [perimetro] a ((2 * alto) + (2 * ancho))',
+          'decir (unir "Perímetro: " perimetro)'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir alto/]
+    B --> C[Guardar variable alto]
+    C --> D[/Pedir ancho/]
+    D --> E[Guardar variable ancho]
+    E --> F[perimetro = 2 × alto + 2 × ancho]
+    F --> G[/Mostrar perímetro/]
+    G --> H([Fin])
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,H inicio;
+    class B,D entrada;
+    class C,E,F proceso;
+    class G salida;
+        `,
+        fields:[
+          {name:"alto",label:"Alto (cm):",type:"number",value:5},
+          {name:"ancho",label:"Ancho (cm):",type:"number",value:8}
+        ],
+        run(values){
+          const alto=parseFloat(values.alto),ancho=parseFloat(values.ancho);
+          if(!Number.isFinite(alto)||!Number.isFinite(ancho)||alto<=0||ancho<=0)
+            return "✗ Introduce valores positivos para alto y ancho.";
+          const perimetro=2*alto+2*ancho;
+          return `✓ Perímetro = ${perimetro} cm\n\n2 × ${alto} + 2 × ${ancho}\n= ${perimetro} cm`;
+        }
+      },
+
+      {
+        id:"2.1",
+        title:"Mayor de Edad",
+        difficulty:2,
+        statement:"Pide la edad de una persona y muestra si es mayor o menor de edad.",
+        structure:"Entrada → IF-ELSE → Dos caminos",
+        tip:"La pregunta que debe hacerse el programa es: ¿edad >= 18?",
+        code:`edad = int(input("¿Cuántos años tienes? "))
+
+if edad >= 18:
+    print("Eres mayor de edad")
+else:
+    print("Eres menor de edad")`,
+        explanation:`
+          <h4>¿Por qué?</h4>
+          <p>Ahora queremos que el programa pueda <strong>tomar una decisión</strong>.</p>
+          <p>La condición es:</p>
+          <p style="font-size:1.5rem;text-align:center"><strong>edad &gt;= 18</strong></p>
+          <ul>
+            <li><strong>Verdadero</strong> → mayor de edad.</li>
+            <li><strong>Falso</strong> → menor de edad.</li>
+          </ul>
+          <p>En Python utilizamos <code>if</code> y <code>else</code> para esos dos caminos.</p>
+        `,
+        hints:[
+          "Primero necesitas preguntar y guardar la edad.",
+          "Debes comparar la edad con 18.",
+          "Utiliza: if edad >= 18: ... else: ..."
+        ],
+        scratchSteps:[
+          'preguntar "¿Cuántos años tienes?" y esperar',
+          'fijar [edad] a (respuesta)',
+          'si <(edad) >= 18> entonces',
+          '  decir "Eres mayor de edad"',
+          'si no',
+          '  decir "Eres menor de edad"'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir edad/]
+    B --> C{¿edad >= 18?}
+    C -->|SÍ| D[/Mostrar "Mayor de edad"/]
+    C -->|NO| E[/Mostrar "Menor de edad"/]
+    D --> F([Fin])
+    E --> F
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef decision fill:#ffe0ae,stroke:#ff8c00,stroke-width:3px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,F inicio;
+    class B entrada;
+    class C decision;
+    class D,E salida;
+        `,
+        fields:[
+          {name:"edad",label:"Edad:",type:"number",value:16}
+        ],
+        run(values){
+          const edad=parseInt(values.edad);
+          if(!Number.isFinite(edad)||edad<0) return "✗ Introduce una edad válida.";
+          if(edad>=18)
+            return `✓ Edad: ${edad}\n\n${edad} >= 18 es VERDADERO.\n\n→ Eres mayor de edad.`;
+          return `✓ Edad: ${edad}\n\n${edad} >= 18 es FALSO.\n\n→ Eres menor de edad.`;
+        }
+      },
+
+      {
+        id:"2.2",
+        title:"Positivo, Negativo o Cero",
+        difficulty:2,
+        statement:"Pide un número y determina si es positivo, negativo o cero.",
+        structure:"IF → ELIF → ELSE",
+        tip:"Hay tres situaciones diferentes, por eso necesitamos más de dos caminos.",
+        code:`numero = float(input("Introduce un número: "))
+
+if numero > 0:
+    print("Es positivo")
+elif numero < 0:
+    print("Es negativo")
+else:
+    print("Es cero")`,
+        explanation:`
+          <h4>¿Por qué necesitamos ELIF?</h4>
+          <p>Este problema tiene <strong>tres resultados posibles</strong>.</p>
+          <ol>
+            <li>Mayor que cero.</li>
+            <li>Menor que cero.</li>
+            <li>Exactamente cero.</li>
+          </ol>
+          <p>Python comprueba las condiciones de arriba hacia abajo.</p>
+          <p>Cuando encuentra una condición verdadera, ejecuta ese bloque.</p>
+        `,
+        hints:[
+          "Primero comprueba si el número es mayor que 0.",
+          "Si no lo es, comprueba si es menor que 0.",
+          "Si ninguna condición se cumple, necesariamente es 0."
+        ],
+        scratchSteps:[
+          'preguntar "Introduce un número:" y esperar',
+          'fijar [numero] a (respuesta)',
+          'si <numero > 0> entonces → "Positivo"',
+          'si no → comprobar <numero < 0>',
+          '"Negativo" o "Cero"'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir número/]
+    B --> C{¿número > 0?}
+    C -->|SÍ| D[/POSITIVO/]
+    C -->|NO| E{¿número < 0?}
+    E -->|SÍ| F[/NEGATIVO/]
+    E -->|NO| G[/CERO/]
+    D --> H([Fin])
+    F --> H
+    G --> H
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef decision fill:#ffe0ae,stroke:#ff8c00,stroke-width:3px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,H inicio;
+    class B entrada;
+    class C,E decision;
+    class D,F,G salida;
+        `,
+        fields:[
+          {name:"numero",label:"Número:",type:"number",value:-4}
+        ],
+        run(values){
+          const numero=parseFloat(values.numero);
+          if(!Number.isFinite(numero)) return "✗ Introduce un número válido.";
+          if(numero>0) return `✓ ${numero} > 0\n\n→ El número es POSITIVO.`;
+          if(numero<0) return `✓ ${numero} < 0\n\n→ El número es NEGATIVO.`;
+          return `✓ ${numero} no es mayor ni menor que 0.\n\n→ El número es CERO.`;
+        }
+      },
+
+      {
+        id:"2.3",
+        title:"Número Par o Impar",
+        difficulty:2,
+        statement:"Pide un número entero y determina si es par o impar.",
+        structure:"IF-ELSE + operador módulo (%)",
+        tip:"El operador % permite conocer el resto de una división.",
+        code:`numero = int(input("Número: "))
+
+if numero % 2 == 0:
+    print("Es par")
+else:
+    print("Es impar")`,
+        explanation:`
+          <h4>¿Qué significa %?</h4>
+          <p>El operador <code>%</code> devuelve el <strong>resto de una división</strong>.</p>
+          <pre>8 % 2 = 0
+7 % 2 = 1</pre>
+          <p>Todos los números pares pueden dividirse entre 2 sin dejar resto.</p>
+          <p style="font-size:1.4rem;text-align:center"><strong>numero % 2 == 0</strong></p>
+        `,
+        hints:[
+          "Necesitas comprobar el resto al dividir entre 2.",
+          "En Python el resto se calcula con el operador %.",
+          "La condición es: numero % 2 == 0."
+        ],
+        scratchSteps:[
+          'preguntar "Número:" y esperar',
+          'fijar [numero] a (respuesta)',
+          'si <(numero mod 2) = 0> entonces',
+          '  decir "Es par"',
+          'si no',
+          '  decir "Es impar"'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir número/]
+    B --> C[Calcular número MOD 2]
+    C --> D{¿resto = 0?}
+    D -->|SÍ| E[/Mostrar "PAR"/]
+    D -->|NO| F[/Mostrar "IMPAR"/]
+    E --> G([Fin])
+    F --> G
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef decision fill:#ffe0ae,stroke:#ff8c00,stroke-width:3px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,G inicio;
+    class B entrada;
+    class C proceso;
+    class D decision;
+    class E,F salida;
+        `,
+        fields:[
+          {name:"numero",label:"Número entero:",type:"number",value:8}
+        ],
+        run(values){
+          const numero=Number(values.numero);
+          if(!Number.isInteger(numero)) return "✗ Introduce un número entero.";
+          const resto=numero%2;
+          if(resto===0) return `✓ ${numero} % 2 = 0\n\n→ ${numero} es PAR.`;
+          return `✓ ${numero} % 2 = ${resto}\n\n→ ${numero} es IMPAR.`;
+        }
+      },
+
+      {
+        id:"3.1",
+        title:"Contar Hasta N",
+        difficulty:2,
+        statement:"Pide un número N y muestra todos los números desde 1 hasta N.",
+        structure:"Bucle FOR",
+        tip:"Usa range() para generar los números que recorrerá el bucle.",
+        code:`n = int(input("¿Hasta qué número? "))
+
+for i in range(1, n + 1):
+    print(i)`,
+        explanation:`
+          <h4>¿Por qué usamos un bucle?</h4>
+          <p>Un <strong>bucle</strong> permite repetir una misma instrucción.</p>
+          <p><code>range(1, n + 1)</code> genera los valores desde 1 hasta n.</p>
+          <p>La variable <code>i</code> cambia automáticamente en cada iteración.</p>
+          <p style="font-size:1.3rem;text-align:center"><strong>1 → 2 → 3 → ... → N</strong></p>
+        `,
+        hints:[
+          "Necesitas repetir una acción varias veces.",
+          "Usa un bucle for junto con range().",
+          "Para incluir N debes escribir range(1, n + 1)."
+        ],
+        scratchSteps:[
+          'preguntar "¿Hasta qué número?" y esperar',
+          'fijar [N] a (respuesta)',
+          'fijar [contador] a 1',
+          'repetir (N) veces',
+          '  decir (contador)',
+          '  cambiar [contador] por 1'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir N/]
+    B --> C[i = 1]
+    C --> D{¿i <= N?}
+    D -->|SÍ| E[/Mostrar i/]
+    E --> F[i = i + 1]
+    F --> D
+    D -->|NO| G([Fin])
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef decision fill:#ffe0ae,stroke:#ff8c00,stroke-width:3px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,G inicio;
+    class B entrada;
+    class C,F proceso;
+    class D decision;
+    class E salida;
+        `,
+        fields:[
+          {name:"n",label:"Contar hasta:",type:"number",value:5}
+        ],
+        run(values){
+          const n=parseInt(values.n);
+          if(!Number.isInteger(n)||n<1) return "✗ Introduce un número entero mayor que 0.";
+          if(n>100) return "✗ Para esta práctica utiliza un número entre 1 y 100.";
+          const salida=[];
+          for(let i=1;i<=n;i++) salida.push(i);
+          return `✓ El bucle realiza ${n} iteraciones:\n\n${salida.join(" → ")}\n\nFin del bucle.`;
+        }
+      },
+
+      {
+        id:"3.2",
+        title:"Tabla de Multiplicar",
+        difficulty:2,
+        statement:"Pide un número y muestra su tabla de multiplicar desde 1 hasta 10.",
+        structure:"FOR + variable de iteración + operación",
+        tip:"El número permanece fijo y la variable i cambia del 1 al 10.",
+        code:`numero = int(input("¿Tabla del? "))
+
+for i in range(1, 11):
+    resultado = numero * i
+    print(f"{numero} × {i} = {resultado}")`,
+        explanation:`
+          <h4>¿Qué ocurre en cada vuelta?</h4>
+          <p>El número elegido por el usuario no cambia.</p>
+          <p>La variable <code>i</code> va tomando estos valores:</p>
+          <p style="font-size:1.3rem;text-align:center"><strong>1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10</strong></p>
+          <p>En cada iteración calculamos:</p>
+          <p style="font-size:1.4rem;text-align:center"><strong>resultado = numero × i</strong></p>
+        `,
+        hints:[
+          "El bucle tiene que repetirse exactamente 10 veces.",
+          "La variable i puede ir desde 1 hasta 10.",
+          "Dentro del bucle calcula: resultado = numero * i."
+        ],
+        scratchSteps:[
+          'preguntar "¿Tabla del?" y esperar',
+          'fijar [numero] a (respuesta)',
+          'fijar [i] a 1',
+          'repetir 10 veces',
+          '  fijar [resultado] a (numero * i)',
+          '  decir resultado',
+          '  cambiar [i] por 1'
+        ],
+        mermaid:`
+graph TD
+    A([Inicio]) --> B[/Pedir número/]
+    B --> C[i = 1]
+    C --> D{¿i <= 10?}
+    D -->|SÍ| E[resultado = número × i]
+    E --> F[/Mostrar operación y resultado/]
+    F --> G[i = i + 1]
+    G --> D
+    D -->|NO| H([Fin])
+
+    classDef inicio fill:#dff5e3,stroke:#159957,stroke-width:2px;
+    classDef entrada fill:#dceeff,stroke:#3776ab,stroke-width:2px;
+    classDef proceso fill:#fff1c7,stroke:#ffab19,stroke-width:2px;
+    classDef decision fill:#ffe0ae,stroke:#ff8c00,stroke-width:3px;
+    classDef salida fill:#eee5ff,stroke:#855cd6,stroke-width:2px;
+    class A,H inicio;
+    class B entrada;
+    class C,E,G proceso;
+    class D decision;
+    class F salida;
+        `,
+        fields:[
+          {name:"numero",label:"Tabla del:",type:"number",value:7}
+        ],
+        run(values){
+          const numero=parseInt(values.numero);
+          if(!Number.isInteger(numero)) return "✗ Introduce un número entero.";
+          const lineas=[];
+          for(let i=1;i<=10;i++) lineas.push(`${numero} × ${i} = ${numero*i}`);
+          return `✓ Tabla del ${numero}\n\n${lineas.join("\n")}\n\nFin del bucle.`;
+        }
+      }
+    ];
+
+    const els = {
+      sectionRow:document.getElementById("sectionRow"),
+      overallMeta:document.getElementById("overallMeta"),
+      problemId:document.getElementById("problemId"),
+      problemTitle:document.getElementById("problemTitle"),
+      difficultyBars:document.getElementById("difficultyBars"),
+      statement:document.getElementById("statement"),
+      structureChip:document.getElementById("structureChip"),
+      problemTask:document.getElementById("problemTask"),
+      tip:document.getElementById("tip"),
+      explanation:document.getElementById("explanation"),
+      scratchSteps:document.getElementById("scratchSteps"),
+      pythonCode:document.getElementById("pythonCode"),
+      mermaidTarget:document.getElementById("mermaidTarget"),
+      fields:document.getElementById("fields"),
+      console:document.getElementById("console"),
+      problemList:document.getElementById("problemList"),
+      completeCheck:document.getElementById("completeCheck"),
+      progressFill:document.getElementById("progressFill"),
+      prevBtn:document.getElementById("prevBtn"),
+      nextBtn:document.getElementById("nextBtn"),
+      hintBtn:document.getElementById("hintBtn"),
+      resetHintsBtn:document.getElementById("resetHintsBtn"),
+      hintsContainer:document.getElementById("hintsContainer"),
+      hintCounter:document.getElementById("hintCounter"),
+      runBtn:document.getElementById("runBtn"),
+      copyBtn:document.getElementById("copyBtn"),
+      themeBtn:document.getElementById("themeBtn"),
+      fullscreenBtn:document.getElementById("fullscreenBtn"),
+      resetBtn:document.getElementById("resetBtn"),
+      toast:document.getElementById("toast")
+    };
+
+    let currentIndex = Number(localStorage.getItem("cyr8-current") || 0);
+    if(currentIndex<0 || currentIndex>=problems.length) currentIndex=0;
+
+    let completed = JSON.parse(localStorage.getItem("cyr8-completed") || "{}");
+    let currentTab = localStorage.getItem("cyr8-tab") || "problem";
+    let shownHints = 0;
+    let theme = localStorage.getItem("cyr8-theme") || "light";
+
+    function getSectionByProblemId(id){
+      return sections.find(s=>s.problemIds.includes(id));
+    }
+
+    function showToast(text){
+      els.toast.textContent=text;
+      els.toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer=setTimeout(()=>els.toast.classList.remove("show"),1700);
+    }
+
+    function save(){
+      localStorage.setItem("cyr8-current",String(currentIndex));
+      localStorage.setItem("cyr8-completed",JSON.stringify(completed));
+      localStorage.setItem("cyr8-tab",currentTab);
+    }
+
+    function renderSections(){
+      els.sectionRow.innerHTML="";
+      const current=problems[currentIndex];
+
+      sections.forEach(sec=>{
+        const done=sec.problemIds.filter(id=>completed[id]).length;
+        const pct=Math.round(done/sec.problemIds.length*100);
+        const btn=document.createElement("button");
+        btn.className="section-btn"+(sec.problemIds.includes(current.id)?" active":"");
+        btn.innerHTML=`
+          <strong>
+            <span>${sec.name}</span>
+            <span>${done}/${sec.problemIds.length}</span>
+          </strong>
+          <div class="mini-track"><div class="mini-fill" style="width:${pct}%"></div></div>
+        `;
+        btn.onclick=()=>{
+          currentIndex=problems.findIndex(p=>sec.problemIds.includes(p.id));
+          shownHints=0;
+          save();
+          render();
+        };
+        els.sectionRow.appendChild(btn);
+      });
+    }
+
+    function renderDifficulty(n){
+      els.difficultyBars.innerHTML="";
+      for(let i=1;i<=3;i++){
+        const s=document.createElement("span");
+        if(i<=n) s.classList.add("on");
+        els.difficultyBars.appendChild(s);
+      }
+    }
+
+    function renderScratch(steps){
+      els.scratchSteps.innerHTML="";
+      steps.forEach(step=>{
+        const el=document.createElement("div");
+        el.className="scratch-step";
+        el.textContent=step;
+        els.scratchSteps.appendChild(el);
+      });
+    }
+
+    function renderFields(fields){
+      els.fields.innerHTML="";
+      fields.forEach(f=>{
+        const wrap=document.createElement("div");
+        wrap.className="field";
+
+        const label=document.createElement("label");
+        label.textContent=f.label;
+        label.htmlFor="field-"+f.name;
+
+        const input=document.createElement("input");
+        input.id="field-"+f.name;
+        input.name=f.name;
+        input.type=f.type||"text";
+        input.value=f.value ?? "";
+
+        wrap.appendChild(label);
+        wrap.appendChild(input);
+        els.fields.appendChild(wrap);
+      });
+    }
+
+    function collectValues(){
+      const out={};
+      els.fields.querySelectorAll("input").forEach(i=>out[i.name]=i.value);
+      return out;
+    }
+
+    async function renderMermaid(){
+      const p=problems[currentIndex];
+      els.mermaidTarget.innerHTML="";
+      if(!window.mermaid){
+        els.mermaidTarget.textContent="El diagrama necesita conexión a Internet para cargar Mermaid.js.";
+        return;
+      }
+
+      try{
+        mermaid.initialize({
+          startOnLoad:false,
+          theme:"base",
+          securityLevel:"loose",
+          flowchart:{curve:"basis",htmlLabels:true},
+          themeVariables:{
+            fontSize:"20px",
+            primaryTextColor:"#17324d",
+            lineColor:"#334e68"
+          }
+        });
+
+        const id="m"+Date.now();
+        const {svg}=await mermaid.render(id,p.mermaid);
+        els.mermaidTarget.innerHTML=svg;
+        const svgEl=els.mermaidTarget.querySelector("svg");
+        if(svgEl){
+          svgEl.style.maxWidth="100%";
+          svgEl.style.height="auto";
+        }
+      }catch(err){
+        els.mermaidTarget.textContent="No se pudo dibujar el diagrama.";
+      }
+    }
+
+    function renderProblemList(){
+      els.problemList.innerHTML="";
+      problems.forEach((p,i)=>{
+        const btn=document.createElement("button");
+        btn.className="problem-link";
+        if(i===currentIndex) btn.classList.add("active");
+        if(completed[p.id]) btn.classList.add("done");
+        btn.innerHTML=`<strong>${p.id} · ${p.title}</strong><span>${p.structure}</span>`;
+        btn.onclick=()=>{
+          currentIndex=i;
+          shownHints=0;
+          save();
+          render();
+        };
+        els.problemList.appendChild(btn);
+      });
+    }
+
+    function renderProgress(){
+      const done=problems.filter(p=>completed[p.id]).length;
+      els.overallMeta.textContent=`${done} / ${problems.length} completados`;
+      els.progressFill.style.width=`${Math.round(done/problems.length*100)}%`;
+    }
+
+    function renderHints(){
+      const p=problems[currentIndex];
+      els.hintsContainer.innerHTML="";
+      for(let i=0;i<shownHints;i++){
+        const d=document.createElement("div");
+        d.className="hint";
+        d.textContent=`Pista ${i+1}: ${p.hints[i]}`;
+        els.hintsContainer.appendChild(d);
+      }
+      els.hintCounter.textContent=`${shownHints}/${p.hints.length}`;
+      els.hintBtn.disabled=shownHints>=p.hints.length;
+      els.hintBtn.style.opacity=els.hintBtn.disabled?".5":"1";
+    }
+
+    function activateTab(name){
+      currentTab=name;
+      document.querySelectorAll(".tab-btn").forEach(b=>{
+        b.classList.toggle("active",b.dataset.tab===name);
+      });
+      document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+      document.getElementById("tab-"+name).classList.add("active");
+      save();
+      if(name==="flow") renderMermaid();
+      if(name==="compare" && window.Prism) Prism.highlightElement(els.pythonCode);
+    }
+
+    function render(){
+      const p=problems[currentIndex];
+      const sec=getSectionByProblemId(p.id);
+
+      els.problemId.textContent=`${sec.name} · Problema ${p.id}`;
+      els.problemTitle.textContent=p.title;
+      els.statement.textContent=p.statement;
+      els.structureChip.textContent="🧩 "+p.structure;
+      els.problemTask.textContent=p.statement;
+      els.tip.textContent=p.tip;
+      els.explanation.innerHTML=p.explanation;
+      els.pythonCode.textContent=p.code;
+      els.completeCheck.checked=!!completed[p.id];
+
+      renderDifficulty(p.difficulty);
+      renderScratch(p.scratchSteps);
+      renderFields(p.fields);
+      renderProblemList();
+      renderSections();
+      renderProgress();
+      renderHints();
+
+      els.prevBtn.disabled=currentIndex===0;
+      els.nextBtn.disabled=currentIndex===problems.length-1;
+      els.prevBtn.style.opacity=els.prevBtn.disabled?".45":"1";
+      els.nextBtn.style.opacity=els.nextBtn.disabled?".45":"1";
+      els.console.className="console";
+      els.console.textContent="Introduce los datos y pulsa «Ejecutar».";
+
+      activateTab(currentTab);
+
+      if(window.Prism) Prism.highlightElement(els.pythonCode);
+      document.title=`${p.id} ${p.title} · Computación y Robótica`;
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>activateTab(btn.dataset.tab));
+    });
+
+    els.hintBtn.addEventListener("click",()=>{
+      const max=problems[currentIndex].hints.length;
+      if(shownHints<max) shownHints++;
+      renderHints();
+    });
+
+    els.resetHintsBtn.addEventListener("click",()=>{
+      shownHints=0;
+      renderHints();
+    });
+
+    els.runBtn.addEventListener("click",()=>{
+      const p=problems[currentIndex];
+      try{
+        const result=p.run(collectValues());
+        els.console.textContent=result;
+        const ok=result.trim().startsWith("✓");
+        els.console.className="console "+(ok?"ok":"bad");
+      }catch{
+        els.console.textContent="✗ Se produjo un error con los datos introducidos.";
+        els.console.className="console bad";
+      }
+    });
+
+    els.copyBtn.addEventListener("click",async()=>{
+      try{
+        await navigator.clipboard.writeText(problems[currentIndex].code);
+        showToast("Código copiado");
+      }catch{
+        showToast("No se pudo copiar");
+      }
+    });
+
+    els.completeCheck.addEventListener("change",()=>{
+      const id=problems[currentIndex].id;
+      completed[id]=els.completeCheck.checked;
+      save();
+      renderProgress();
+      renderSections();
+      renderProblemList();
+      showToast(els.completeCheck.checked?"Problema completado ✓":"Completado retirado");
+    });
+
+    els.prevBtn.addEventListener("click",()=>{
+      if(currentIndex>0){
+        currentIndex--;
+        shownHints=0;
+        save();
+        render();
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    });
+
+    els.nextBtn.addEventListener("click",()=>{
+      if(currentIndex<problems.length-1){
+        currentIndex++;
+        shownHints=0;
+        save();
+        render();
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    });
+
+    els.themeBtn.addEventListener("click",()=>{
+      theme=theme==="light"?"dark":"light";
+      localStorage.setItem("cyr8-theme",theme);
+      applyTheme();
+    });
+
+    function applyTheme(){
+      document.body.classList.toggle("dark",theme==="dark");
+      els.themeBtn.textContent=theme==="dark"?"☀️":"🌙";
+    }
+
+    els.fullscreenBtn.addEventListener("click",async()=>{
+      try{
+        if(!document.fullscreenElement){
+          await document.documentElement.requestFullscreen();
+        }else{
+          await document.exitFullscreen();
+        }
+      }catch{}
+    });
+
+    document.addEventListener("fullscreenchange",()=>{
+      const active=!!document.fullscreenElement;
+      document.body.classList.toggle("presentation",active);
+      els.fullscreenBtn.textContent=active?"🡼":"⛶";
+    });
+
+    els.resetBtn.addEventListener("click",()=>{
+      if(!confirm("¿Reiniciar todo el progreso?")) return;
+      completed={};
+      currentIndex=0;
+      shownHints=0;
+      localStorage.removeItem("cyr8-completed");
+      localStorage.removeItem("cyr8-current");
+      render();
+      showToast("Progreso reiniciado");
+    });
+
+    document.addEventListener("keydown",(e)=>{
+      if(e.altKey && e.key==="ArrowRight" && currentIndex<problems.length-1){
+        currentIndex++;shownHints=0;save();render();
+      }
+      if(e.altKey && e.key==="ArrowLeft" && currentIndex>0){
+        currentIndex--;shownHints=0;save();render();
+      }
+    });
+
+    window.addEventListener("load",()=>{
+      applyTheme();
+      render();
+    });
+  </script>
+</body>
+</html>
