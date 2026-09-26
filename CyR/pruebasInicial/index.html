@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyR 2º ESO · Aprende jugando</title>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+<style>
+:root{
+  --bg:#07111f;
+  --panel:#0d1b2d;
+  --panel2:#13263d;
+  --text:#f7fbff;
+  --muted:#9fb4ca;
+  --accent:#7c3aed;
+  --accent2:#22c55e;
+  --danger:#ef4444;
+  --yellow:#facc15;
+  --blue:#2563eb;
+  --orange:#f97316;
+  --cyan:#06b6d4;
+  --border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 10% 10%,rgba(124,58,237,.16),transparent 30%),
+radial-gradient(circle at 90% 0%,rgba(6,182,212,.12),transparent 28%),
+linear-gradient(180deg,#06101c,#091321 60%,#08111d);color:var(--text)}
+body{min-height:100vh}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{width:min(1200px,100%);margin:auto;padding:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:grid;place-items:center;font-size:28px;box-shadow:0 10px 40px rgba(124,58,237,.28)}
+.brand h1{margin:0;font-size:clamp(1.15rem,2vw,1.55rem)}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:.9rem}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:999px;font-weight:800;font-size:.92rem}
+.progress-shell{height:12px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden;margin:0 0 16px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#06b6d4,#22c55e);transition:width .35s ease}
+.stage{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:18px;align-items:stretch}
+.visual-card,.question-card,.feedback,.summary,.intro{background:rgba(13,27,45,.88);border:1px solid var(--border);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,.18)}
+.visual-card{min-height:330px;overflow:hidden;position:relative}
+#p5-holder{width:100%;height:100%;min-height:330px;display:grid;place-items:center}
+.question-card{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.kicker{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#67e8f9;margin-bottom:9px}
+.question-card h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.12;margin:0}
+.question-card .context{color:var(--muted);margin-top:14px;line-height:1.55}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.answer{border:0;border-radius:20px;padding:18px;min-height:96px;color:white;font-weight:850;text-align:left;display:flex;gap:13px;align-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),0 12px 30px rgba(0,0,0,.12);transition:transform .14s ease,filter .14s ease,opacity .14s ease}
+.answer:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.answer:disabled{cursor:default}
+.answer .shape{width:38px;height:38px;flex:0 0 auto;display:grid;place-items:center;background:rgba(0,0,0,.18);border-radius:12px;font-size:1.25rem}
+.a0{background:#d7263d}.a1{background:#1f6feb}.a2{background:#d69e00}.a3{background:#148a55}
+.answer.correct{outline:4px solid #fff;box-shadow:0 0 0 7px rgba(34,197,94,.5),0 16px 40px rgba(34,197,94,.22)}
+.answer.wrong{opacity:.45;filter:saturate(.45)}
+.feedback{margin-top:16px;padding:18px 20px;display:none;align-items:center;justify-content:space-between;gap:18px}
+.feedback.show{display:flex}
+.feedback h3{margin:0 0 4px;font-size:1.12rem}
+.feedback p{margin:0;color:var(--muted);line-height:1.45}
+.next,.primary,.ghost{border:0;border-radius:14px;padding:12px 18px;font-weight:900}
+.next,.primary{background:linear-gradient(135deg,#7c3aed,#2563eb);color:white}
+.ghost{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text)}
+.open-box{margin-top:16px}
+.open-box textarea{width:100%;min-height:120px;border:1px solid var(--border);border-radius:18px;padding:16px;background:#091727;color:var(--text);resize:vertical;outline:none}
+.open-box textarea:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.18)}
+.open-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.solution{display:none;margin-top:14px;padding:15px 17px;border-radius:16px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.35);line-height:1.55}
+.solution.show{display:block}
+.multi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.checkopt{display:flex;gap:10px;align-items:center;background:#0a1828;border:1px solid var(--border);padding:13px;border-radius:15px}
+.checkopt input{width:20px;height:20px}
+.intro{padding:28px}
+.intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.intro h2{font-size:clamp(2rem,5vw,4.2rem);line-height:.98;margin:0}
+.intro h2 span{background:linear-gradient(90deg,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}
+.intro p{color:var(--muted);line-height:1.65;font-size:1.04rem}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feature{padding:14px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.feature b{display:block;margin-bottom:3px}
+.start-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.summary{padding:28px;display:none;text-align:center}
+.summary.show{display:block}
+.summary .trophy{font-size:72px}
+.summary h2{font-size:2.2rem;margin:6px 0}
+.bigscore{font-size:clamp(2.7rem,8vw,5.5rem);font-weight:950;background:linear-gradient(90deg,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}
+.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.metric{padding:15px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.metric strong{display:block;font-size:1.6rem}
+.hidden{display:none!important}
+@media(max-width:820px){
+ .stage,.intro-grid{grid-template-columns:1fr}
+ .visual-card{min-height:220px}
+ #p5-holder{min-height:220px}
+}
+@media(max-width:600px){
+ .app{padding:10px}
+ .answers,.multi-grid,.features,.breakdown{grid-template-columns:1fr}
+ .answer{min-height:78px;padding:15px}
+ .question-card{padding:18px}
+ .feedback{align-items:flex-start;flex-direction:column}
+ .next{width:100%}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🤖</div>
+      <div>
+        <h1>CyR 2.º ESO · Aprende jugando</h1>
+        <p>Prueba inicial interactiva · Computación y Robótica</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="pill">⭐ <span id="score">0</span></div>
+      <div class="pill">🔥 <span id="streak">0</span></div>
+      <div class="pill">🎯 <span id="counter">0/0</span></div>
+    </div>
+  </header>
+
+  <div class="progress-shell"><div id="progress" class="progress"></div></div>
+
+  <section id="intro" class="intro">
+    <div class="intro-grid">
+      <div>
+        <div class="kicker">Diagnóstico inicial</div>
+        <h2>Piensa, prueba y <span>aprende jugando</span></h2>
+        <p>Recorrerás informática y robótica, pensamiento computacional, programación, Internet de las Cosas, web, datos e IA, ciberseguridad y un reto final.</p>
+        <div class="start-row">
+          <button id="startBtn" class="primary">▶ Empezar</button>
+          <button id="modeBtn" class="ghost">🔊 Sonido: activado</button>
+        </div>
+      </div>
+      <div class="features">
+        <div class="feature"><b>🎮 24 preguntas</b><span>Más reto y diagnóstico final.</span></div>
+        <div class="feature"><b>⚡ Feedback inmediato</b><span>Aprende tras cada respuesta.</span></div>
+        <div class="feature"><b>🔥 Rachas</b><span>Encadena aciertos.</span></div>
+        <div class="feature"><b>🧠 Preguntas abiertas</b><span>Piensa antes de ver la solución.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="stage">
+      <div class="visual-card"><div id="p5-holder"></div></div>
+      <div class="question-card">
+        <div id="category" class="kicker"></div>
+        <h2 id="question"></h2>
+        <div id="context" class="context"></div>
+        <div id="dynamic"></div>
+      </div>
+    </div>
+    <div id="feedback" class="feedback">
+      <div>
+        <h3 id="feedbackTitle"></h3>
+        <p id="feedbackText"></p>
+      </div>
+      <button id="nextBtn" class="next">Siguiente →</button>
+    </div>
+  </section>
+
+  <section id="summary" class="summary">
+    <div class="trophy">🏆</div>
+    <h2>¡Reto completado!</h2>
+    <div id="finalScore" class="bigscore">0</div>
+    <p id="finalText"></p>
+    <div class="breakdown">
+      <div class="metric"><strong id="rightCount">0</strong>Aciertos</div>
+      <div class="metric"><strong id="bestStreak">0</strong>Mejor racha</div>
+      <div class="metric"><strong id="answeredCount">0</strong>Actividades</div>
+    </div>
+    <button id="restartBtn" class="primary">↻ Volver a jugar</button>
+  </section>
+</main>
+
+<script>
+const items = [
+{n:1,cat:"1. Informática y robótica",type:"mc",icon:"🌡️",q:"¿Cuál de los siguientes dispositivos puede considerarse un sensor?",a:["Un motor","Un sensor de temperatura","Una rueda","Un altavoz"],ok:1,ex:"Un sensor de temperatura obtiene información del entorno midiendo la temperatura."},
+{n:2,cat:"1. Informática y robótica",type:"mc",icon:"⚙️",q:"¿Cuál de estos elementos serviría para que un robot pudiera moverse?",a:["Un motor","Un sensor de luz","Una cámara","Un termómetro"],ok:0,ex:"El motor actúa sobre el entorno produciendo movimiento."},
+{n:3,cat:"1. Informática y robótica",type:"open",icon:"🤖",q:"Un robot tiene un sensor de distancia en la parte delantera. Cuando detecta un objeto a menos de 10 cm debería detenerse.",context:"Completa: Sensor → … · Decisión → … · Acción → …",solution:"Sensor → medir/detectar la distancia. Decisión → comprobar si la distancia es menor de 10 cm. Acción → detener el robot."},
+{n:4,cat:"1. Informática y robótica",type:"open",icon:"📡",q:"Explica con tus palabras qué diferencia podría haber entre sensor y actuador.",solution:"Sensor: obtiene información del entorno. Actuador: realiza una acción física, por ejemplo mover un motor, encender una luz o emitir un sonido."},
+
+{n:5,cat:"2. Pensamiento computacional",type:"order",icon:"🚪",q:"Ordena estas instrucciones para que una persona pueda entrar en una habitación oscura.",a:["Pulsar el interruptor","Entrar en la habitación","Abrir la puerta","Acercarse a la puerta"],order:[3,2,1,0],solution:"1. Acercarse a la puerta → 2. Abrir la puerta → 3. Entrar en la habitación → 4. Pulsar el interruptor."},
+{n:6,cat:"2. Pensamiento computacional",type:"mc",icon:"🤖",q:"Queremos hacer que un robot avance continuamente hasta encontrar un obstáculo. ¿Cuál de estas ideas parece mejor?",a:["Avanzar 1 cm, avanzar 1 cm, avanzar 1 cm, avanzar 1 cm…","Repetir: avanzar mientras no haya un obstáculo","Apagar el robot"],ok:1,ex:"Una repetición permite ejecutar la misma acción mientras se cumpla una condición."},
+{n:7,cat:"2. Pensamiento computacional",type:"mc",icon:"⬜",q:"Observa este programa: AL COMENZAR · repetir 4 veces · avanzar · girar a la derecha. ¿Qué figura crees que podría dibujar un robot?",a:["Una línea","Un cuadrado","Un círculo","No se moverá"],ok:1,ex:"Repetir cuatro veces avanzar y girar a la derecha puede formar un cuadrado."},
+{n:8,cat:"2. Pensamiento computacional",type:"open",icon:"🌀",q:"Queremos crear un programa que diga: Si la temperatura supera los 30 ºC, encender el ventilador.",context:"Completa: SI temperatura ______ 30 · ______________________________",solution:"SI temperatura > 30 → encender el ventilador."},
+
+{n:9,cat:"3. Programación",type:"multi",icon:"💻",q:"¿Has utilizado alguna vez alguno de estos programas? Marca todos los que conozcas.",a:["Scratch","MakeCode","App Inventor","Arduino","Python","micro:bit","Otro","Ninguno"],diagnostic:true},
+{n:10,cat:"3. Programación",type:"mc",icon:"📋",q:"¿Qué crees que es un algoritmo?",a:["Una pieza electrónica","Una serie ordenada de instrucciones para resolver un problema","Un tipo de robot","Una página de Internet"],ok:1,ex:"Un algoritmo es una serie ordenada de instrucciones para resolver un problema."},
+{n:11,cat:"3. Programación",type:"mc",icon:"🪙",q:"Queremos que un personaje de un videojuego gane un punto cuando toque una moneda. ¿Qué tipo de estructura necesitamos principalmente?",a:["Una decisión o condición","Apagar el ordenador","Una contraseña","Una página web"],ok:0,ex:"El programa tiene que comprobar una condición: si toca la moneda, entonces gana un punto."},
+
+{n:12,cat:"4. Internet de las Cosas",type:"open",icon:"🏠",q:"Una casa tiene sensores de temperatura, luces inteligentes, persianas automáticas y conexión a Internet. Pon un ejemplo de algo que podría hacer automáticamente esa casa.",solution:"Ejemplo: si detecta poca luz, encender las luces; o si hace demasiado calor, bajar persianas o activar la climatización."},
+{n:13,cat:"4. Internet de las Cosas",type:"mc",icon:"📶",q:"¿Cuál de estos ejemplos se aproxima más al concepto de Internet de las Cosas (IoT)?",a:["Una libreta de papel","Un termómetro que envía automáticamente la temperatura a Internet","Una calculadora sin conexión","Un lápiz"],ok:1,ex:"En IoT, objetos físicos pueden captar y comunicar datos mediante una red."},
+{n:14,cat:"4. Internet de las Cosas",type:"open",icon:"⌚",q:"Un reloj inteligente se comunica con un móvil mediante Bluetooth. ¿Qué tipo de información podría enviar? Escribe dos ejemplos.",solution:"Ejemplos: frecuencia cardíaca y número de pasos. También podrían ser horas de sueño, actividad física, calorías, nivel de batería o notificaciones."},
+
+{n:15,cat:"5. Aplicaciones y páginas web",type:"mc",icon:"📱",q:"Cuando pulsas un botón de una aplicación móvil y ocurre algo, decimos que se ha producido un:",a:["Evento","Virus","Sensor","Servidor"],ok:0,ex:"Pulsar un botón genera un evento que el programa puede detectar."},
+{n:16,cat:"5. Aplicaciones y páginas web",type:"mc",icon:"🌐",q:"¿Qué lenguaje relacionas principalmente con la estructura de una página web? Si no lo sabes, puedes dejarla en blanco.",a:["HTML","JPG","MP3","Bluetooth"],ok:0,ex:"HTML se utiliza para definir la estructura y el contenido de una página web."},
+{n:17,cat:"5. Aplicaciones y páginas web",type:"open",icon:"🖥️",q:"Explica una diferencia que creas que existe entre una página web y una aplicación móvil.",solution:"Respuesta posible: una página web suele abrirse desde un navegador; una aplicación móvil se ejecuta como una app en el teléfono o tableta."},
+
+{n:18,cat:"6. Datos e Inteligencia Artificial",type:"open",icon:"📊",q:"Una aplicación meteorológica almacena cada hora temperatura, humedad, velocidad del viento, ciudad y fecha. ¿Qué podría hacer con todos esos datos después de varios años?",solution:"Podría analizar tendencias, comparar periodos, detectar patrones o ayudar a realizar predicciones meteorológicas."},
+{n:19,cat:"6. Datos e Inteligencia Artificial",type:"mc",icon:"🐱",q:"¿Cuál de estas situaciones utiliza probablemente Inteligencia Artificial?",a:["Una calculadora que hace 2 + 2","Un sistema que aprende a reconocer gatos después de observar miles de imágenes","Una bombilla convencional","Un cable USB"],ok:1,ex:"Aprender a reconocer patrones a partir de muchas imágenes es un uso típico de IA."},
+{n:20,cat:"6. Datos e Inteligencia Artificial",type:"mc",icon:"🧠",q:"Una Inteligencia Artificial afirma algo que parece extraño. ¿Qué harías?",a:["Creerlo siempre porque lo ha dicho una IA","Compartirlo inmediatamente","Comprobar la información utilizando otras fuentes fiables","No importa si es verdadero"],ok:2,ex:"La información de una IA debe contrastarse cuando sea necesario con fuentes fiables."},
+
+{n:21,cat:"7. Ciberseguridad",type:"mc",icon:"🔐",q:"¿Cuál es la contraseña más segura?",a:["pablo123","12345678","contraseña","Limon!Tren74-Nube"],ok:3,ex:"La última opción es más larga y menos predecible que las demás."},
+{n:22,cat:"7. Ciberseguridad",type:"open",icon:"🎣",q:"Recibes este mensaje: «Tu cuenta será eliminada en 10 minutos. Pulsa AQUÍ e introduce inmediatamente tu contraseña.» ¿Qué harías?",solution:"No pulsaría el enlace ni introduciría la contraseña. Comprobaría la cuenta entrando directamente desde la página o aplicación oficial."},
+{n:23,cat:"7. Ciberseguridad",type:"mc",icon:"🕵️",q:"Un desconocido te pide por Internet nombre completo, dirección, teléfono y contraseña. ¿Qué información deberías enviarle?",a:["Toda","Solo la contraseña","Ninguna","Depende de si parece simpático"],ok:2,ex:"No deberías enviar ninguno de esos datos a un desconocido."},
+{n:24,cat:"7. Ciberseguridad",type:"mc",icon:"©️",q:"Encuentras una fotografía en Internet y quieres utilizarla en un trabajo. ¿Qué crees que deberías hacer?",a:["Utilizarla siempre sin preguntar","Comprobar su licencia y citar la fuente cuando corresponda","Decir que la fotografía la has hecho tú","Eliminar el nombre del autor"],ok:1,ex:"Hay que comprobar las condiciones de uso de la imagen y citar la fuente cuando corresponda."},
+
+{n:"Reto",cat:"8. Reto",type:"open",icon:"💡",q:"Un instituto quiere construir un pequeño sistema automático que encienda una luz cuando el aula esté demasiado oscura. Diseña la solución.",context:"Entrada / sensor: ¿qué necesitamos medir? · Decisión: ¿qué debería comprobar el programa? · Salida / actuador: ¿qué debería hacer el sistema? · Algoritmo: escribe las instrucciones.",solution:"Entrada/sensor: medir la luminosidad. Decisión: comprobar si la luz está por debajo de un valor. Salida/actuador: encender una luz. Algoritmo: INICIO → medir luminosidad → si es menor que el límite, encender luz; si no, apagarla → FIN."},
+
+{n:"Sobre ti",cat:"9. Sobre ti",type:"multi",icon:"🏠",q:"¿Tienes ordenador disponible en casa?",a:["Sí","No","Algunas veces"],singleDiagnostic:true},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"multi",icon:"👨‍💻",q:"¿Has programado alguna vez?",a:["Nunca","Un poco","Bastante"],singleDiagnostic:true},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"multi",icon:"🤖",q:"¿Has utilizado algún robot o placa electrónica?",a:["Nunca","Alguna vez","Varias veces"],singleDiagnostic:true},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"open",icon:"🔧",q:"¿Cuál?",solution:"Respuesta personal. No hay una respuesta correcta."},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"multi",icon:"🚀",q:"¿Qué te gustaría aprender en esta asignatura?",a:["Crear videojuegos","Programar robots","Crear aplicaciones móviles","Crear páginas web","Inteligencia Artificial","Ciberseguridad","Electrónica","Otro"],diagnostic:true},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"open",icon:"💡",q:"Escribe algo relacionado con informática, programación o robótica que ya sepas hacer.",solution:"Respuesta personal. No hay una respuesta correcta."},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"open",icon:"🛠️",q:"¿Hay algo que te gustaría construir durante este curso?",solution:"Respuesta personal. No hay una respuesta correcta."}
+];
+
+let index=0, score=0, streak=0, bestStreak=0, right=0, soundOn=true, locked=false;
+let selectedOrder=[];
+const $=id=>document.getElementById(id);
+const shapes=["▲","◆","●","■","★","⬟","⬢","✦"];
+
+function beep(ok=true){
+ if(!soundOn)return;
+ try{
+  const AC=window.AudioContext||window.webkitAudioContext, ac=new AC();
+  const o=ac.createOscillator(), g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);
+  o.frequency.value=ok?660:180;o.type=ok?"sine":"sawtooth";
+  g.gain.setValueAtTime(.06,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.16);
+  o.start();o.stop(ac.currentTime+.17);
+ }catch(e){}
+}
+function updateStats(){
+ $("score").textContent=score;
+ $("streak").textContent=streak;
+ $("counter").textContent=`${Math.min(index+1,items.length)}/${items.length}`;
+ $("progress").style.width=`${(index/items.length)*100}%`;
+}
+function start(){
+ $("intro").classList.add("hidden");
+ $("game").classList.remove("hidden");
+ render();
+}
+function render(){
+ locked=false; selectedOrder=[];
+ const it=items[index];
+ $("category").textContent=it.cat;
+ $("question").textContent=(typeof it.n==="number"?`${it.n}. `:"")+it.q;
+ $("context").textContent=it.context||"";
+ $("feedback").classList.remove("show");
+ const d=$("dynamic"); d.innerHTML="";
+ window.currentIcon=it.icon||"🤖";
+
+ if(it.type==="mc") renderMC(it,d);
+ else if(it.type==="open") renderOpen(it,d);
+ else if(it.type==="multi") renderMulti(it,d);
+ else if(it.type==="order") renderOrder(it,d);
+ updateStats();
+}
+function renderMC(it,d){
+ const wrap=document.createElement("div");wrap.className="answers";
+ it.a.forEach((txt,i)=>{
+  const b=document.createElement("button"); b.className=`answer a${i%4}`;
+  b.innerHTML=`<span class="shape">${shapes[i]}</span><span>${txt}</span>`;
+  b.addEventListener("click",()=>chooseMC(it,i,b,wrap)); wrap.appendChild(b);
+ });
+ d.appendChild(wrap);
+}
+function chooseMC(it,choice,btn,wrap){
+ if(locked)return;locked=true;
+ const buttons=[...wrap.querySelectorAll(".answer")];
+ buttons.forEach(b=>b.disabled=true);
+ buttons[it.ok].classList.add("correct");
+ if(choice===it.ok){
+   score+=100+(streak*10);streak++;bestStreak=Math.max(bestStreak,streak);right++;beep(true);
+   showFeedback("✅ ¡Correcto!",it.ex||"Muy bien.");
+ }else{
+   btn.classList.add("wrong");streak=0;beep(false);
+   showFeedback("❌ Esta vez no",it.ex||"Revisa la respuesta correcta.");
+ }
+ updateStats();
+}
+function renderOpen(it,d){
+ const box=document.createElement("div");box.className="open-box";
+ box.innerHTML=`<textarea aria-label="Tu respuesta" placeholder="Escribe aquí tu respuesta antes de comprobarla..."></textarea>
+ <div class="open-actions"><button class="primary check">💡 Ver respuesta orientativa</button><button class="ghost skip">Continuar sin verla</button></div>
+ <div class="solution"></div>`;
+ const sol=box.querySelector(".solution");sol.textContent=it.solution||"Respuesta personal.";
+ box.querySelector(".check").addEventListener("click",()=>{
+  if(locked)return;locked=true;sol.classList.add("show");score+=50;showFeedback("🧠 Compara tu idea","En las preguntas abiertas no hay corrección automática. La solución mostrada es orientativa.");updateStats();
+ });
+ box.querySelector(".skip").addEventListener("click",()=>{
+  if(locked)return;locked=true;showFeedback("✍️ Respuesta guardada localmente","Continúa cuando quieras.");updateStats();
+ });
+ d.appendChild(box);
+}
+function renderMulti(it,d){
+ const wrap=document.createElement("div");wrap.className="multi-grid";
+ it.a.forEach((txt,i)=>{
+  const label=document.createElement("label");label.className="checkopt";
+  label.innerHTML=`<input type="${it.singleDiagnostic?"radio":"checkbox"}" name="diag-${index}" value="${i}"><span>${txt}</span>`;
+  wrap.appendChild(label);
+ });
+ const actions=document.createElement("div");actions.className="open-actions";
+ const b=document.createElement("button");b.className="primary";b.textContent="Guardar y continuar";
+ b.addEventListener("click",()=>{
+  if(locked)return;locked=true;score+=25;showFeedback("📌 Respuesta registrada","Esta pregunta es de diagnóstico personal y no tiene una respuesta correcta.");updateStats();
+ });
+ d.append(wrap,actions);actions.appendChild(b);
+}
+function renderOrder(it,d){
+ const wrap=document.createElement("div");wrap.className="answers";
+ it.a.forEach((txt,i)=>{
+  const b=document.createElement("button");b.className=`answer a${i%4}`;b.dataset.i=i;
+  b.innerHTML=`<span class="shape">?</span><span>${txt}</span>`;
+  b.addEventListener("click",()=>{
+   if(locked||selectedOrder.includes(i))return;
+   selectedOrder.push(i);b.querySelector(".shape").textContent=selectedOrder.length;b.disabled=true;
+   if(selectedOrder.length===it.a.length){
+    locked=true; const ok=selectedOrder.every((v,pos)=>v===it.order[pos]);
+    if(ok){score+=100;streak++;right++;bestStreak=Math.max(bestStreak,streak);beep(true);showFeedback("✅ Orden correcto",it.solution);}
+    else{streak=0;beep(false);showFeedback("🔁 Revisa el orden",it.solution);}
+    updateStats();
+   }
+  });wrap.appendChild(b);
+ });
+ d.appendChild(wrap);
+}
+function showFeedback(title,text){
+ $("feedbackTitle").textContent=title;$("feedbackText").textContent=text;$("feedback").classList.add("show");
+}
+function next(){
+ if(index<items.length-1){index++;render();}
+ else finish();
+}
+function finish(){
+ $("game").classList.add("hidden");$("summary").classList.add("show");
+ $("progress").style.width="100%";
+ $("finalScore").textContent=score+" pts";
+ $("rightCount").textContent=right;
+ $("bestStreak").textContent=bestStreak;
+ $("answeredCount").textContent=items.length;
+ $("finalText").textContent="La prueba sirve para conocer el punto de partida. Lo importante no es la puntuación, sino descubrir qué conceptos ya dominas y cuáles aprenderás durante el curso.";
+}
+function restart(){
+ index=0;score=0;streak=0;bestStreak=0;right=0;locked=false;
+ $("summary").classList.remove("show");$("game").classList.remove("hidden");render();
+}
+$("startBtn").addEventListener("click",start);
+$("nextBtn").addEventListener("click",next);
+$("restartBtn").addEventListener("click",restart);
+$("modeBtn").addEventListener("click",()=>{soundOn=!soundOn;$("modeBtn").textContent=`🔊 Sonido: ${soundOn?"activado":"desactivado"}`});
+
+// Ilustración P5.js: visual abstracta/animada según la pregunta.
+new p5(p=>{
+ let particles=[];
+ p.setup=()=>{
+   const host=document.getElementById("p5-holder");
+   const c=p.createCanvas(host.clientWidth||300, host.clientHeight||330);
+   c.parent("p5-holder");
+   for(let i=0;i<24;i++)particles.push({x:p.random(p.width),y:p.random(p.height),r:p.random(2,6),s:p.random(.2,1)});
+ };
+ p.windowResized=()=>{
+   const host=document.getElementById("p5-holder");
+   p.resizeCanvas(host.clientWidth||300,host.clientHeight||330);
+ };
+ p.draw=()=>{
+   p.background(9,23,39);
+   p.noStroke();
+   for(const pt of particles){
+     p.fill(124,58,237,70);p.circle(pt.x,pt.y,pt.r);
+     pt.y-=pt.s;if(pt.y<-5){pt.y=p.height+5;pt.x=p.random(p.width);}
+   }
+   p.push();p.translate(p.width/2,p.height/2);
+   const pulse=1+Math.sin(p.frameCount*.04)*.04;
+   p.scale(pulse);
+   p.fill(255,255,255,20);p.circle(0,0,Math.min(p.width,p.height)*.64);
+   p.fill(255);p.textAlign(p.CENTER,p.CENTER);p.textSize(Math.min(p.width,p.height)*.28);
+   p.text(window.currentIcon||"🤖",0,0);
+   p.pop();
+ };
+});
+</script>
+</body>
+</html>
