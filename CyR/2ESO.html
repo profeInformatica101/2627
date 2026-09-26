@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="12 Situaciones de Aprendizaje de Computación y Robótica de 2.º ESO">
+  <title>12 Situaciones de Aprendizaje · Computación y Robótica · 2.º ESO</title>
+  <style>
+:root{
+  --bg:#f4f6fa;
+  --surface:#ffffff;
+  --surface-soft:#f8fafc;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#dce3ed;
+  --primary:#315fe9;
+  --primary-dark:#2447b8;
+  --primary-soft:#edf2ff;
+  --green:#087a5b;
+  --green-soft:#e8f7f1;
+  --yellow:#fff7d6;
+  --yellow-line:#eedb85;
+  --shadow:0 8px 28px rgba(28,39,64,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.55;
+}
+header{
+  background:linear-gradient(135deg,#17233f 0%,#29457d 55%,#315fe9 100%);
+  color:white;
+  padding:34px 18px 28px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.wrap,main{
+  width:min(1160px,calc(100% - 28px));
+  margin:0 auto;
+}
+h1{
+  margin:0 0 10px;
+  font-size:clamp(1.7rem,4vw,2.65rem);
+  line-height:1.12;
+  letter-spacing:-.02em;
+}
+h2{
+  margin:34px 0 12px;
+  font-size:clamp(1.25rem,2.4vw,1.7rem);
+  line-height:1.2;
+}
+p{margin:.45rem 0 .8rem}
+.lead{
+  max-width:920px;
+  margin:0;
+  color:#e3eaff;
+  font-size:1.02rem;
+}
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:18px;
+}
+select,button{
+  font:inherit;
+  min-height:42px;
+  padding:9px 13px;
+  border:1px solid #c8d1df;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+}
+button{
+  cursor:pointer;
+  font-weight:700;
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+button:hover{
+  transform:translateY(-1px);
+  border-color:var(--primary);
+  box-shadow:0 5px 15px rgba(31,61,140,.14);
+}
+select:focus,button:focus{
+  outline:3px solid rgba(49,95,233,.18);
+  outline-offset:2px;
+}
+main{
+  padding-top:22px;
+  padding-bottom:52px;
+}
+.intro,.note{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px 17px;
+  background:var(--surface);
+  box-shadow:0 2px 10px rgba(28,39,64,.03);
+}
+.intro{margin-bottom:16px}
+.note{
+  margin-bottom:14px;
+  background:var(--yellow);
+  border-color:var(--yellow-line);
+}
+.term{margin-bottom:34px}
+details{
+  margin:10px 0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--surface);
+  box-shadow:0 2px 8px rgba(28,39,64,.035);
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+details:hover{border-color:#c6d1e2}
+details[open]{box-shadow:var(--shadow)}
+details.robot{border-color:#b8dfd3}
+details.robot[open]{box-shadow:0 8px 28px rgba(8,122,91,.09)}
+summary{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:56px;
+  padding:13px 16px;
+  cursor:pointer;
+  list-style:none;
+  font-weight:800;
+  user-select:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:"▸";
+  flex:0 0 auto;
+  color:var(--primary);
+  font-size:1.05rem;
+  transition:transform .18s ease;
+}
+details[open] summary::before{transform:rotate(90deg)}
+.num,.pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  padding:4px 9px;
+  background:var(--primary-soft);
+  color:var(--primary);
+  font-size:.78rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.pill{margin-left:auto}
+.robot .num{
+  background:var(--green-soft);
+  color:var(--green);
+}
+.in{
+  padding:15px 16px 17px;
+  border-top:1px solid var(--line);
+}
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:11px;
+  color:var(--muted);
+  font-size:.91rem;
+  font-weight:650;
+}
+.challenge{
+  margin-bottom:13px;
+  padding:12px 13px;
+  border-left:4px solid var(--primary);
+  border-radius:8px;
+  background:#f7faff;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.box{
+  min-width:0;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--surface-soft);
+}
+.box strong{
+  display:block;
+  margin-bottom:4px;
+  color:#27364f;
+}
+.codes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:7px 0 8px;
+}
+.code{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#edf1f6;
+  color:#344054;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  font-size:.78rem;
+  font-weight:700;
+}
+ol,ul{
+  margin:.45rem 0 .45rem 1.25rem;
+  padding:0;
+}
+li{margin:.26rem 0}
+a{
+  color:var(--primary);
+  font-weight:700;
+  text-decoration-thickness:1px;
+  text-underline-offset:2px;
+  overflow-wrap:anywhere;
+}
+a:hover{color:var(--primary-dark)}
+small{color:var(--muted)}
+.foot{
+  margin-top:30px;
+  padding:15px 0 4px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.9rem;
+}
+.hidden{display:none !important}
+@media (min-width:980px){
+  details summary{padding-left:18px;padding-right:18px}
+}
+@media (max-width:760px){
+  .wrap,main{width:min(100% - 20px,1160px)}
+  header{padding:26px 10px 22px}
+  .toolbar{align-items:stretch}
+  .toolbar select,.toolbar button{width:100%}
+  .grid{grid-template-columns:1fr}
+  summary{flex-wrap:wrap;align-items:flex-start}
+  .pill{margin-left:0}
+  .in{padding:13px}
+}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-soft:#fff}
+  body{background:#fff}
+  header{background:#fff !important;color:#000;padding:10px 0 18px}
+  .lead{color:#333}
+  .toolbar{display:none !important}
+  main{width:100%;padding:0}
+  details{box-shadow:none;break-inside:avoid}
+  details > .in{display:block !important}
+  .term.hidden{display:block !important}
+  a{color:#000;text-decoration:none}
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>12 Situaciones de Aprendizaje · <br>Computación y Robótica · 2.º ESO</h1>
+    <p class="lead">Secuencia propuesta: programación y Scratch → micro:bit e IoT → Maqueen → desarrollo web responsive con HTML, CSS y JavaScript → datos, IA y ciberseguridad.</p>
+    <div class="toolbar">
+      <select id="f">
+        <option value="0">Todo el curso</option>
+        <option value="1">1.º trimestre · Programación</option>
+        <option value="2">2.º trimestre · micro:bit + Maqueen</option>
+        <option value="3">3.º trimestre · Web móvil, datos e IA</option>
+      </select>
+      <button id="open">Abrir todo</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <strong>Progresión:</strong> el conocimiento no se reinicia al cambiar de bloque. Los algoritmos, variables, condiciones, operadores y bucles trabajados con Scratch se reutilizan en micro:bit y Maqueen y, posteriormente, en JavaScript. La parte móvil se aborda mediante una única web responsive capaz de adaptarse a móvil, tablet y ordenador.
+  </div>
+
+  <!-- 1º TRIMESTRE -->
+  <section class="term" data-tri="1">
+    <h2>1.º trimestre · Algoritmos y programación con Scratch</h2>
+    <div class="note"><strong>Enfoque:</strong> consolidar pensamiento computacional y programación visual mediante problemas progresivamente más completos: algoritmo → datos → decisiones → bucles → proyecto.</div>
+
+    <details open>
+      <summary><span class="num">SA 01</span>Del problema al algoritmo<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo transformamos un problema en una secuencia de pasos que pueda ejecutar una máquina?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Colección de algoritmos con diagramas de flujo y pequeñas soluciones implementadas en Scratch.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.1</span><span class="code">CYR.2.A.2</span><span class="code">CYR.2.A.3</span></div>
+            <p>Algoritmos, descomposición de problemas, representación y programación visual.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Analizar el problema.</li><li>Identificar entradas y salidas.</li><li>Descomponer.</li><li>Diseñar algoritmo.</li><li>Pasar a Scratch y probar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Diagrama + proyecto Scratch + breve explicación.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Descomposición; orden lógico; representación; ejecución; explicación.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 02</span>Variables, datos y operadores<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo consigue un programa recordar y transformar información?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Quiz o minijuego con puntuación, vidas, datos introducidos por el usuario y operaciones.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.2</span><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.5</span></div>
+            <p>Variables, datos, entrada/salida, operadores y pruebas.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Crear variables.</li><li>Asignar y modificar valores.</li><li>Entrada del usuario.</li><li>Operaciones.</li><li>Comprobar resultados.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto + captura de variables + tabla con casos de prueba.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Uso de datos; variables; operadores; entrada/salida; pruebas.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 03</span>El programa toma decisiones<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo hacemos que el programa actúe de forma distinta según los datos que recibe?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Programa con varias decisiones y diferentes caminos de ejecución.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.4</span><span class="code">CYR.2.A.5</span></div>
+            <p>Condiciones, operadores lógicos, decisiones, casos de prueba y depuración.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Comparar valores.</li><li>Condición simple.</li><li>SI / SI NO.</li><li>Combinar condiciones.</li><li>Probar casos límite.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto + diagrama de decisión + al menos 4 pruebas.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Lógica; condiciones; operadores; pruebas; depuración.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 04</span>Bucles y proyecto Scratch<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE2 📌 Criterio: 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo automatizamos tareas y combinamos todas las estructuras para crear un programa completo?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Videojuego o simulación que combine eventos, variables, condiciones y bucles.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.1</span><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.4</span><span class="code">CYR.2.A.5</span></div>
+            <p>Repetición, contadores, eventos, condiciones y depuración.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Detectar repeticiones.</li><li>Repetir N veces.</li><li>Repetición condicionada.</li><li>Combinar bucle y decisión.</li><li>Construir y depurar el proyecto.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto + vídeo + memoria breve de pruebas y errores corregidos.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Estructuras; funcionamiento; generalización; pruebas; mejora.</p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 2º TRIMESTRE -->
+  <section class="term" data-tri="2">
+    <h2>2.º trimestre · micro:bit, IoT y Maqueen</h2>
+    <div class="note"><strong>Enfoque:</strong> trasladar la lógica del programa al mundo físico: entrada → procesamiento → decisión → salida, y después sensor → decisión → acción en un robot móvil.</div>
+
+    <details class="robot">
+      <summary><span class="num">SA 05</span>micro:bit: entrada, proceso y salida<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo puede un programa recibir información del mundo real y responder?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Prototipo micro:bit con botones o sensores y una salida visual o sonora.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.F.1</span><span class="code">CYR.2.F.2</span><span class="code">CYR.2.F.3</span><span class="code">CYR.2.F.4</span></div>
+            <p>Computación física, hardware/software, entradas, salidas y programación de microcontroladores.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Componentes.</li><li>Entrada-proceso-salida.</li><li>Botones.</li><li>Sensores.</li><li>Programa integrado y pruebas.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Ficha + programa + esquema + vídeo corto.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Componentes; entradas/salidas; programación; pruebas; seguridad.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 06</span>IoT: dispositivos que se comunican<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo pueden varios dispositivos compartir datos para resolver una necesidad?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Sistema conectado sencillo: alarma, monitor, aviso o intercambio de datos entre dispositivos.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.B.1</span><span class="code">CYR.2.B.2</span><span class="code">CYR.2.B.3</span><span class="code">CYR.2.B.4</span></div>
+            <p>Internet de las Cosas, sensores, conectividad, intercambio de información y aplicaciones.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Objeto conectado.</li><li>Capturar un dato.</li><li>Transmitir información.</li><li>Tomar una decisión.</li><li>Valorar privacidad y seguridad.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Esquema del sistema + programa + pruebas + vídeo.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Diseño; comunicación; datos; funcionamiento; privacidad.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 07</span>Maqueen: movimiento y precisión<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.2 · 1.4 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo conseguimos que un robot complete un recorrido de forma controlada y repetible?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Recorrido medido con avance, retroceso, giros, velocidad y aparcamiento.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.C.1</span><span class="code">CYR.2.C.2</span><span class="code">CYR.2.C.3</span><span class="code">CYR.2.C.4</span><span class="code">CYR.2.C.5</span></div>
+            <p>Robótica móvil, sensores, actuadores, locomoción, control y aplicaciones.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Explorar Maqueen.</li><li>Controlar motores.</li><li>Medir recorrido.</li><li>Programar giros.</li><li>Realizar cinco pruebas y calibrar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Algoritmo + código + tabla de 5 pruebas + vídeo final.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Planificación; movimiento; precisión; calibración; análisis de errores.</p></div>
+          <div class="box"><strong>Recurso Maqueen</strong><p><a href="https://profeinformatica101.github.io/maqueen/" target="_blank" rel="noopener">profeinformatica101.github.io/maqueen/</a></p><small>Localizar información, comprenderla, adaptarla y comprobar mediante pruebas que la solución funciona.</small></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 08</span>Maqueen autónomo: percibe, decide y actúa<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 · CE3 📌 Criterios: 1.4 · 2.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo conseguimos que el robot responda al entorno sin recibir órdenes continuamente?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Robot evita-obstáculos o sigue-líneas con comportamiento autónomo.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.4</span><span class="code">CYR.2.C.3</span><span class="code">CYR.2.C.4</span><span class="code">CYR.2.C.5</span><span class="code">CYR.2.F.3</span></div>
+            <p>Sensores, umbrales, condiciones, bucles, actuadores y autonomía.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Leer sensor.</li><li>Registrar valores.</li><li>Definir umbral.</li><li>Programar respuesta.</li><li>Calibrar y corregir.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Código + esquema sensor→decisión→acción + pruebas + vídeo.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Lectura; decisión; respuesta; estabilidad; depuración.</p></div>
+          <div class="box"><strong>Recurso Maqueen</strong><p><a href="https://profeinformatica101.github.io/maqueen/" target="_blank" rel="noopener">Documentación Maqueen</a></p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 3º TRIMESTRE -->
+  <section class="term" data-tri="3">
+    <h2>3.º trimestre · Web móvil, JavaScript, datos e IA</h2>
+    <div class="note"><strong>Enfoque:</strong> crear una única web que funcione correctamente en móvil, tablet y ordenador. HTML aporta estructura, CSS hace el diseño responsive y JavaScript reutiliza la lógica de variables, condiciones y eventos aprendida durante el curso.</div>
+
+    <details>
+      <summary><span class="num">SA 09</span>HTML + CSS: una web que se adapta<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE5 📌 Criterios: 5.1 · 5.2</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo creamos una misma página que pueda utilizarse cómodamente desde un móvil y desde un ordenador?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Web responsive con HTML, CSS, viewport y diseño Mobile First.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.E.1</span><span class="code">CYR.2.E.2</span><span class="code">CYR.2.E.3</span><span class="code">CYR.2.E.4</span></div>
+            <p>Estructura web, HTML, presentación, diseño adaptable y resolución de problemas básicos.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Estructura HTML.</li><li>Viewport.</li><li>CSS básico.</li><li>Flex/Grid.</li><li>Media queries y Mobile First.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>ZIP con HTML+CSS + captura móvil + captura escritorio.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Estructura; presentación; adaptación al dispositivo; usabilidad; depuración.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 10</span>JavaScript: una web que responde<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE2 · CE5 📌 Criterios: 2.1 · 5.2</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo conseguimos que una página tome datos del usuario, decida y modifique lo que aparece en pantalla?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Web-app responsive: quiz, conversor, calculadora o recomendador con formulario y respuesta dinámica.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.2</span><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.4</span><span class="code">CYR.2.A.5</span><span class="code">CYR.2.E.3</span><span class="code">CYR.2.E.4</span></div>
+            <p>Variables, operadores, condiciones, funciones, eventos y manipulación de elementos de una web.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Variables JS.</li><li>Leer formularios.</li><li>if/else.</li><li>Funciones y eventos.</li><li>Modificar contenido y probar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>ZIP HTML+CSS+JS + vídeo/capturas + tabla de pruebas.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Interacción; lógica; eventos; funcionamiento; pruebas y mejora.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 11</span>Datos e Inteligencia Artificial<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE4 📌 Criterios: 4.1 · 4.2</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo utilizan las aplicaciones los datos para descubrir patrones y producir respuestas?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Pequeño estudio de datos + experimento guiado de clasificación o reconocimiento mediante IA.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.G.1</span><span class="code">CYR.2.G.2</span><span class="code">CYR.2.G.3</span><span class="code">CYR.2.G.4</span><span class="code">CYR.2.H.1</span><span class="code">CYR.2.H.2</span><span class="code">CYR.2.H.3</span><span class="code">CYR.2.H.4</span></div>
+            <p>Datos, visualización, patrones, aprendizaje automático, resultados y uso crítico.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Recoger datos.</li><li>Ordenar y visualizar.</li><li>Buscar patrones.</li><li>Entrenar/probar un sistema sencillo.</li><li>Analizar errores y limitaciones.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Datos + gráfico + capturas del experimento + conclusiones.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Tratamiento de datos; interpretación; experimentación; análisis crítico; explicación.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 12</span>Proyecto final: web móvil segura<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE2 · CE5 · CE6 📌 Criterios: 2.1 · 5.1 · 5.2 · 6.1 · 6.2 · 6.3 · 6.4</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Podemos diseñar una aplicación web útil, adaptable al móvil, interactiva y segura?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Web-app responsive que resuelva una necesidad real: quiz, calculadora, conversor, herramienta de estudio, panel de datos o interfaz para un proyecto.</p></div>
+          <div class="box"><strong>Saberes básicos</strong>
+            <div class="codes"><span class="code">CYR.2.A.3</span><span class="code">CYR.2.A.5</span><span class="code">CYR.2.E.1</span><span class="code">CYR.2.E.3</span><span class="code">CYR.2.E.4</span><span class="code">CYR.2.I.1</span><span class="code">CYR.2.I.2</span><span class="code">CYR.2.I.3</span><span class="code">CYR.2.I.4</span><span class="code">CYR.2.I.5</span></div>
+            <p>Programación web, interacción, privacidad, seguridad, identidad digital y propiedad intelectual.</p>
+          </div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Definir necesidad y diseño móvil.</li><li>Crear HTML.</li><li>Aplicar CSS responsive.</li><li>Añadir JavaScript.</li><li>Auditar, probar y publicar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>ZIP/enlace final + pruebas en móvil/escritorio + vídeo + checklist de privacidad, seguridad, fuentes y licencias.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Diseño; programación; usabilidad; adaptación; pruebas; ciberseguridad; publicación responsable.</p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <div class="foot">
+    La distribución es una propuesta docente adaptable al ritmo real del grupo, al calendario escolar y a los recursos disponibles. Los criterios y saberes se mantienen vinculados a cada situación para facilitar Moodle, programación y registro posterior en Séneca.
+  </div>
+</main>
+
+<script>
+  const f = document.getElementById('f');
+
+  f.addEventListener('change', () => {
+    document.querySelectorAll('.term').forEach(s => s.classList.toggle(
+      'hidden',
+      f.value !== '0' && s.dataset.tri !== f.value
+    ));
+  });
+
+  let opened = false;
+
+  document.getElementById('open').addEventListener('click', () => {
+    opened = !opened;
+
+    document.querySelectorAll('.term:not(.hidden) details')
+      .forEach(d => d.open = opened);
+
+    document.getElementById('open').textContent =
+      opened ? 'Cerrar todo' : 'Abrir todo';
+  });
+</script>
+</body>
+</html>
