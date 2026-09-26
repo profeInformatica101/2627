@@ -1,0 +1,1617 @@
+
+<div class="cyr2-t1">
+
+<style>
+
+/* =========================================================
+   ESTILO SCRATCH · COMPUTACIÓN Y ROBÓTICA 1.º ESO
+   Diseñado para Moodle / proyección
+========================================================= */
+
+.cyr2-t1{
+    --scratch-blue:#4c97ff;
+    --scratch-blue-dark:#3373cc;
+    --scratch-yellow:#ffbf00;
+    --scratch-orange:#ffab19;
+    --scratch-purple:#9966ff;
+    --scratch-cyan:#5cb1d6;
+    --scratch-green:#59c059;
+    --scratch-red:#ff6680;
+    --scratch-variable:#ff8c1a;
+    --ink:#2b2f38;
+    --muted:#667085;
+    --paper:#ffffff;
+    --soft:#f3f8ff;
+
+    max-width:1120px;
+    margin:20px auto;
+    padding:18px;
+    border-radius:28px;
+
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:var(--ink);
+    line-height:1.55;
+
+    background:
+        radial-gradient(circle at 10% 0%,rgba(255,255,255,.24),transparent 22%),
+        linear-gradient(180deg,#4c97ff 0 230px,#eaf4ff 230px 100%);
+}
+
+.cyr2-t1 *{
+    box-sizing:border-box;
+}
+
+/* =========================================================
+   CABECERA · aspecto de escenario Scratch
+========================================================= */
+
+.cyr2-t1 .hero{
+    position:relative;
+    overflow:hidden;
+
+    min-height:220px;
+    margin:0 0 18px;
+    padding:30px;
+
+    border:4px solid rgba(255,255,255,.75);
+    border-radius:26px;
+
+    background:
+        radial-gradient(circle at 88% 28%,rgba(255,255,255,.20) 0 4px,transparent 5px),
+        radial-gradient(circle at 80% 62%,rgba(255,255,255,.16) 0 6px,transparent 7px),
+        radial-gradient(circle at 92% 78%,rgba(255,255,255,.14) 0 3px,transparent 4px),
+        linear-gradient(135deg,#3373cc 0%,#4c97ff 55%,#6bb5ff 100%);
+
+    color:white;
+
+    box-shadow:
+        0 8px 0 #3373cc,
+        0 16px 30px rgba(39,83,150,.22);
+}
+
+.cyr2-t1 .hero::after{
+    content:"🐱";
+    position:absolute;
+    right:28px;
+    bottom:7px;
+
+    font-size:clamp(74px,12vw,128px);
+    line-height:1;
+
+    transform:rotate(-4deg);
+    filter:drop-shadow(0 7px 3px rgba(0,0,0,.16));
+}
+
+.cyr2-t1 .hero .tag{
+    position:relative;
+    z-index:2;
+
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    margin-bottom:12px;
+    padding:7px 13px;
+
+    border:2px solid rgba(255,255,255,.55);
+    border-radius:999px;
+
+    background:var(--scratch-yellow);
+    color:#493900;
+
+    font-size:.83rem;
+    font-weight:900;
+
+    box-shadow:0 4px 0 #d9a200;
+}
+
+.cyr2-t1 .hero h2{
+    position:relative;
+    z-index:2;
+
+    max-width:760px;
+    margin:0 0 10px;
+
+    color:white;
+    font-size:clamp(1.9rem,4vw,3rem);
+    line-height:1.08;
+    letter-spacing:-.025em;
+
+    text-shadow:0 3px 0 rgba(0,0,0,.13);
+}
+
+.cyr2-t1 .hero p{
+    position:relative;
+    z-index:2;
+
+    max-width:760px;
+    margin:0;
+
+    color:#f7fbff;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:1.03rem;
+}
+
+@media(min-width:800px){
+    .cyr2-t1 .hero p{
+        padding-right:120px;
+    }
+}
+
+/* =========================================================
+   RUTA DE APRENDIZAJE
+========================================================= */
+
+.cyr2-t1 .ruta{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    margin:18px 0 22px;
+    padding:15px;
+
+    border:3px solid #b9d9ff;
+    border-radius:20px;
+
+    background:#fff;
+
+    box-shadow:
+        0 5px 0 #c7def8,
+        0 10px 22px rgba(56,102,154,.09);
+}
+
+.cyr2-t1 .ruta span{
+    padding:8px 12px;
+
+    border-radius:999px;
+
+    background:var(--scratch-blue);
+    color:white;
+
+    font-size:.88rem;
+    font-weight:900;
+
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.15);
+}
+
+.cyr2-t1 .ruta span:nth-of-type(2){
+    background:var(--scratch-yellow);
+    color:#463700;
+}
+
+.cyr2-t1 .ruta span:nth-of-type(3){
+    background:var(--scratch-purple);
+}
+
+.cyr2-t1 .ruta span:nth-of-type(4){
+    background:var(--scratch-variable);
+}
+
+.cyr2-t1 .ruta span:nth-of-type(5){
+    background:var(--scratch-orange);
+    color:#493600;
+}
+
+.cyr2-t1 .ruta span:nth-of-type(6){
+    background:var(--scratch-green);
+}
+
+.cyr2-t1 .ruta b{
+    color:#8fb2dc;
+    font-size:1.2rem;
+}
+
+/* =========================================================
+   SECCIONES DESPLEGABLES
+========================================================= */
+
+.cyr2-t1 details{
+    overflow:hidden;
+
+    margin:14px 0;
+
+    border:3px solid #d4e7fb;
+    border-radius:20px;
+
+    background:var(--paper);
+
+    box-shadow:
+        0 5px 0 #c9def5,
+        0 10px 24px rgba(44,91,143,.08);
+
+    transition:
+        transform .16s ease,
+        border-color .16s ease,
+        box-shadow .16s ease;
+}
+
+.cyr2-t1 details:hover{
+    transform:translateY(-2px);
+    border-color:#99c8ff;
+}
+
+.cyr2-t1 details[open]{
+    border-color:#8ec4ff;
+    box-shadow:
+        0 6px 0 #a7cef7,
+        0 15px 30px rgba(44,91,143,.13);
+}
+
+.cyr2-t1 summary{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    min-height:64px;
+    padding:15px 18px;
+
+    cursor:pointer;
+    list-style:none;
+    user-select:none;
+
+    background:
+        linear-gradient(90deg,#f7fbff,#eef7ff);
+
+    color:#233650;
+    font-size:1.03rem;
+    font-weight:900;
+}
+
+.cyr2-t1 summary::-webkit-details-marker{
+    display:none;
+}
+
+.cyr2-t1 summary::before{
+    content:"▶";
+
+    display:grid;
+    place-items:center;
+
+    width:30px;
+    height:30px;
+    flex:0 0 30px;
+
+    border-radius:10px;
+
+    background:var(--scratch-blue);
+    color:white;
+
+    font-size:.82rem;
+
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.16);
+
+    transition:transform .18s ease;
+}
+
+.cyr2-t1 details[open] summary::before{
+    transform:rotate(90deg);
+}
+
+.cyr2-t1 .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:48px;
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:var(--scratch-yellow);
+    color:#4b3b00;
+
+    font-size:.77rem;
+    font-weight:950;
+
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.12);
+}
+
+.cyr2-t1 .in{
+    padding:18px;
+    border-top:2px solid #e3effb;
+
+    background:
+        linear-gradient(180deg,#fff 0%,#fbfdff 100%);
+}
+
+.cyr2-t1 .intro{
+    margin-bottom:14px;
+    padding:13px 15px;
+
+    border:2px solid #b9d9ff;
+    border-left:8px solid var(--scratch-blue);
+    border-radius:14px;
+
+    background:#eef7ff;
+
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* =========================================================
+   CUADRÍCULAS Y TARJETAS
+========================================================= */
+
+.cyr2-t1 .grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+}
+
+.cyr2-t1 .box{
+    min-width:0;
+
+    padding:15px;
+
+    border:2px solid #e0e7ef;
+    border-radius:16px;
+
+    background:#fff;
+
+    box-shadow:0 4px 0 #eef2f6;
+}
+
+.cyr2-t1 .box h4{
+    margin:0 0 8px;
+
+    color:#315f9a;
+    font-size:1rem;
+    font-weight:900;
+}
+
+.cyr2-t1 .box p{
+    margin:0 0 8px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.cyr2-t1 ul,
+.cyr2-t1 ol{
+    margin:7px 0 0 21px;
+    padding:0;
+
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.cyr2-t1 li{
+    margin:5px 0;
+}
+
+/* =========================================================
+   ZONA DE BLOQUES SCRATCH
+========================================================= */
+
+.cyr2-t1 .scratch-stage{
+    position:relative;
+
+    margin:11px 0 3px;
+    padding:17px;
+
+    border:3px solid #d3dbe5;
+    border-radius:17px;
+
+    background:
+        linear-gradient(#edf1f5 1px,transparent 1px),
+        linear-gradient(90deg,#edf1f5 1px,transparent 1px),
+        #f7f9fb;
+    background-size:22px 22px;
+
+    box-shadow:inset 0 2px 7px rgba(22,34,53,.06);
+}
+
+.cyr2-t1 .scratch-stage::before{
+    content:"ÁREA DE BLOQUES";
+
+    position:absolute;
+    right:10px;
+    top:7px;
+
+    color:#9aa6b5;
+
+    font-size:.63rem;
+    font-weight:900;
+    letter-spacing:.08em;
+}
+
+/* Forma visual inspirada en los bloques de Scratch */
+.cyr2-t1 .sb{
+    position:relative;
+
+    display:table;
+    width:auto;
+    max-width:calc(100% - 3px);
+
+    margin:7px 0;
+    padding:9px 16px 9px 17px;
+
+    border-radius:7px 12px 12px 7px;
+
+    color:white;
+
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    font-size:.92rem;
+    font-weight:900;
+
+    box-shadow:
+        inset 0 -3px 0 rgba(0,0,0,.18),
+        0 2px 0 rgba(0,0,0,.05);
+
+    text-shadow:0 1px 1px rgba(0,0,0,.14);
+}
+
+.cyr2-t1 .sb::before{
+    content:"";
+    position:absolute;
+    left:13px;
+    top:-3px;
+
+    width:23px;
+    height:7px;
+
+    border-radius:4px;
+
+    background:rgba(255,255,255,.25);
+}
+
+.cyr2-t1 .sb-event{
+    background:#ffbf00;
+    color:#493800;
+    text-shadow:none;
+}
+
+.cyr2-t1 .sb-motion{
+    background:#4c97ff;
+}
+
+.cyr2-t1 .sb-look{
+    background:#9966ff;
+}
+
+.cyr2-t1 .sb-sense{
+    background:#5cb1d6;
+}
+
+.cyr2-t1 .sb-control{
+    background:#ffab19;
+    color:#4b3500;
+    text-shadow:none;
+}
+
+.cyr2-t1 .sb-variable{
+    background:#ff8c1a;
+}
+
+.cyr2-t1 .sb-operator{
+    background:#59c059;
+}
+
+.cyr2-t1 .indent{
+    margin-left:28px;
+}
+
+.cyr2-t1 .scratch-note{
+    margin-top:9px;
+
+    color:var(--muted);
+
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:.88rem;
+}
+
+/* =========================================================
+   TARJETAS DE CONCEPTOS
+========================================================= */
+
+.cyr2-t1 .concepts{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:11px;
+    margin-top:13px;
+}
+
+.cyr2-t1 .concept{
+    position:relative;
+
+    padding:14px;
+
+    border:2px solid #dce7f4;
+    border-radius:16px;
+
+    background:#fff;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    box-shadow:0 4px 0 #edf2f7;
+}
+
+.cyr2-t1 .concept b{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:var(--scratch-blue-dark);
+
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+}
+
+/* =========================================================
+   RETOS
+========================================================= */
+
+.cyr2-t1 .reto{
+    position:relative;
+
+    margin-top:14px;
+    padding:14px 15px 14px 52px;
+
+    border:3px solid #f4cd43;
+    border-radius:16px;
+
+    background:#fff6c8;
+
+    color:#493900;
+
+    box-shadow:0 4px 0 #e5c23e;
+}
+
+.cyr2-t1 .reto::before{
+    content:"⭐";
+
+    position:absolute;
+    left:15px;
+    top:50%;
+
+    font-size:24px;
+
+    transform:translateY(-50%);
+}
+
+.cyr2-t1 .reto strong{
+    color:#684f00;
+}
+
+/* =========================================================
+   DIAGRAMA
+========================================================= */
+
+.cyr2-t1 .flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+
+    margin:13px 0;
+}
+
+.cyr2-t1 .flow .step{
+    padding:9px 13px;
+
+    border-radius:11px;
+
+    background:var(--scratch-green);
+    color:white;
+
+    font-weight:900;
+
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.16);
+}
+
+.cyr2-t1 .flow .arrow{
+    color:#7fa7d3;
+    font-size:1.3rem;
+    font-weight:bold;
+}
+
+/* =========================================================
+   OBJETIVO FINAL
+========================================================= */
+
+.cyr2-t1 .final{
+    position:relative;
+    overflow:hidden;
+
+    margin-top:24px;
+    padding:21px 24px;
+
+    border:4px solid #fff;
+    border-radius:20px;
+
+    background:
+        linear-gradient(135deg,#9966ff 0%,#7d55d8 48%,#4c97ff 100%);
+
+    color:white;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    box-shadow:
+        0 7px 0 #6347b0,
+        0 14px 30px rgba(66,48,130,.18);
+}
+
+.cyr2-t1 .final::after{
+    content:"🏁";
+    position:absolute;
+    right:18px;
+    bottom:-4px;
+
+    font-size:58px;
+
+    opacity:.20;
+}
+
+.cyr2-t1 .final strong{
+    color:#fff5ae;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:760px){
+    .cyr2-t1{
+        padding:10px;
+        border-radius:18px;
+        background:
+            linear-gradient(180deg,#4c97ff 0 220px,#eaf4ff 220px 100%);
+    }
+
+    .cyr2-t1 .grid,
+    .cyr2-t1 .concepts{
+        grid-template-columns:1fr;
+    }
+
+    .cyr2-t1 .hero{
+        min-height:260px;
+        padding:21px 20px 105px;
+    }
+
+    .cyr2-t1 .hero::after{
+        right:18px;
+        font-size:90px;
+    }
+
+    .cyr2-t1 .hero p{
+        padding-right:0;
+    }
+
+    .cyr2-t1 summary{
+        flex-wrap:wrap;
+    }
+
+    .cyr2-t1 .ruta{
+        justify-content:flex-start;
+    }
+}
+
+/* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+@media print{
+    .cyr2-t1{
+        background:white;
+        padding:0;
+    }
+
+    .cyr2-t1 .hero{
+        box-shadow:none;
+        border-color:#ddd;
+        background:#4c97ff !important;
+    }
+
+    .cyr2-t1 details{
+        box-shadow:none;
+        break-inside:avoid;
+    }
+}
+
+/* =========================================================
+   LABORATORIO CON EJEMPLOS REALES DE SCRATCH
+========================================================= */
+.cyr2-t1 .examples-lab{
+    margin-top:24px;
+    padding:20px;
+    border:4px solid #fff;
+    border-radius:22px;
+    background:linear-gradient(135deg,#4c97ff,#3373cc);
+    box-shadow:0 7px 0 #285fae,0 16px 30px rgba(39,83,150,.18);
+}
+
+.cyr2-t1 .examples-lab h3{
+    margin:0 0 5px;
+    color:#fff;
+    font-size:1.45rem;
+}
+
+.cyr2-t1 .examples-lab > p{
+    margin:0 0 16px;
+    color:#eaf5ff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.cyr2-t1 .example-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:15px;
+}
+
+.cyr2-t1 .example-card{
+    overflow:hidden;
+    border:3px solid #d5e8ff;
+    border-radius:18px;
+    background:#fff;
+    box-shadow:0 5px 0 rgba(20,66,120,.18);
+}
+
+.cyr2-t1 .example-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:12px 14px;
+    background:#f4f9ff;
+    border-bottom:2px solid #dcecff;
+}
+
+.cyr2-t1 .example-number{
+    display:inline-grid;
+    place-items:center;
+    min-width:34px;
+    height:34px;
+    padding:0 8px;
+    border-radius:10px;
+    background:#ffbf00;
+    color:#493800;
+    font-size:.78rem;
+    font-weight:950;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.12);
+}
+
+.cyr2-t1 .example-head strong{
+    color:#27476d;
+}
+
+.cyr2-t1 .scratch-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/3;
+    background:#e9eef5;
+}
+
+.cyr2-t1 .scratch-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.cyr2-t1 .example-task{
+    padding:13px 14px 15px;
+    color:#475569;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.cyr2-t1 .example-task p{
+    margin:0 0 8px;
+}
+
+.cyr2-t1 .observe{
+    margin:8px 0 0;
+    padding:9px 11px;
+    border-left:5px solid #ffab19;
+    border-radius:8px;
+    background:#fff6d9;
+    color:#594300;
+}
+
+.cyr2-t1 .scratch-link{
+    display:inline-block;
+    margin-top:8px;
+    padding:7px 11px;
+    border-radius:9px;
+    background:#4c97ff;
+    color:#fff !important;
+    text-decoration:none !important;
+    font-weight:900;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.15);
+}
+
+.cyr2-t1 .scratch-link:hover{
+    background:#3373cc;
+}
+
+.cyr2-t1 .method-box{
+    margin:18px 0 0;
+    padding:15px;
+    border:3px dashed rgba(255,255,255,.65);
+    border-radius:16px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+}
+
+.cyr2-t1 .method-box strong{
+    color:#fff3a6;
+}
+
+.cyr2-t1 .method-flow{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    margin-top:10px;
+}
+
+.cyr2-t1 .method-flow span{
+    padding:7px 10px;
+    border-radius:999px;
+    background:white;
+    color:#315f9a;
+    font-size:.82rem;
+    font-weight:900;
+}
+
+.cyr2-t1 .method-flow b{
+    color:#dceeff;
+}
+
+@media(max-width:760px){
+    .cyr2-t1 .example-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cyr2-t1 .examples-lab{
+        padding:14px;
+    }
+}
+
+
+
+/* =========================================================
+   PYTHON · COMPARACIÓN CON SCRATCH
+========================================================= */
+.cyr2-t1 .python-stage{
+    margin:11px 0 3px;
+    padding:16px;
+    border:3px solid #d7dee8;
+    border-radius:17px;
+    background:#18212f;
+    color:#f4f7fb;
+    box-shadow:inset 0 2px 8px rgba(0,0,0,.25);
+}
+
+.cyr2-t1 .python-stage::before{
+    content:"PYTHON";
+    display:inline-block;
+    margin-bottom:10px;
+    padding:4px 8px;
+    border-radius:999px;
+    background:#ffd43b;
+    color:#243447;
+    font-size:.66rem;
+    font-weight:950;
+    letter-spacing:.08em;
+}
+
+.cyr2-t1 .python-code{
+    margin:0;
+    white-space:pre-wrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    font-size:.9rem;
+    line-height:1.55;
+}
+
+.cyr2-t1 .compare{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+    margin-top:12px;
+}
+
+.cyr2-t1 .compare-title{
+    margin:0 0 7px;
+    font-weight:950;
+    color:#2b466d;
+}
+
+.cyr2-t1 .equiv{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:8px;
+    align-items:center;
+    margin:8px 0;
+    padding:10px;
+    border:2px solid #dfe8f3;
+    border-radius:14px;
+    background:#fff;
+}
+
+.cyr2-t1 .equiv .arrow{
+    font-size:1.25rem;
+    color:#6b8ab1;
+    font-weight:900;
+}
+
+.cyr2-t1 .mini-code{
+    padding:7px 9px;
+    border-radius:9px;
+    background:#18212f;
+    color:#f8fafc;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.82rem;
+}
+
+.cyr2-t1 .robot-flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
+
+.cyr2-t1 .robot-flow span{
+    padding:9px 12px;
+    border-radius:12px;
+    background:#eaf7f1;
+    color:#087a5b;
+    font-weight:900;
+    border:2px solid #bfe7d8;
+}
+
+@media(max-width:760px){
+    .cyr2-t1 .compare{
+        grid-template-columns:1fr;
+    }
+
+    .cyr2-t1 .equiv{
+        grid-template-columns:1fr;
+    }
+
+    .cyr2-t1 .equiv .arrow{
+        transform:rotate(90deg);
+        text-align:center;
+    }
+}
+
+</style>
+
+
+<!-- CABECERA -->
+<div class="hero">
+    <div class="tag">🐍🧩 1.º trimestre · Computación y Robótica · 2.º ESO</div>
+
+    <h2>Programar con Scratch y comenzar con Python</h2>
+
+    <p>
+        Durante este trimestre aprenderemos que las ideas de programación
+        son las mismas aunque cambie el lenguaje: primero las veremos de forma
+        visual en Scratch y después comenzaremos a expresarlas con Python.
+        También aplicaremos esa lógica al control de sistemas físicos y robots.
+    </p>
+</div>
+
+
+<div class="ruta">
+    <span>🧠 Algoritmo</span>
+    <b>→</b>
+    <span>🧩 Scratch</span>
+    <b>→</b>
+    <span>🐍 Python</span>
+    <b>→</b>
+    <span>🔀 Decisión</span>
+    <b>→</b>
+    <span>🔁 Bucle</span>
+    <b>→</b>
+    <span>🤖 Robótica</span>
+</div>
+
+
+<!-- 1. ALGORITMOS -->
+<details open>
+    <summary>
+        <span class="num">01</span>
+        Algoritmos: antes de programar, pensar
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            <strong>Idea básica:</strong>
+            un algoritmo es una secuencia ordenada y precisa de instrucciones.
+            Podemos expresarlo con palabras, con un diagrama, con bloques de Scratch
+            o con código Python.
+        </div>
+
+        <div class="grid">
+
+            <div class="box">
+                <h4>🧠 Problema sencillo</h4>
+                <p>Queremos que un personaje avance, gire y salude.</p>
+
+                <ol>
+                    <li>Avanzar.</li>
+                    <li>Girar.</li>
+                    <li>Mostrar un saludo.</li>
+                </ol>
+            </div>
+
+            <div class="box">
+                <h4>🧩 En Scratch</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-event">al presionar bandera verde</div>
+                    <div class="sb sb-motion indent">mover 30 pasos</div>
+                    <div class="sb sb-motion indent">girar ↻ 90 grados</div>
+                    <div class="sb sb-look indent">decir ¡Hola! durante 2 segundos</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Reto:</strong>
+            escribe primero el algoritmo con palabras y después construye
+            una versión en Scratch.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 2. SCRATCH ↔ PYTHON -->
+<details open>
+    <summary>
+        <span class="num">02</span>
+        De Scratch a Python: mismo algoritmo, otro lenguaje
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Scratch utiliza <strong>bloques</strong>. Python utiliza
+            <strong>instrucciones escritas</strong>. La forma cambia,
+            pero la idea del algoritmo sigue siendo la misma.
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <div class="compare-title">🧩 Scratch</div>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-look">decir ¡Hola!</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="compare-title">🐍 Python</div>
+
+                <div class="python-stage">
+                    <pre class="python-code">print("¡Hola!")</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="equiv">
+            <div class="sb sb-look">decir Hola</div>
+            <div class="arrow">↔</div>
+            <div class="mini-code">print("Hola")</div>
+        </div>
+
+        <div class="equiv">
+            <div class="sb sb-variable">fijar puntos a 0</div>
+            <div class="arrow">↔</div>
+            <div class="mini-code">puntos = 0</div>
+        </div>
+
+        <div class="equiv">
+            <div class="sb sb-sense">preguntar ¿Nombre? y esperar</div>
+            <div class="arrow">↔</div>
+            <div class="mini-code">nombre = input("Nombre: ")</div>
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 3. VARIABLES -->
+<details>
+    <summary>
+        <span class="num">03</span>
+        Variables: la memoria del programa
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Una <strong>variable</strong> guarda un dato que el programa
+            puede utilizar o modificar durante su ejecución.
+        </div>
+
+        <div class="concepts">
+            <div class="concept">
+                <b>📦 nombre</b>
+                Guarda texto.
+            </div>
+
+            <div class="concept">
+                <b>🎂 edad</b>
+                Guarda un número.
+            </div>
+
+            <div class="concept">
+                <b>⭐ puntos</b>
+                Puede cambiar durante un juego.
+            </div>
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <h4>🧩 Scratch</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-variable">fijar puntos a 0</div>
+                    <div class="sb sb-variable">cambiar puntos por 1</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Python</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">puntos = 0
+puntos = puntos + 1
+
+print(puntos)</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Reto:</strong>
+            crea una variable <strong>edad</strong> en Scratch y otra
+            variable <strong>edad</strong> en Python.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 4. ENTRADA Y SALIDA -->
+<details>
+    <summary>
+        <span class="num">04</span>
+        Entrada y salida: hablar con el programa
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Los programas pueden recibir datos del usuario
+            (<strong>entrada</strong>) y mostrar un resultado
+            (<strong>salida</strong>).
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <h4>🧩 Scratch</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-sense">
+                        preguntar ¿Cómo te llamas? y esperar
+                    </div>
+                    <div class="sb sb-look">
+                        decir respuesta
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Python</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">nombre = input("¿Cómo te llamas? ")
+
+print("Hola", nombre)</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flow">
+            <span class="step">Entrada</span>
+            <span class="arrow">→</span>
+            <span class="step">Procesamiento</span>
+            <span class="arrow">→</span>
+            <span class="step">Salida</span>
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Reto:</strong>
+            pregunta nombre y edad y muestra un saludo personalizado
+            tanto en Scratch como en Python.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 5. CONDICIONALES -->
+<details>
+    <summary>
+        <span class="num">05</span>
+        Condiciones: Scratch decide, Python también
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Una condición permite ejecutar una acción solamente cuando
+            una expresión es verdadera.
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <h4>🧩 Scratch</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-control">
+                        si &lt;edad ≥ 12&gt; entonces
+                    </div>
+
+                    <div class="sb sb-look indent">
+                        decir Puedes continuar
+                    </div>
+
+                    <div class="sb sb-control">
+                        si no
+                    </div>
+
+                    <div class="sb sb-look indent">
+                        decir Todavía no
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Python</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">if edad >= 12:
+    print("Puedes continuar")
+else:
+    print("Todavía no")</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box" style="margin-top:13px;">
+            <h4>🧮 Operadores de comparación</h4>
+
+            <div class="concepts">
+                <div class="concept"><b>&gt;</b> Mayor que</div>
+                <div class="concept"><b>&lt;</b> Menor que</div>
+                <div class="concept"><b>==</b> Igual que</div>
+            </div>
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Reto:</strong>
+            programa el mismo problema en Scratch y Python:
+            indicar si un número es positivo, negativo o cero.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 6. BUCLES -->
+<details>
+    <summary>
+        <span class="num">06</span>
+        Bucles: repetir sin copiar
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Un bucle permite repetir instrucciones automáticamente.
+            Scratch lo representa visualmente; Python utiliza estructuras escritas.
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <h4>🧩 Scratch · repetir</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-control">repetir 5</div>
+                    <div class="sb sb-look indent">decir Hola</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Python · for</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">for i in range(5):
+    print("Hola")</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="compare">
+
+            <div class="box">
+                <h4>🧩 Scratch · por siempre</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-control">por siempre</div>
+                    <div class="sb sb-motion indent">mover 5 pasos</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Python · while</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">while True:
+    print("Repitiendo...")</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Reto:</strong>
+            muestra los números del 1 al 10 primero con Scratch
+            y después con Python.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 7. COMBINAR -->
+<details>
+    <summary>
+        <span class="num">07</span>
+        Combinar estructuras: pequeño proyecto
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            Un programa real combina variables, entrada de datos,
+            decisiones y repeticiones.
+        </div>
+
+        <div class="grid">
+
+            <div class="box">
+                <h4>🎮 Opción Scratch</h4>
+                <p>
+                    Crea un quiz de preguntas con una variable
+                    <strong>puntos</strong>.
+                </p>
+
+                <ul>
+                    <li>pregunta;</li>
+                    <li>comprueba la respuesta;</li>
+                    <li>suma puntos;</li>
+                    <li>repite varias preguntas.</li>
+                </ul>
+            </div>
+
+            <div class="box">
+                <h4>🐍 Opción Python</h4>
+
+                <div class="python-stage">
+                    <pre class="python-code">puntos = 0
+
+respuesta = input("2 + 2 = ")
+
+if respuesta == "4":
+    puntos = puntos + 1
+
+print("Puntos:", puntos)</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reto">
+            <strong>🚀 Desafío:</strong>
+            crea las dos versiones del mismo pequeño programa y explica
+            qué bloques de Scratch corresponden a cada instrucción Python.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- 8. ROBÓTICA -->
+<details>
+    <summary>
+        <span class="num">08</span>
+        De Scratch a la robótica
+    </summary>
+
+    <div class="in">
+
+        <div class="intro">
+            En robótica seguimos utilizando exactamente la misma lógica.
+            La diferencia es que la salida ya no ocurre solo en la pantalla:
+            puede encender un LED, mover un motor o hacer girar un robot.
+        </div>
+
+        <div class="robot-flow">
+            <span>🎛️ Entrada / sensor</span>
+            <b>→</b>
+            <span>🧠 Programa</span>
+            <b>→</b>
+            <span>🔀 Decisión</span>
+            <b>→</b>
+            <span>⚙️ Actuador</span>
+        </div>
+
+        <div class="grid" style="margin-top:14px;">
+
+            <div class="box">
+                <h4>🧩 Lo que ya sabemos</h4>
+
+                <div class="scratch-stage">
+                    <div class="sb sb-event">cuando ocurre un evento</div>
+                    <div class="sb sb-control">si &lt;se cumple condición&gt;</div>
+                    <div class="sb sb-motion indent">realizar acción</div>
+                </div>
+            </div>
+
+            <div class="box">
+                <h4>🤖 En un robot</h4>
+
+                <ol>
+                    <li>Un sensor recibe información.</li>
+                    <li>El programa comprueba una condición.</li>
+                    <li>El robot toma una decisión.</li>
+                    <li>Un motor, LED u otro actuador responde.</li>
+                </ol>
+            </div>
+
+        </div>
+
+        <div class="reto">
+            <strong>🎯 Ejemplo:</strong>
+            si el robot detecta un obstáculo cerca,
+            detenerse y girar.
+        </div>
+
+    </div>
+</details>
+
+
+<!-- LABORATORIO SCRATCH -->
+<section class="examples-lab">
+
+    <h3>🎮 Laboratorio Scratch · Mira, analiza y traduce</h3>
+
+    <p>
+        Utiliza estos proyectos para identificar algoritmos y estructuras.
+        Después intenta expresar una pequeña parte del comportamiento
+        mediante pseudocódigo o Python.
+    </p>
+
+    <div class="example-grid">
+
+        <article class="example-card">
+            <div class="example-head">
+                <span class="example-number">01</span>
+                <strong>Analiza la secuencia</strong>
+            </div>
+
+            <div class="scratch-frame">
+                <iframe
+                    src="https://scratch.mit.edu/projects/580936072/embed"
+                    allowtransparency="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="example-task">
+                <p><strong>👀 Observa:</strong> identifica el evento inicial y el orden de las acciones.</p>
+                <div class="observe">
+                    Escribe después un algoritmo equivalente con instrucciones de texto.
+                </div>
+                <a class="scratch-link"
+                   href="https://scratch.mit.edu/projects/580936072/"
+                   target="_blank" rel="noopener">
+                   🐱 Abrir en Scratch
+                </a>
+            </div>
+        </article>
+
+
+        <article class="example-card">
+            <div class="example-head">
+                <span class="example-number">02</span>
+                <strong>Busca variables y decisiones</strong>
+            </div>
+
+            <div class="scratch-frame">
+                <iframe
+                    src="https://scratch.mit.edu/projects/585714984/embed"
+                    allowtransparency="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="example-task">
+                <p><strong>🎯 Investiga:</strong> localiza variables, condiciones y repeticiones.</p>
+                <div class="observe">
+                    ¿Cómo escribirías una de esas decisiones usando <strong>if</strong> en Python?
+                </div>
+                <a class="scratch-link"
+                   href="https://scratch.mit.edu/projects/585714984/"
+                   target="_blank" rel="noopener">
+                   🎮 Abrir juego en Scratch
+                </a>
+            </div>
+        </article>
+
+    </div>
+
+    <div class="method-box">
+        <strong>🧠 Método de trabajo</strong>
+
+        <div class="method-flow">
+            <span>1 · Observa</span>
+            <b>→</b>
+            <span>2 · Identifica</span>
+            <b>→</b>
+            <span>3 · Explica</span>
+            <b>→</b>
+            <span>4 · Compara</span>
+            <b>→</b>
+            <span>5 · Traduce a Python</span>
+            <b>→</b>
+            <span>6 · Prueba</span>
+        </div>
+    </div>
+
+</section>
+
+
+<div class="final">
+    <strong>🎯 Objetivo del trimestre:</strong>
+    comprender y utilizar <strong>algoritmos, variables, entrada/salida,
+    condiciones y bucles</strong> principalmente mediante programación visual,
+    iniciándose además en su expresión equivalente con <strong>Python</strong>
+    y aplicando la misma lógica a problemas sencillos de <strong>robótica</strong>.
+</div>
+
+
+</div>
