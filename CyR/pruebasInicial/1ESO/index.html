@@ -1,0 +1,295 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CyR 1.º ESO · Aprende jugando</title>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+<style>
+:root{
+  --bg:#06101b;--panel:#0d1b2d;--panel2:#13263d;--text:#f8fbff;--muted:#9fb4ca;
+  --border:rgba(255,255,255,.12);--accent:#7c3aed;--good:#22c55e;--bad:#ef4444
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 10% 10%,rgba(124,58,237,.16),transparent 30%),
+radial-gradient(circle at 90% 0%,rgba(6,182,212,.12),transparent 28%),
+linear-gradient(180deg,#06101c,#091321 60%,#08111d);color:var(--text)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{width:min(1200px,100%);margin:auto;padding:16px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:grid;place-items:center;font-size:29px;box-shadow:0 10px 40px rgba(124,58,237,.24)}
+.brand h1{margin:0;font-size:clamp(1.15rem,2vw,1.55rem)}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:.9rem}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:999px;font-weight:800;font-size:.92rem}
+.progress-shell{height:12px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden;margin:14px 0 16px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#06b6d4,#22c55e);transition:width .35s ease}
+.card{background:rgba(13,27,45,.9);border:1px solid var(--border);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,.18)}
+.intro{padding:28px}
+.intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.intro h2{font-size:clamp(2rem,5vw,4.1rem);line-height:.98;margin:0}
+.grad{background:linear-gradient(90deg,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}
+.intro p{color:var(--muted);line-height:1.65;font-size:1.04rem}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feature{padding:14px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.feature b{display:block;margin-bottom:3px}
+.start-row,.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{border:0;border-radius:14px;padding:12px 18px;font-weight:900;color:white;background:linear-gradient(135deg,#7c3aed,#2563eb)}
+.btn.secondary{background:rgba(255,255,255,.08);border:1px solid var(--border)}
+.stage{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:18px;align-items:stretch}
+.visual{min-height:330px;overflow:hidden;position:relative}
+#p5-holder{width:100%;height:100%;min-height:330px}
+.qcard{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.kicker{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#67e8f9;margin-bottom:9px}
+.qcard h2{font-size:clamp(1.42rem,3vw,2.15rem);line-height:1.15;margin:0;white-space:pre-line}
+.context{color:var(--muted);margin-top:14px;line-height:1.55;white-space:pre-line}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.answer{border:0;border-radius:20px;padding:18px;min-height:92px;color:#fff;font-weight:850;text-align:left;display:flex;gap:13px;align-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),0 12px 30px rgba(0,0,0,.12);transition:transform .14s ease,filter .14s ease,opacity .14s ease}
+.answer:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.answer:disabled{cursor:default}
+.shape{width:38px;height:38px;flex:0 0 auto;display:grid;place-items:center;background:rgba(0,0,0,.18);border-radius:12px;font-size:1.25rem}
+.a0{background:#d7263d}.a1{background:#1f6feb}.a2{background:#c99000}.a3{background:#148a55}
+.answer.correct{outline:4px solid #fff;box-shadow:0 0 0 7px rgba(34,197,94,.5),0 16px 40px rgba(34,197,94,.22)}
+.answer.wrong{opacity:.45;filter:saturate(.45)}
+.feedback{margin-top:16px;padding:18px 20px;display:none;align-items:center;justify-content:space-between;gap:18px}
+.feedback.show{display:flex}
+.feedback h3{margin:0 0 4px;font-size:1.12rem}
+.feedback p{margin:0;color:var(--muted);line-height:1.45}
+.open-box{margin-top:16px}
+.open-box textarea{width:100%;min-height:115px;border:1px solid var(--border);border-radius:18px;padding:16px;background:#091727;color:var(--text);resize:vertical}
+.solution{display:none;margin-top:14px;padding:15px 17px;border-radius:16px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.35);line-height:1.55;white-space:pre-line}
+.solution.show{display:block}
+.multi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.checkopt{display:flex;gap:10px;align-items:center;background:#0a1828;border:1px solid var(--border);padding:13px;border-radius:15px}
+.checkopt input{width:20px;height:20px}
+.match-grid{display:grid;gap:10px;margin-top:16px}
+.match-row{display:grid;grid-template-columns:minmax(130px,.8fr) 1.2fr;gap:12px;align-items:center;background:#0a1828;border:1px solid var(--border);padding:12px;border-radius:15px}
+.match-row select{width:100%;background:#091727;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:11px}
+.draw-wrap{margin-top:16px}
+.draw-canvas{width:100%;height:260px;background:#fff;border-radius:18px;touch-action:none;display:block}
+.summary{padding:28px;display:none;text-align:center}
+.summary.show{display:block}
+.summary .trophy{font-size:72px}
+.summary h2{font-size:2.2rem;margin:6px 0}
+.bigscore{font-size:clamp(2.7rem,8vw,5.5rem);font-weight:950;background:linear-gradient(90deg,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}
+.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.metric{padding:15px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.metric strong{display:block;font-size:1.6rem}
+.hidden{display:none!important}
+@media(max-width:820px){.stage,.intro-grid{grid-template-columns:1fr}.visual{min-height:220px}#p5-holder{min-height:220px}}
+@media(max-width:600px){.app{padding:10px}.answers,.multi-grid,.features,.breakdown{grid-template-columns:1fr}.feedback{align-items:flex-start;flex-direction:column}.match-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🤖</div>
+    <div><h1>Computación y Robótica · 1.º ESO</h1><p>Prueba inicial interactiva · Aprende jugando</p></div>
+  </div>
+  <div class="stats">
+    <div class="pill">⭐ <span id="score">0</span></div>
+    <div class="pill">🔥 <span id="streak">0</span></div>
+    <div class="pill">🎯 <span id="counter">0/0</span></div>
+  </div>
+</header>
+<div class="progress-shell"><div id="progress" class="progress"></div></div>
+
+<section id="intro" class="card intro">
+  <div class="intro-grid">
+    <div>
+      <div class="kicker">Prueba inicial</div>
+      <h2>Piensa, prueba y <span class="grad">aprende jugando</span></h2>
+      <p>No necesitas haber programado antes. La actividad sirve para descubrir qué sabes ya sobre algoritmos, programación, robots, IoT, ordenadores, seguridad e Inteligencia Artificial.</p>
+      <div class="start-row">
+        <button id="startBtn" class="btn">▶ Empezar</button>
+        <button id="soundBtn" class="btn secondary">🔊 Sonido: activado</button>
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature"><b>🎮 23 preguntas</b><span>Más reto y diagnóstico personal.</span></div>
+      <div class="feature"><b>⚡ Feedback inmediato</b><span>Aprende tras cada respuesta.</span></div>
+      <div class="feature"><b>✏️ Dibuja</b><span>Recorridos y tu robot explorador.</span></div>
+      <div class="feature"><b>🧠 Razona</b><span>Respuestas abiertas con orientación.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="game" class="hidden">
+  <div class="stage">
+    <div class="card visual"><div id="p5-holder"></div></div>
+    <div class="card qcard">
+      <div id="category" class="kicker"></div>
+      <h2 id="question"></h2>
+      <div id="context" class="context"></div>
+      <div id="dynamic"></div>
+    </div>
+  </div>
+  <div id="feedback" class="card feedback">
+    <div><h3 id="feedbackTitle"></h3><p id="feedbackText"></p></div>
+    <button id="nextBtn" class="btn">Siguiente →</button>
+  </div>
+</section>
+
+<section id="summary" class="card summary">
+  <div class="trophy">🏆</div>
+  <h2>¡Prueba completada!</h2>
+  <div id="finalScore" class="bigscore">0</div>
+  <p>La puntuación es solo parte del juego. Lo importante es conocer tu punto de partida y descubrir lo que aprenderás durante el curso.</p>
+  <div class="breakdown">
+    <div class="metric"><strong id="rightCount">0</strong>Aciertos</div>
+    <div class="metric"><strong id="bestStreak">0</strong>Mejor racha</div>
+    <div class="metric"><strong id="answeredCount">0</strong>Actividades</div>
+  </div>
+  <button id="restartBtn" class="btn">↻ Volver a jugar</button>
+</section>
+</main>
+
+<script>
+const items=[
+{n:1,cat:"1. Pensar como un programador",type:"mc",icon:"🧠",q:"¿Qué es un algoritmo?",a:["Un tipo de ordenador.","Una serie ordenada de instrucciones para realizar una tarea.","Una pieza de un robot.","Una conexión a Internet."],ok:1,ex:"Un algoritmo es una serie ordenada de instrucciones para realizar una tarea o resolver un problema."},
+{n:2,cat:"1. Pensar como un programador",type:"order",icon:"🥤",q:"Queremos preparar un vaso de agua. Ordena las instrucciones del 1 al 4.",a:["Beber el agua.","Abrir el grifo.","Colocar el vaso debajo del grifo.","Cerrar el grifo cuando el vaso esté lleno."],order:[2,1,3,0],solution:"1. Colocar el vaso debajo del grifo → 2. Abrir el grifo → 3. Cerrar el grifo cuando el vaso esté lleno → 4. Beber el agua."},
+{n:3,cat:"1. Pensar como un programador",type:"mc",icon:"🚪",q:"Un robot solo entiende instrucciones exactas. Queremos que llegue hasta una puerta. ¿Qué instrucción es mejor?",a:["Ve allí.","Muévete un poco.","Avanza 5 pasos, gira 90° a la derecha y avanza 3 pasos.","Busca la puerta como puedas."],ok:2,ex:"Las instrucciones precisas y medibles son más fáciles de ejecutar para una máquina."},
+{n:4,cat:"1. Pensar como un programador",type:"open",icon:"🔢",q:"Continúa el patrón: 2 – 4 – 6 – 8 – ____ – ____",context:"¿Cómo has descubierto la respuesta?",solution:"10 – 12. El patrón aumenta de 2 en 2."},
+{n:5,cat:"1. Pensar como un programador",type:"mc",icon:"🧭",q:"Continúa el patrón: ⬆️ ➡️ ⬇️ ⬅️ ⬆️ ➡️ ______ ______",a:["⬇️ ⬅️","⬆️ ➡️","⬅️ ⬆️","➡️ ⬇️"],ok:0,ex:"La secuencia repite cuatro direcciones: arriba, derecha, abajo, izquierda."},
+
+{n:6,cat:"2. Programación",type:"draw",icon:"🤖",q:"Un robot comienza mirando hacia arriba. Dibuja aproximadamente el camino que realizará.",context:"Programa:\navanzar\navanzar\ngirar a la derecha\navanzar",solution:"El robot avanza dos pasos hacia arriba, gira a la derecha y avanza un paso hacia la derecha."},
+{n:7,cat:"2. Programación",type:"mc",icon:"🔁",q:"Queremos que un personaje dé 10 pasos. ¿Qué programa parece mejor?",a:["Escribir «avanzar» 10 veces.","REPETIR 10 VECES → avanzar"],ok:1,ex:"La repetición evita escribir muchas veces la misma instrucción y hace el programa más claro."},
+{n:8,cat:"2. Programación",type:"mc",icon:"☔",q:"Observa: SI está lloviendo → coger paraguas. ¿Qué significa SI en este programa?",a:["Repetir una acción.","Tomar una decisión dependiendo de una condición.","Apagar el ordenador.","Dibujar algo."],ok:1,ex:"SI representa una decisión: la acción depende de que la condición se cumpla."},
+{n:9,cat:"2. Programación",type:"open",icon:"🏆",q:"Queremos que un videojuego diga «¡Has ganado!» cuando el jugador consiga 10 puntos.",context:"Completa:\nSI puntos ______ 10\n______________________________________",solution:"Una posible respuesta es: SI puntos >= 10 → mostrar «¡Has ganado!»."},
+
+{n:10,cat:"3. Robots",type:"mc",icon:"🧹",q:"¿Cuál de estos objetos considerarías un robot?",a:["Una cuchara.","Un robot aspirador que detecta obstáculos y cambia su movimiento.","Una silla.","Un cuaderno."],ok:1,ex:"El robot aspirador puede percibir el entorno y actuar según lo que detecta."},
+{n:11,cat:"3. Robots",type:"mc",icon:"📡",q:"¿Qué crees que hace un sensor?",a:["Permite obtener información del entorno.","Decora el robot.","Siempre hace girar las ruedas.","Guarda los deberes."],ok:0,ex:"Un sensor obtiene información del entorno."},
+{n:12,cat:"3. Robots",type:"match",icon:"🌡️",q:"Relaciona cada sensor con lo que podría detectar.",pairs:[["Sensor de luz","Si hay mucha o poca luz."],["Sensor de temperatura","Si hace frío o calor."],["Sensor de distancia","Si hay un objeto cerca."]],options:["Si hay un objeto cerca.","Si hace frío o calor.","Si hay mucha o poca luz."]},
+{n:13,cat:"3. Robots",type:"open",icon:"🧱",q:"Un robot tiene un sensor de distancia y dos motores. Queremos que no choque contra una pared.",context:"Completa:\nSI detecta una pared cerca\n__________________________________________",solution:"Respuesta posible: detenerse y/o girar para evitar la pared."},
+
+{n:14,cat:"4. Internet de las Cosas",type:"mc",icon:"💡",q:"Una casa tiene una bombilla que puedes encender desde el teléfono móvil mediante Internet. ¿Podría ser un ejemplo de Internet de las Cosas (IoT)?",a:["Sí.","No."],ok:0,ex:"Sí. Un objeto físico conectado puede recibir órdenes o intercambiar información a través de Internet."},
+{n:15,cat:"4. Internet de las Cosas",type:"open",icon:"🌱",q:"Imagina un huerto inteligente. Un sensor comprueba si la tierra está seca. ¿Qué podría hacer automáticamente el sistema cuando detecte que necesita agua?",solution:"Respuesta posible: activar automáticamente un sistema de riego hasta que la tierra tenga suficiente humedad."},
+
+{n:16,cat:"5. Ordenadores",type:"multiCorrect",icon:"🖥️",q:"Marca los que sean dispositivos físicos.",a:["Teclado","Ratón","Pantalla","Windows","Altavoz","Linux","Navegador web"],correct:[0,1,2,4],solution:"Dispositivos físicos: teclado, ratón, pantalla y altavoz. Windows, Linux y el navegador son software."},
+{n:17,cat:"5. Ordenadores",type:"mc",icon:"📁",q:"Tienes que guardar un trabajo llamado «Proyecto Robot». ¿Cuál sería la mejor forma?",a:["Guardarlo en cualquier sitio sin saber dónde.","Crear una carpeta llamada Proyecto Robot.","Llamar a todos los archivos «nuevo».","Dejarlo solamente abierto en pantalla."],ok:1,ex:"Una carpeta con un nombre claro ayuda a localizar y organizar los archivos."},
+{n:18,cat:"5. Ordenadores",type:"multi",icon:"💻",q:"¿Has utilizado alguna de estas herramientas? Puedes marcar varias.",a:["Scratch","MakeCode","micro:bit","Arduino","Minecraft Education","Tinkercad","Python","App Inventor","Ninguna","Otra"],diagnostic:true},
+
+{n:19,cat:"6. Seguridad en Internet",type:"mc",icon:"🔐",q:"¿Cuál de estas contraseñas parece más segura?",a:["123456","password","juan2014","Tren!Nube-72-Limon"],ok:3,ex:"La última es más larga y menos predecible."},
+{n:20,cat:"6. Seguridad en Internet",type:"mc",icon:"🛡️",q:"Una persona desconocida te escribe: «Dime tu contraseña y tu dirección para enviarte un premio». ¿Qué harías?",a:["Enviarle los datos.","Darle solamente la contraseña.","No proporcionar los datos y avisar a una persona adulta de confianza.","Darle los datos si promete que es verdad."],ok:2,ex:"No debes compartir datos personales ni contraseñas con desconocidos; es buena idea pedir ayuda a una persona adulta de confianza."},
+{n:21,cat:"6. Seguridad en Internet",type:"mc",icon:"🔗",q:"Recibes un enlace de alguien que no conoces. ¿Qué sería más prudente?",a:["Abrirlo inmediatamente.","No abrirlo sin comprobar de dónde procede.","Reenviarlo a toda la clase.","Introducir nuestra contraseña."],ok:1,ex:"Conviene comprobar el origen antes de abrir enlaces desconocidos."},
+
+{n:22,cat:"7. Inteligencia Artificial",type:"mc",icon:"🧠",q:"¿Cuál de estos ejemplos podría utilizar Inteligencia Artificial?",a:["Una aplicación que reconoce qué aparece en una fotografía.","Un lápiz.","Una mesa.","Una bombilla normal."],ok:0,ex:"Reconocer objetos o contenidos en imágenes es una aplicación habitual de IA."},
+{n:23,cat:"7. Inteligencia Artificial",type:"mc",icon:"🤖",q:"Una Inteligencia Artificial te da una respuesta. ¿Significa que siempre tiene razón?",a:["Sí.","No."],ok:1,ex:"Una IA puede equivocarse. Conviene comprobar la información con otras fuentes fiables."},
+
+{n:"Reto",cat:"8. El reto · El robot explorador",type:"reto",icon:"🚗",q:"Imagina un pequeño robot que debe recorrer el instituto sin chocarse.",context:"Dispone de dos motores, un sensor de distancia, luces y un pequeño ordenador.\n\n¿Para qué utilizarías el sensor?\n¿Para qué utilizarías los motores?\nCompleta el programa y dibuja tu robot indicando sensor, motores, ruedas y luces.",solution:"Respuesta orientativa:\nSensor → detectar obstáculos delante del robot.\nMotores → mover las ruedas y permitir avanzar, parar o girar.\nAlgoritmo posible:\nINICIO\navanzar\nSI detecta una pared cerca\n  detenerse\n  girar\nFIN"},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"singleDiag",icon:"💻",q:"¿Tienes ordenador o tablet disponible habitualmente?",a:["Sí","No","Algunas veces"]},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"singleDiag",icon:"👨‍💻",q:"¿Has programado alguna vez?",a:["Nunca","Alguna vez","Bastantes veces"]},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"singleDiag",icon:"🤖",q:"¿Has utilizado algún robot?",a:["Nunca","Alguna vez"]},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"multi",icon:"🚀",q:"¿Qué te gustaría aprender? Puedes marcar varias.",a:["Crear videojuegos","Programar robots","Crear aplicaciones para móviles","Crear páginas web","Inteligencia Artificial","Ciberseguridad","Crear inventos","Otra cosa"],diagnostic:true},
+{n:"Sobre ti",cat:"9. Sobre ti",type:"open",icon:"🛠️",q:"¿Qué te gustaría construir o programar este curso?",solution:"Respuesta personal. No hay una respuesta correcta."}
+];
+
+let index=0,score=0,streak=0,best=0,rights=0,locked=false,soundOn=true,order=[];
+const $=id=>document.getElementById(id),shapes=["▲","◆","●","■","★","⬟","⬢","✦"];
+
+function beep(ok=true){
+ if(!soundOn)return;
+ try{
+  const AC=window.AudioContext||window.webkitAudioContext,ac=new AC(),o=ac.createOscillator(),g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);o.frequency.value=ok?660:180;o.type=ok?"sine":"sawtooth";
+  g.gain.setValueAtTime(.05,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.16);o.start();o.stop(ac.currentTime+.17);
+ }catch(e){}
+}
+function updateStats(){
+ $("score").textContent=score;$("streak").textContent=streak;$("counter").textContent=`${Math.min(index+1,items.length)}/${items.length}`;
+ $("progress").style.width=`${(index/items.length)*100}%`;
+}
+function showFeedback(t,p){$("feedbackTitle").textContent=t;$("feedbackText").textContent=p;$("feedback").classList.add("show")}
+function start(){ $("intro").classList.add("hidden");$("game").classList.remove("hidden");render(); }
+function render(){
+ locked=false;order=[];$("feedback").classList.remove("show");
+ const it=items[index];$("category").textContent=it.cat;$("question").textContent=(typeof it.n==="number"?it.n+". ":"")+it.q;$("context").textContent=it.context||"";
+ $("dynamic").innerHTML="";window.currentIcon=it.icon||"🤖";
+ const map={mc:renderMC,open:renderOpen,order:renderOrder,match:renderMatch,multi:renderMulti,multiCorrect:renderMultiCorrect,draw:renderDraw,reto:renderReto,singleDiag:renderSingleDiag};
+ map[it.type](it,$("dynamic"));updateStats();
+}
+function renderMC(it,d){
+ const w=document.createElement("div");w.className="answers";
+ it.a.forEach((txt,i)=>{const b=document.createElement("button");b.className=`answer a${i%4}`;b.innerHTML=`<span class="shape">${shapes[i]}</span><span>${txt}</span>`;
+ b.onclick=()=>{if(locked)return;locked=true;const bs=[...w.children];bs.forEach(x=>x.disabled=true);bs[it.ok].classList.add("correct");
+ if(i===it.ok){score+=100+streak*10;streak++;best=Math.max(best,streak);rights++;beep(true);showFeedback("✅ ¡Correcto!",it.ex)}
+ else{b.classList.add("wrong");streak=0;beep(false);showFeedback("❌ Esta vez no",it.ex)}updateStats()};w.appendChild(b)});
+ d.appendChild(w);
+}
+function renderOpen(it,d){
+ const w=document.createElement("div");w.className="open-box";w.innerHTML=`<textarea placeholder="Escribe aquí tu respuesta..."></textarea><div class="actions"><button class="btn see">💡 Ver respuesta orientativa</button><button class="btn secondary skip">Continuar sin verla</button></div><div class="solution"></div>`;
+ const sol=w.querySelector(".solution");sol.textContent=it.solution||"Respuesta personal.";
+ w.querySelector(".see").onclick=()=>{if(locked)return;locked=true;score+=50;sol.classList.add("show");showFeedback("🧠 Compara tu idea","La respuesta mostrada es orientativa.");updateStats()};
+ w.querySelector(".skip").onclick=()=>{if(locked)return;locked=true;showFeedback("✍️ Respuesta realizada","Continúa cuando quieras.");updateStats()};
+ d.appendChild(w);
+}
+function renderOrder(it,d){
+ const w=document.createElement("div");w.className="answers";
+ it.a.forEach((txt,i)=>{const b=document.createElement("button");b.className=`answer a${i%4}`;b.innerHTML=`<span class="shape">?</span><span>${txt}</span>`;
+ b.onclick=()=>{if(locked||order.includes(i))return;order.push(i);b.querySelector(".shape").textContent=order.length;b.disabled=true;
+ if(order.length===it.a.length){locked=true;const ok=order.every((v,p)=>v===it.order[p]);if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(true);showFeedback("✅ Orden correcto",it.solution)}
+ else{streak=0;beep(false);showFeedback("🔁 Revisa el orden",it.solution)}updateStats()}};w.appendChild(b)});d.appendChild(w);
+}
+function renderMatch(it,d){
+ const w=document.createElement("div");w.className="match-grid";
+ it.pairs.forEach(pair=>{const r=document.createElement("div");r.className="match-row";const s=document.createElement("select");s.dataset.ok=pair[1];s.innerHTML='<option value="">Selecciona…</option>'+it.options.map(x=>`<option>${x}</option>`).join("");r.innerHTML=`<strong>${pair[0]}</strong>`;r.appendChild(s);w.appendChild(r)});
+ const a=document.createElement("div");a.className="actions";const b=document.createElement("button");b.className="btn";b.textContent="Comprobar";
+ b.onclick=()=>{if(locked)return;const ss=[...w.querySelectorAll("select")];if(ss.some(s=>!s.value)){showFeedback("ℹ️ Falta alguna relación","Completa todas las filas.");return}
+ locked=true;const ok=ss.every(s=>s.value===s.dataset.ok);if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(true);showFeedback("✅ Todo correcto","Has relacionado correctamente los sensores.")}
+ else{streak=0;beep(false);showFeedback("🔁 Revisa las relaciones",it.pairs.map(p=>p[0]+" → "+p[1]).join(" · "))}updateStats()};a.appendChild(b);d.append(w,a);
+}
+function renderMulti(it,d){
+ const w=document.createElement("div");w.className="multi-grid";it.a.forEach(txt=>{const l=document.createElement("label");l.className="checkopt";l.innerHTML=`<input type="checkbox"><span>${txt}</span>`;w.appendChild(l)});
+ const a=document.createElement("div");a.className="actions";const b=document.createElement("button");b.className="btn";b.textContent="Guardar y continuar";b.onclick=()=>{if(locked)return;locked=true;score+=25;showFeedback("📌 Respuesta registrada","Es una pregunta de diagnóstico y no tiene una respuesta correcta.");updateStats()};a.appendChild(b);d.append(w,a);
+}
+function renderSingleDiag(it,d){
+ const w=document.createElement("div");w.className="answers";it.a.forEach((txt,i)=>{const b=document.createElement("button");b.className=`answer a${i%4}`;b.innerHTML=`<span class="shape">${shapes[i]}</span><span>${txt}</span>`;b.onclick=()=>{if(locked)return;locked=true;score+=25;[...w.children].forEach(x=>x.disabled=true);b.classList.add("correct");showFeedback("📌 Respuesta registrada","Esta pregunta es personal y no tiene una respuesta correcta.");updateStats()};w.appendChild(b)});d.appendChild(w);
+}
+function renderMultiCorrect(it,d){
+ const w=document.createElement("div");w.className="multi-grid";
+ it.a.forEach((txt,i)=>{const l=document.createElement("label");l.className="checkopt";l.innerHTML=`<input type="checkbox" value="${i}"><span>${txt}</span>`;w.appendChild(l)});
+ const a=document.createElement("div");a.className="actions";const b=document.createElement("button");b.className="btn";b.textContent="Comprobar";
+ b.onclick=()=>{if(locked)return;locked=true;const selected=[...w.querySelectorAll("input:checked")].map(x=>Number(x.value)).sort((x,y)=>x-y);const ok=selected.length===it.correct.length&&selected.every((x,p)=>x===it.correct[p]);
+ if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(true);showFeedback("✅ Correcto",it.solution)}
+ else{streak=0;beep(false);showFeedback("🔁 Revisa la selección",it.solution)}updateStats()};a.appendChild(b);d.append(w,a);
+}
+function renderDraw(it,d){
+ const wrap=document.createElement("div");wrap.className="draw-wrap";const c=document.createElement("canvas");c.className="draw-canvas";c.width=900;c.height=360;setupDrawing(c);
+ const a=document.createElement("div");a.className="actions";const clear=document.createElement("button");clear.className="btn secondary";clear.textContent="🧽 Borrar";clear.onclick=()=>clearCanvas(c);
+ const done=document.createElement("button");done.className="btn";done.textContent="✓ Terminar dibujo";const sol=document.createElement("div");sol.className="solution";sol.textContent=it.solution;
+ done.onclick=()=>{if(locked)return;locked=true;score+=50;sol.classList.add("show");showFeedback("✏️ Dibujo terminado","Comprueba si tu dibujo coincide con el recorrido.");updateStats()};a.append(clear,done);wrap.append(c,a,sol);d.appendChild(wrap);
+}
+function renderReto(it,d){
+ const w=document.createElement("div");w.className="open-box";w.innerHTML=`<textarea placeholder="¿Para qué utilizarías el sensor?"></textarea><textarea placeholder="¿Para qué utilizarías los motores?" style="margin-top:8px"></textarea><textarea placeholder="Completa el algoritmo con tus propias palabras..." style="margin-top:8px"></textarea>`;
+ const c=document.createElement("canvas");c.className="draw-canvas";c.width=900;c.height=360;setupDrawing(c);w.appendChild(c);
+ const a=document.createElement("div");a.className="actions";const clear=document.createElement("button");clear.className="btn secondary";clear.textContent="🧽 Borrar dibujo";clear.onclick=()=>clearCanvas(c);
+ const done=document.createElement("button");done.className="btn";done.textContent="💡 Ver solución orientativa";const sol=document.createElement("div");sol.className="solution";sol.textContent=it.solution;
+ done.onclick=()=>{if(locked)return;locked=true;score+=75;sol.classList.add("show");showFeedback("🤖 Reto explorador","La propuesta mostrada es una posible solución, no la única.");updateStats()};a.append(clear,done);w.append(a,sol);d.appendChild(w);
+}
+function clearCanvas(c){const x=c.getContext("2d");x.fillStyle="white";x.fillRect(0,0,c.width,c.height)}
+function setupDrawing(c){
+ clearCanvas(c);const x=c.getContext("2d");x.strokeStyle="#111827";x.lineWidth=4;x.lineCap="round";let on=false;
+ const pos=e=>{const r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}};
+ c.onpointerdown=e=>{on=true;const p=pos(e);x.beginPath();x.moveTo(p.x,p.y)};c.onpointermove=e=>{if(!on)return;const p=pos(e);x.lineTo(p.x,p.y);x.stroke()};c.onpointerup=()=>on=false;c.onpointerleave=()=>on=false;
+}
+function next(){if(index<items.length-1){index++;render()}else finish()}
+function finish(){
+ $("game").classList.add("hidden");$("summary").classList.add("show");$("progress").style.width="100%";$("finalScore").textContent=score+" pts";$("rightCount").textContent=rights;$("bestStreak").textContent=best;$("answeredCount").textContent=items.length;
+}
+$("startBtn").onclick=start;$("nextBtn").onclick=next;$("restartBtn").onclick=()=>{index=score=streak=best=rights=0;locked=false;$("summary").classList.remove("show");$("game").classList.remove("hidden");render()};
+$("soundBtn").onclick=()=>{soundOn=!soundOn;$("soundBtn").textContent="🔊 Sonido: "+(soundOn?"activado":"desactivado")};
+
+new p5(p=>{
+ let pts=[];
+ p.setup=()=>{const h=document.getElementById("p5-holder"),c=p.createCanvas(h.clientWidth||320,h.clientHeight||330);c.parent("p5-holder");for(let i=0;i<28;i++)pts.push({x:p.random(p.width),y:p.random(p.height),r:p.random(2,7),s:p.random(.2,1)})};
+ p.windowResized=()=>{const h=document.getElementById("p5-holder");p.resizeCanvas(h.clientWidth||320,h.clientHeight||330)};
+ p.draw=()=>{p.background(9,23,39);p.noStroke();pts.forEach(t=>{p.fill(6,182,212,65);p.circle(t.x,t.y,t.r);t.y-=t.s;if(t.y<0){t.y=p.height;t.x=p.random(p.width)}});p.push();p.translate(p.width/2,p.height/2);p.scale(1+Math.sin(p.frameCount*.04)*.04);p.fill(124,58,237,35);p.circle(0,0,Math.min(p.width,p.height)*.7);p.fill(255);p.textAlign(p.CENTER,p.CENTER);p.textSize(Math.min(p.width,p.height)*.29);p.text(window.currentIcon||"🤖",0,0);p.pop()}
+});
+</script>
+</body>
+</html>
