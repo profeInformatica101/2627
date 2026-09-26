@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="12 Situaciones de Aprendizaje de Computación y Robótica de 1.º ESO">
+  <title>12 Situaciones de Aprendizaje · Computación y Robótica · 1.º ESO</title>
+  <style>
+:root{
+  --bg:#f4f6fa;
+  --surface:#ffffff;
+  --surface-soft:#f8fafc;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#dce3ed;
+  --primary:#315fe9;
+  --primary-dark:#2447b8;
+  --primary-soft:#edf2ff;
+  --green:#087a5b;
+  --green-soft:#e8f7f1;
+  --yellow:#fff7d6;
+  --yellow-line:#eedb85;
+  --shadow:0 8px 28px rgba(28,39,64,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.55;
+}
+header{
+  background:linear-gradient(135deg,#17233f 0%,#29457d 55%,#315fe9 100%);
+  color:white;
+  padding:34px 18px 28px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.wrap,main{
+  width:min(1160px,calc(100% - 28px));
+  margin:0 auto;
+}
+h1{
+  margin:0 0 10px;
+  font-size:clamp(1.7rem,4vw,2.65rem);
+  line-height:1.12;
+  letter-spacing:-.02em;
+}
+h2{
+  margin:34px 0 12px;
+  font-size:clamp(1.25rem,2.4vw,1.7rem);
+  line-height:1.2;
+}
+p{margin:.45rem 0 .8rem}
+.lead{
+  max-width:920px;
+  margin:0;
+  color:#e3eaff;
+  font-size:1.02rem;
+}
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:18px;
+}
+select,button{
+  font:inherit;
+  min-height:42px;
+  padding:9px 13px;
+  border:1px solid #c8d1df;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+}
+button{
+  cursor:pointer;
+  font-weight:700;
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+button:hover{
+  transform:translateY(-1px);
+  border-color:var(--primary);
+  box-shadow:0 5px 15px rgba(31,61,140,.14);
+}
+select:focus,button:focus{
+  outline:3px solid rgba(49,95,233,.18);
+  outline-offset:2px;
+}
+main{
+  padding-top:22px;
+  padding-bottom:52px;
+}
+.intro,.note{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px 17px;
+  background:var(--surface);
+  box-shadow:0 2px 10px rgba(28,39,64,.03);
+}
+.intro{margin-bottom:16px}
+.note{
+  margin-bottom:14px;
+  background:var(--yellow);
+  border-color:var(--yellow-line);
+}
+.term{margin-bottom:34px}
+details{
+  margin:10px 0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--surface);
+  box-shadow:0 2px 8px rgba(28,39,64,.035);
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+details:hover{border-color:#c6d1e2}
+details[open]{box-shadow:var(--shadow)}
+details.robot{border-color:#b8dfd3}
+details.robot[open]{box-shadow:0 8px 28px rgba(8,122,91,.09)}
+summary{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:56px;
+  padding:13px 16px;
+  cursor:pointer;
+  list-style:none;
+  font-weight:800;
+  user-select:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:"▸";
+  flex:0 0 auto;
+  color:var(--primary);
+  font-size:1.05rem;
+  transition:transform .18s ease;
+}
+details[open] summary::before{transform:rotate(90deg)}
+.num,.pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  padding:4px 9px;
+  background:var(--primary-soft);
+  color:var(--primary);
+  font-size:.78rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.pill{margin-left:auto}
+.robot .num{
+  background:var(--green-soft);
+  color:var(--green);
+}
+.in{
+  padding:15px 16px 17px;
+  border-top:1px solid var(--line);
+}
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:11px;
+  color:var(--muted);
+  font-size:.91rem;
+  font-weight:650;
+}
+.challenge{
+  margin-bottom:13px;
+  padding:12px 13px;
+  border-left:4px solid var(--primary);
+  border-radius:8px;
+  background:#f7faff;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.box{
+  min-width:0;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--surface-soft);
+}
+.box strong{
+  display:block;
+  margin-bottom:4px;
+  color:#27364f;
+}
+.codes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:7px 0 8px;
+}
+.code{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#edf1f6;
+  color:#344054;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  font-size:.78rem;
+  font-weight:700;
+}
+ol,ul{
+  margin:.45rem 0 .45rem 1.25rem;
+  padding:0;
+}
+li{margin:.26rem 0}
+a{
+  color:var(--primary);
+  font-weight:700;
+  text-decoration-thickness:1px;
+  text-underline-offset:2px;
+  overflow-wrap:anywhere;
+}
+a:hover{color:var(--primary-dark)}
+small{color:var(--muted)}
+.foot{
+  margin-top:30px;
+  padding:15px 0 4px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.9rem;
+}
+.hidden{display:none !important}
+
+@media (min-width:980px){
+  details summary{
+    padding-left:18px;
+    padding-right:18px;
+  }
+}
+@media (max-width:760px){
+  .wrap,main{width:min(100% - 20px,1160px)}
+  header{padding:26px 10px 22px}
+  .toolbar{align-items:stretch}
+  .toolbar select,.toolbar button{width:100%}
+  .grid{grid-template-columns:1fr}
+  summary{flex-wrap:wrap;align-items:flex-start}
+  .pill{margin-left:0}
+  .in{padding:13px}
+}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-soft:#fff}
+  body{background:#fff}
+  header{
+    background:#fff !important;
+    color:#000;
+    padding:10px 0 18px;
+  }
+  .lead{color:#333}
+  .toolbar{display:none !important}
+  main{width:100%;padding:0}
+  details{box-shadow:none;break-inside:avoid}
+  details > .in{display:block !important}
+  .term.hidden{display:block !important}
+  a{color:#000;text-decoration:none}
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>12 Situaciones de Aprendizaje · <br>Computación y Robótica · 1.º ESO</h1>
+    <p class="lead">Secuencia progresiva: pensamiento computacional y Scratch → micro:bit → Maqueen → datos e Inteligencia Artificial → aplicaciones móviles → web y ciberseguridad.</p>
+    <div class="toolbar">
+      <select id="f">
+        <option value="0">Todo el curso</option>
+        <option value="1">1.º trimestre · Scratch</option>
+        <option value="2">2.º trimestre · micro:bit + Maqueen</option>
+        <option value="3">3.º trimestre · Sociedad digital</option>
+      </select>
+      <button id="open">Abrir todo</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="intro"><strong>Progresión:</strong> el conocimiento no se reinicia al cambiar de bloque. Los algoritmos, eventos, variables, condiciones y bucles aprendidos con programación visual se reutilizan en micro:bit y Maqueen; después sirven para comprender aplicaciones móviles, datos, Inteligencia Artificial y desarrollo web.</div>
+
+  <section class="term" data-tri="1">
+    <h2>1.º trimestre · Pensamiento computacional y Scratch</h2>
+    <div class="note"><strong>Enfoque:</strong> comenzar desde instrucciones y algoritmos sencillos para pasar progresivamente a programas visuales con eventos, variables, decisiones, bucles y un pequeño videojuego.</div>
+
+    <details>
+      <summary><span class="num">SA 01</span>Pensar como un programador<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo convertimos un problema cotidiano en instrucciones que una máquina pueda ejecutar?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Cuaderno visual de algoritmos con secuencias, patrones, pseudocódigo sencillo y diagramas de flujo básicos.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.A.1</span><span class="code">CYR.1.A.2</span><span class="code">CYR.1.A.3</span></div><p>Introducción a la programación, pensamiento computacional y resolución de problemas.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Instrucciones exactas y orden.</li><li>Patrones.</li><li>Descomponer problemas.</li><li>Diagramas de flujo sencillos.</li><li>Reto algoritmo cotidiano.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Hoja de algoritmos + diagramas + explicación de una solución paso a paso.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Orden lógico; precisión; descomposición; reconocimiento de patrones; explicación.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 02</span>Scratch: del algoritmo a los bloques<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo hacemos que un personaje ejecute exactamente el algoritmo que hemos diseñado?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Historia interactiva con personajes, movimiento, apariencia, escenarios y eventos.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.A.1</span><span class="code">CYR.1.A.2</span><span class="code">CYR.1.A.3</span></div><p>Programación visual, secuencias, eventos e implementación de algoritmos.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Entorno Scratch.</li><li>Bandera verde y eventos.</li><li>Movimiento.</li><li>Apariencia y mensajes.</li><li>Construir una historia.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Archivo o enlace del proyecto + captura + explicación de bloques utilizados.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Secuencia; eventos; organización; ejecución; explicación del programa.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 03</span>Scratch toma decisiones<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 📌 Criterios: 1.3 · 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo hacemos que un programa recuerde información y decida qué hacer?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Quiz o minijuego con puntuación, variables, preguntas y decisiones.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.A.2</span><span class="code">CYR.1.A.3</span><span class="code">CYR.1.A.4</span><span class="code">CYR.1.A.5</span></div><p>Variables, condiciones, operadores, interacción y prueba del programa.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Variables.</li><li>Condición SI.</li><li>SI / SI NO.</li><li>Comparaciones y operadores.</li><li>Casos de prueba.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto Scratch + tabla de al menos 4 pruebas + explicación breve.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Variables; decisiones; operadores; lógica; pruebas; depuración.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 04</span>Scratch repite y automatiza<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE2 📌 Criterio: 2.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo evitamos repetir manualmente instrucciones que el ordenador puede automatizar?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Videojuego sencillo que combine eventos, variables, decisiones y repeticiones.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.A.2</span><span class="code">CYR.1.A.3</span><span class="code">CYR.1.A.4</span><span class="code">CYR.1.A.5</span></div><p>Bucles, condiciones, eventos, interacción y depuración.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Detectar repeticiones.</li><li>Repetir N veces.</li><li>Repetir continuamente.</li><li>Combinar bucle y condición.</li><li>Proyecto y depuración.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto + vídeo o capturas + ficha de pruebas y mejoras.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Bucles; combinación con condiciones; funcionamiento; generalización; depuración.</p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="term" data-tri="2">
+    <h2>2.º trimestre · micro:bit + Maqueen</h2>
+    <div class="note"><strong>Enfoque:</strong> la programación sale de la pantalla: primero se trabaja entrada → proceso → salida con micro:bit y después se aplica a un robot móvil que percibe y actúa.</div>
+
+    <details class="robot">
+      <summary><span class="num">SA 05</span>Micro:bit por dentro<span class="pill">4 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo consigue un programa recibir información del mundo real y producir una respuesta?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Ficha técnica de micro:bit + primeros programas con matriz LED, botones y sensores.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.F.1</span><span class="code">CYR.1.F.2</span><span class="code">CYR.1.F.3</span><span class="code">CYR.1.F.4</span></div><p>Fundamentos de computación física, microcontroladores, entradas y salidas.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Identificar componentes.</li><li>Entrada → proceso → salida.</li><li>Matriz LED.</li><li>Botones.</li><li>Sensores integrados.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Ficha + programa + capturas o vídeo corto.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Componentes; entrada/salida; ejecución; explicación; uso seguro.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 06</span>Micro:bit detecta y actúa<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Podemos construir un objeto que detecte una situación y reaccione automáticamente?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Alarma, avisador, medidor o pequeño sistema automático con micro:bit.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.B.1</span><span class="code">CYR.1.B.2</span><span class="code">CYR.1.B.3</span><span class="code">CYR.1.B.4</span><span class="code">CYR.1.F.1</span><span class="code">CYR.1.F.3</span></div><p>Internet de las cosas, sensores, comunicación y computación física.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Elegir necesidad.</li><li>Definir entrada/salida.</li><li>Programar decisión.</li><li>Realizar pruebas.</li><li>Mejorar y documentar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Programa + esquema entrada→decisión→salida + tabla de pruebas + vídeo.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Diseño; sensores; actuación; pruebas; funcionamiento y mejora.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 07</span>Maqueen: nuestro primer robot móvil<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE3 📌 Criterios: 1.2 · 1.4 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Qué necesita un robot para poder percibir, desplazarse y obedecer nuestro programa?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Ficha técnica Maqueen + programa de avance, retroceso, giro y parada.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.C.1</span><span class="code">CYR.1.C.2</span><span class="code">CYR.1.C.3</span><span class="code">CYR.1.C.4</span><span class="code">CYR.1.C.5</span></div><p>Robótica, sensores, actuadores, movimiento y control.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Explorar el robot.</li><li>Identificar sensores y actuadores.</li><li>Avanzar y retroceder.</li><li>Girar.</li><li>Velocidad y parada.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Ficha + programa + vídeo de avance, giro y parada.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Componentes; control de motores; programación; explicación; seguridad.</p></div>
+          <div class="box"><strong>Recurso Maqueen</strong><p><a href="https://profeinformatica101.github.io/maqueen/" target="_blank" rel="noopener">profeinformatica101.github.io/maqueen/</a></p><small>Usar la documentación para localizar, comprender, adaptar y probar soluciones.</small></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="robot">
+      <summary><span class="num">SA 08</span>Maqueen autónomo: percibe y decide<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE1 · CE2 · CE3 📌 Criterios: 1.4 · 2.1 · 3.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo hacemos que el robot evite obstáculos sin recibir órdenes continuas?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Robot autónomo que evita obstáculos o resuelve un pequeño recorrido.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.A.3</span><span class="code">CYR.1.A.4</span><span class="code">CYR.1.C.3</span><span class="code">CYR.1.C.4</span><span class="code">CYR.1.C.5</span><span class="code">CYR.1.F.3</span></div><p>Sensores, umbrales, condiciones, repetición y autonomía.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Leer distancia.</li><li>Elegir umbral.</li><li>Tomar decisión.</li><li>Controlar motores.</li><li>Probar y corregir.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Algoritmo + programa + esquema sensor→decisión→acción + pruebas + vídeo.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Lectura de sensor; decisión; respuesta; autonomía; depuración.</p></div>
+          <div class="box"><strong>Recurso Maqueen</strong><p><a href="https://profeinformatica101.github.io/maqueen/" target="_blank" rel="noopener">profeinformatica101.github.io/maqueen/</a></p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="term" data-tri="3">
+    <h2>3.º trimestre · Datos, IA, aplicaciones y web segura</h2>
+    <div class="note"><strong>Enfoque:</strong> comprender cómo se usan los datos, aproximarse críticamente a la Inteligencia Artificial y crear productos digitales sencillos mediante aplicaciones móviles y web, aplicando hábitos de ciberseguridad.</div>
+
+    <details>
+      <summary><span class="num">SA 09</span>Los datos cuentan historias<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE4 📌 Criterio: 4.1</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Qué podemos descubrir cuando recopilamos, ordenamos y representamos datos?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Pequeño estudio de datos del aula o del entorno con tabla, visualización y conclusiones.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.G.1</span><span class="code">CYR.1.G.2</span><span class="code">CYR.1.G.3</span><span class="code">CYR.1.G.4</span></div><p>Datos, recopilación, almacenamiento, análisis, comparación y visualización.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Qué es un dato.</li><li>Recoger información.</li><li>Organizarla.</li><li>Representarla.</li><li>Extraer conclusiones.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Tabla + gráfico + tres conclusiones razonadas.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Recogida; organización; visualización; comparación; interpretación.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 10</span>¿Cómo aprende una Inteligencia Artificial?<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE4 📌 Criterio: 4.2</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo puede una máquina reconocer patrones y por qué no debemos asumir que siempre acierta?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Experimento guiado de reconocimiento o clasificación + ficha crítica de pruebas.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.H.1</span><span class="code">CYR.1.H.2</span><span class="code">CYR.1.H.3</span><span class="code">CYR.1.H.4</span></div><p>Inteligencia Artificial, agentes, aprendizaje, patrones y reflexión sobre su impacto.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>IA y programas tradicionales.</li><li>Ejemplos y patrones.</li><li>Entrenamiento sencillo.</li><li>Pruebas con casos nuevos.</li><li>Errores y verificación.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Capturas + tabla de pruebas + reflexión sobre aciertos y errores.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Comprensión; identificación de patrones; pruebas; análisis de errores; pensamiento crítico.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 11</span>Mi primera aplicación móvil<span class="pill">5 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE2 📌 Criterio: 2.3</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo convertimos una necesidad sencilla en una aplicación que responde al usuario?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>App sencilla con App Inventor: quiz, contador, conversor, avisador o herramienta similar.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.D.1</span><span class="code">CYR.1.D.2</span><span class="code">CYR.1.D.3</span><span class="code">CYR.1.D.4</span><span class="code">CYR.1.D.5</span></div><p>Desarrollo móvil, interfaz, eventos, componentes y programación visual.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Definir necesidad.</li><li>Diseñar pantalla.</li><li>Añadir componentes.</li><li>Programar eventos.</li><li>Probar y mejorar.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>Proyecto de App Inventor + capturas/vídeo + explicación de funcionamiento.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Interfaz; eventos; programación; funcionamiento; pruebas y mejora.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="num">SA 12</span>Una web para compartir de forma segura<span class="pill">6 sesiones</span></summary>
+      <div class="in">
+        <div class="meta">🎯 CE5 · CE6 📌 Criterios: 5.1 · 5.2 · 6.1 · 6.2 · 6.3 · 6.4</div>
+        <div class="challenge"><strong>Pregunta guía:</strong> ¿Cómo construimos y compartimos una página sencilla protegiendo nuestra privacidad y respetando la autoría?</div>
+        <div class="grid">
+          <div class="box"><strong>Producto final</strong><p>Web sencilla sobre uno de los proyectos del curso con títulos, párrafos, imágenes y enlaces + checklist de publicación segura.</p></div>
+          <div class="box"><strong>Saberes básicos</strong><div class="codes"><span class="code">CYR.1.E.1</span><span class="code">CYR.1.E.2</span><span class="code">CYR.1.E.3</span><span class="code">CYR.1.E.4</span><span class="code">CYR.1.I.1</span><span class="code">CYR.1.I.2</span><span class="code">CYR.1.I.3</span><span class="code">CYR.1.I.4</span><span class="code">CYR.1.I.5</span></div><p>Desarrollo web básico, privacidad, identidad digital, malware, riesgos y propiedad intelectual.</p></div>
+          <div class="box"><strong>Secuencia</strong><ol><li>Navegador y página web.</li><li>Estructura HTML básica.</li><li>Texto, imágenes y enlaces.</li><li>Privacidad y enlaces sospechosos.</li><li>Licencias, fuentes y publicación.</li></ol></div>
+          <div class="box"><strong>Entrega Moodle</strong><p>ZIP o enlace + captura + checklist de seguridad, privacidad, licencias y fuentes.</p></div>
+          <div class="box"><strong>Evidencias evaluables</strong><p>Estructura web; funcionamiento; depuración; seguridad; privacidad; uso responsable de contenidos.</p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <div class="foot">La distribución es una propuesta docente adaptable al ritmo real del grupo, recursos disponibles y calendario escolar. Los criterios y saberes permanecen vinculados a cada situación para facilitar Moodle, programación didáctica y registro posterior en Séneca.</div>
+</main>
+
+<script>
+  const f = document.getElementById('f');
+  f.addEventListener('change', () => {
+    document.querySelectorAll('.term').forEach(s => s.classList.toggle(
+      'hidden', f.value !== '0' && s.dataset.tri !== f.value));
+  });
+
+  let opened = false;
+  document.getElementById('open').addEventListener('click', () => {
+    opened = !opened;
+    document.querySelectorAll('.term:not(.hidden) details').forEach(d => d.open = opened);
+    document.getElementById('open').textContent = opened ? 'Cerrar todo' : 'Abrir todo';
+  });
+</script>
+</body>
+</html>
