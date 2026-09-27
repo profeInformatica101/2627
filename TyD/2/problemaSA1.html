@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Problemas básicos · Algoritmos · Scratch · p5.js</title>
+  <meta name="description" content="Web interactiva con slider de problemas básicos de algoritmia y su implementación en Scratch.">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+  <style>
+    :root{
+      --bg1:#1c2d8f;
+      --bg2:#4c97ff;
+      --bg3:#7d4cff;
+      --ink:#172033;
+      --muted:#5f6b7b;
+      --line:#d9e2ef;
+      --surface:#ffffffee;
+      --surface-strong:#ffffff;
+      --yellow:#ffbf00;
+      --green:#3ccf6e;
+      --orange:#ff8c42;
+      --red:#ff5d73;
+      --blue:#4c97ff;
+      --shadow:0 18px 45px rgba(17,24,39,.20);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+    body{
+      color:#fff;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.16), transparent 28rem),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+      overflow-x:hidden;
+    }
+
+    #bgSketch{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55}
+    .app{position:relative; z-index:2; width:min(1200px, calc(100% - 22px)); margin:0 auto; padding:20px 0 40px}
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.3fr .9fr;
+      gap:20px;
+      align-items:stretch;
+      margin:8px 0 18px;
+    }
+    .hero-card,.moodle-card,.slider-wrap{
+      background:var(--surface);
+      color:var(--ink);
+      border:1px solid rgba(255,255,255,.42);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      backdrop-filter: blur(12px);
+    }
+    .hero-card{padding:24px}
+    .eyebrow{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#edf4ff;
+      color:#2950c5;
+      font-weight:800;
+      font-size:.88rem;
+      margin-bottom:12px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3.5rem);
+      line-height:1.04;
+      letter-spacing:-.03em;
+    }
+    .hero p{margin:.45rem 0 .8rem; color:#334155; font-size:1.02rem}
+    .pill-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .pill{
+      border-radius:999px;
+      padding:8px 12px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      color:#274060;
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    .moodle-card{padding:20px}
+    .moodle-card h2,.slider-head h2{margin:0 0 10px; font-size:1.35rem}
+    .moodle-box{
+      border-radius:18px;
+      padding:16px;
+      background:linear-gradient(135deg,#fff8dc,#fff2bd);
+      border:1px solid #f2d466;
+      color:#4f3a00;
+      font-weight:650;
+    }
+    .moodle-box ul{margin:.4rem 0 .2rem 1.1rem; padding:0}
+    .moodle-box li{margin:.35rem 0}
+
+    .slider-wrap{padding:18px}
+    .slider-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .slider-head p{margin:0; color:var(--muted)}
+    .counter{
+      padding:9px 13px;
+      border-radius:999px;
+      background:#eff5ff;
+      color:#2553b7;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .slides{
+      position:relative;
+      min-height:690px;
+    }
+    .slide{
+      display:none;
+      animation:fade .35s ease;
+    }
+    .slide.active{display:block}
+    @keyframes fade{
+      from{opacity:0; transform:translateY(8px)}
+      to{opacity:1; transform:none}
+    }
+
+    .problem-top{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .card{
+      border-radius:20px;
+      background:var(--surface-strong);
+      border:1px solid var(--line);
+      padding:18px;
+      min-width:0;
+    }
+    .title-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:44px;
+      height:44px;
+      padding:0 12px;
+      border-radius:14px;
+      background:#eef4ff;
+      color:#2553b7;
+      font-weight:900;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#edfdf3;
+      color:#0f7c3f;
+      font-weight:800;
+      font-size:.8rem;
+      white-space:nowrap;
+    }
+    h3{margin:0; font-size:1.45rem; line-height:1.15}
+    .intro{
+      margin:8px 0 0;
+      color:#415267;
+      font-size:1rem;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .mini{
+      border:1px solid var(--line);
+      background:#f8fbff;
+      border-radius:16px;
+      padding:12px 13px;
+    }
+    .mini strong{display:block; margin-bottom:6px}
+    .mini ul{margin:.2rem 0 0 1rem; padding:0}
+    .mini li{margin:.22rem 0}
+
+    .algo-steps{
+      margin:0;
+      padding-left:1.1rem;
+    }
+    .algo-steps li{margin:.42rem 0}
+    .pseudocode{
+      margin-top:14px;
+      border-radius:16px;
+      padding:14px;
+      background:#172033;
+      color:#eff6ff;
+      font:600 .94rem/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space:pre-line;
+    }
+
+    .right-stack{display:grid; gap:16px}
+    .flow-card .flow-host{
+      width:100%;
+      height:260px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px dashed #c9d8ef;
+      background:linear-gradient(180deg,#ffffff,#f7fbff);
+    }
+
+    .scratch-blocks{
+      display:grid;
+      gap:10px;
+    }
+    .block{
+      position:relative;
+      padding:12px 14px;
+      border-radius:14px;
+      color:#fff;
+      font-weight:800;
+      box-shadow: inset 0 -4px 0 rgba(0,0,0,.12);
+    }
+    .event{background:#ffbf00}
+    .control{background:#ffab19}
+    .sensing{background:#5cb1d6}
+    .variables{background:#ff8c1a}
+    .operators{background:#59c059}
+    .looks{background:#9966ff}
+    .note{
+      margin-top:10px;
+      font-size:.95rem;
+      color:#526174;
+    }
+
+    .footer-tools{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:12px 16px;
+      font:800 .98rem/1 Inter,system-ui,sans-serif;
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{transform:translateY(-1px); filter:brightness(1.03)}
+    .btn.prev{background:#eaf0fb; color:#294a8e}
+    .btn.next{background:#315fe9; color:#fff}
+    .btn.rand{background:#14b8a6; color:#fff}
+    .dots{display:flex; gap:8px; flex-wrap:wrap}
+    .dot{
+      width:13px; height:13px; border-radius:50%;
+      border:0; cursor:pointer; background:#cad8ee;
+    }
+    .dot.active{background:#315fe9; transform:scale(1.12)}
+    .teacher-tip{
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:#f8fbff;
+      border:1px solid var(--line);
+      color:#334155;
+    }
+
+    @media (max-width:980px){
+      .hero,.problem-top{grid-template-columns:1fr}
+      .slides{min-height:auto}
+    }
+    @media (max-width:760px){
+      .app{width:min(100% - 14px,1200px)}
+      .hero-card,.moodle-card,.slider-wrap{border-radius:20px}
+      .hero-card,.moodle-card,.slider-wrap{padding:16px}
+      .mini-grid{grid-template-columns:1fr}
+      .flow-card .flow-host{height:220px}
+      .footer-tools{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div id="bgSketch"></div>
+
+  <div class="app">
+    <section class="hero">
+      <div class="hero-card">
+        <span class="eyebrow">🧠 Algoritmia · Scratch · Tecnología y Digitalización</span>
+        <h1>Problemas básicos con <span style="color:#315fe9">slider interactivo</span></h1>
+        <p>
+          Esta web presenta problemas sencillos para trabajar <strong>estructuras secuenciales,
+          condicionales y repetitivas</strong>. En cada tarjeta aparece el enunciado, el algoritmo,
+          una propuesta de diagrama de flujo y una idea de implementación con <strong>Scratch</strong>.
+        </p>
+        <p>
+          El objetivo es que el alumnado entienda que primero se <strong>piensa la solución</strong>,
+          después se <strong>ordena en pasos</strong> y, por último, se lleva a un programa.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Secuencias</span>
+          <span class="pill">Condicionales</span>
+          <span class="pill">Bucles</span>
+          <span class="pill">Scratch</span>
+          <span class="pill">Diagramas de flujo</span>
+        </div>
+      </div>
+
+      <aside class="moodle-card">
+        <h2>📦 Entrega Moodle</h2>
+        <div class="moodle-box">
+          El alumnado debe entregar:
+          <ul>
+            <li><strong>Diagramas de flujo</strong> de los problemas trabajados.</li>
+            <li><strong>Explicación breve de dos algoritmos</strong> con sus pasos.</li>
+            <li><strong>Implementación con Scratch</strong> de los problemas seleccionados.</li>
+          </ul>
+        </div>
+        <div class="teacher-tip">
+          <strong>Sugerencia didáctica:</strong> puedes pedir que cada pareja elija
+          <strong>2 problemas</strong>, explique el algoritmo con sus propias palabras
+          y adjunte una captura del proyecto Scratch.
+        </div>
+      </aside>
+    </section>
+
+    <section class="slider-wrap">
+      <div class="slider-head">
+        <div>
+          <h2>🎮 Slider de problemas básicos</h2>
+          <p>Usa las flechas o los puntos para cambiar de problema.</p>
+        </div>
+        <div class="counter" id="counter">Problema 1 / 6</div>
+      </div>
+
+      <div class="slides" id="slides"></div>
+
+      <div class="footer-tools">
+        <div class="nav">
+          <button class="btn prev" id="prevBtn">⬅ Anterior</button>
+          <button class="btn next" id="nextBtn">Siguiente ➜</button>
+          <button class="btn rand" id="randomBtn">🎲 Aleatorio</button>
+        </div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+  </div>
+
+<script>
+const problems = [
+  {
+    title: "Perímetro de un rectángulo",
+    type: "Secuencial",
+    statement: "Pedir la base y la altura de un rectángulo y calcular su perímetro.",
+    inputs: ["base", "altura"],
+    outputs: ["perímetro"],
+    steps: [
+      "Leer la base.",
+      "Leer la altura.",
+      "Calcular perímetro = 2 × (base + altura).",
+      "Mostrar el resultado."
+    ],
+    pseudocode: `INICIO
+Leer base
+Leer altura
+perimetro ← 2 * (base + altura)
+Mostrar perimetro
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «Introduce la base» y esperar"],
+      ["variables", "fijar base a respuesta"],
+      ["sensing", "preguntar «Introduce la altura» y esperar"],
+      ["variables", "fijar altura a respuesta"],
+      ["variables", "fijar perimetro a 2 * (base + altura)"],
+      ["looks", "decir unir «Perímetro = » perimetro"]
+    ],
+    flow: ["Inicio","Leer base","Leer altura","Calcular perímetro","Mostrar resultado","Fin"]
+  },
+  {
+    title: "Mayor de dos números",
+    type: "Condicional",
+    statement: "Pedir dos números e indicar cuál es mayor.",
+    inputs: ["número A", "número B"],
+    outputs: ["el mayor o si son iguales"],
+    steps: [
+      "Leer el número A.",
+      "Leer el número B.",
+      "Comparar A con B.",
+      "Si A > B, mostrar A.",
+      "Si B > A, mostrar B.",
+      "Si son iguales, indicarlo."
+    ],
+    pseudocode: `INICIO
+Leer A
+Leer B
+SI A > B ENTONCES
+   Mostrar A
+SINO SI B > A ENTONCES
+   Mostrar B
+SINO
+   Mostrar "Son iguales"
+FIN SI
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «Número A» y esperar"],
+      ["variables", "fijar A a respuesta"],
+      ["sensing", "preguntar «Número B» y esperar"],
+      ["variables", "fijar B a respuesta"],
+      ["control", "si <A > B> entonces"],
+      ["looks", "decir unir «El mayor es » A"],
+      ["control", "si no / si <B > A> entonces / si no"],
+      ["looks", "decir «Son iguales»"]
+    ],
+    flow: ["Inicio","Leer A","Leer B","¿A > B?","Mostrar mayor","Fin"]
+  },
+  {
+    title: "Par o impar",
+    type: "Condicional",
+    statement: "Pedir un número e indicar si es par o impar.",
+    inputs: ["número"],
+    outputs: ["par o impar"],
+    steps: [
+      "Leer el número.",
+      "Calcular el resto de dividirlo entre 2.",
+      "Si el resto es 0, es par.",
+      "En caso contrario, es impar."
+    ],
+    pseudocode: `INICIO
+Leer numero
+SI numero MOD 2 = 0 ENTONCES
+   Mostrar "Par"
+SINO
+   Mostrar "Impar"
+FIN SI
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «Escribe un número» y esperar"],
+      ["variables", "fijar numero a respuesta"],
+      ["control", "si <<numero mod 2> = 0> entonces"],
+      ["looks", "decir «Es par»"],
+      ["control", "si no"],
+      ["looks", "decir «Es impar»"]
+    ],
+    flow: ["Inicio","Leer número","Calcular resto","¿Resto = 0?","Mostrar par/impar","Fin"]
+  },
+  {
+    title: "Positivo, negativo o cero",
+    type: "Condicional",
+    statement: "Pedir un número e indicar si es positivo, negativo o cero.",
+    inputs: ["número"],
+    outputs: ["clasificación"],
+    steps: [
+      "Leer el número.",
+      "Si el número es mayor que 0, es positivo.",
+      "Si es menor que 0, es negativo.",
+      "Si no es mayor ni menor, es cero."
+    ],
+    pseudocode: `INICIO
+Leer numero
+SI numero > 0 ENTONCES
+   Mostrar "Positivo"
+SINO SI numero < 0 ENTONCES
+   Mostrar "Negativo"
+SINO
+   Mostrar "Cero"
+FIN SI
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «Escribe un número» y esperar"],
+      ["variables", "fijar numero a respuesta"],
+      ["control", "si <numero > 0> entonces"],
+      ["looks", "decir «Positivo»"],
+      ["control", "si no / si <numero < 0> entonces / si no"],
+      ["looks", "decir «Cero»"]
+    ],
+    flow: ["Inicio","Leer número","¿> 0?","¿< 0?","Mostrar resultado","Fin"]
+  },
+  {
+    title: "Contar hasta N",
+    type: "Repetitiva",
+    statement: "Pedir un número N y contar desde 1 hasta N.",
+    inputs: ["N"],
+    outputs: ["conteo del 1 al N"],
+    steps: [
+      "Leer N.",
+      "Empezar con contador = 1.",
+      "Mientras contador sea menor o igual que N, mostrar contador.",
+      "Aumentar contador en 1.",
+      "Repetir hasta llegar a N."
+    ],
+    pseudocode: `INICIO
+Leer N
+contador ← 1
+MIENTRAS contador <= N HACER
+   Mostrar contador
+   contador ← contador + 1
+FIN MIENTRAS
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «¿Hasta qué número?» y esperar"],
+      ["variables", "fijar N a respuesta"],
+      ["variables", "fijar contador a 1"],
+      ["control", "repetir hasta que <contador > N>"],
+      ["looks", "decir contador"],
+      ["variables", "cambiar contador por 1"]
+    ],
+    flow: ["Inicio","Leer N","contador = 1","¿contador ≤ N?","Mostrar contador","contador + 1","Fin"]
+  },
+  {
+    title: "Tabla de multiplicar",
+    type: "Repetitiva",
+    statement: "Pedir un número y mostrar su tabla de multiplicar del 1 al 10.",
+    inputs: ["número"],
+    outputs: ["tabla del 1 al 10"],
+    steps: [
+      "Leer el número.",
+      "Empezar con i = 1.",
+      "Mientras i sea menor o igual que 10, calcular número × i.",
+      "Mostrar el resultado.",
+      "Aumentar i y repetir."
+    ],
+    pseudocode: `INICIO
+Leer numero
+i ← 1
+MIENTRAS i <= 10 HACER
+   resultado ← numero * i
+   Mostrar numero, "x", i, "=", resultado
+   i ← i + 1
+FIN MIENTRAS
+FIN`,
+    scratch: [
+      ["event", "al hacer clic en la bandera verde"],
+      ["sensing", "preguntar «Número para la tabla» y esperar"],
+      ["variables", "fijar numero a respuesta"],
+      ["variables", "fijar i a 1"],
+      ["control", "repetir 10 veces"],
+      ["variables", "fijar resultado a numero * i"],
+      ["looks", "decir unir numero ... resultado"],
+      ["variables", "cambiar i por 1"]
+    ],
+    flow: ["Inicio","Leer número","i = 1","Calcular resultado","Mostrar línea","i + 1","¿i ≤ 10?","Fin"]
+  }
+];
+
+let current = 0;
+const slidesHost = document.getElementById('slides');
+const dotsHost = document.getElementById('dots');
+const counter = document.getElementById('counter');
+const flowSketches = {};
+let flowDataMap = {};
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderSlides(){
+  slidesHost.innerHTML = problems.map((p,i)=>`
+    <article class="slide ${i===current?'active':''}" data-index="${i}">
+      <div class="problem-top">
+        <div class="card">
+          <div class="title-row">
+            <div>
+              <div class="num">#${i+1}</div>
+            </div>
+            <span class="tag">${esc(p.type)}</span>
+          </div>
+
+          <h3>${esc(p.title)}</h3>
+          <p class="intro">${esc(p.statement)}</p>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <strong>Entrada</strong>
+              <ul>${p.inputs.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+            </div>
+            <div class="mini">
+              <strong>Salida</strong>
+              <ul>${p.outputs.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+            </div>
+          </div>
+
+          <div class="mini" style="margin-top:12px">
+            <strong>Algoritmo paso a paso</strong>
+            <ol class="algo-steps">${p.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>
+          </div>
+
+          <div class="pseudocode">${esc(p.pseudocode)}</div>
+        </div>
+
+        <div class="right-stack">
+          <div class="card flow-card">
+            <strong style="display:block;margin-bottom:10px">Diagrama de flujo visual</strong>
+            <div class="flow-host" id="flow_${i}"></div>
+            <div class="note">Representación simplificada del recorrido del algoritmo.</div>
+          </div>
+
+          <div class="card">
+            <strong style="display:block;margin-bottom:12px">Idea de implementación con Scratch</strong>
+            <div class="scratch-blocks">
+              ${p.scratch.map(([cls,text])=>`<div class="block ${cls}">${esc(text)}</div>`).join('')}
+            </div>
+            <div class="note">
+              El alumnado puede adaptar estos bloques a su proyecto y explicar
+              con sus palabras qué hace cada parte.
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  dotsHost.innerHTML = problems.map((_,i)=>`
+    <button class="dot ${i===current?'active':''}" aria-label="Ir al problema ${i+1}" onclick="goTo(${i})"></button>
+  `).join('');
+
+  counter.textContent = `Problema ${current+1} / ${problems.length}`;
+  setTimeout(createFlowForCurrent, 40);
+}
+
+function goTo(i){
+  current = (i + problems.length) % problems.length;
+  renderSlides();
+}
+
+function nextSlide(){ goTo(current + 1); }
+function prevSlide(){ goTo(current - 1); }
+function randomSlide(){
+  let target = current;
+  while(target === current && problems.length > 1){
+    target = Math.floor(Math.random() * problems.length);
+  }
+  goTo(target);
+}
+
+document.getElementById('nextBtn').addEventListener('click', nextSlide);
+document.getElementById('prevBtn').addEventListener('click', prevSlide);
+document.getElementById('randomBtn').addEventListener('click', randomSlide);
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight') nextSlide();
+  if(e.key === 'ArrowLeft') prevSlide();
+});
+
+function createFlowForCurrent(){
+  const id = `flow_${current}`;
+  const host = document.getElementById(id);
+  if(!host) return;
+
+  // Remove old instance if exists
+  if(flowSketches[id]){
+    flowSketches[id].remove();
+    delete flowSketches[id];
+  }
+
+  const labels = problems[current].flow.slice(0);
+  flowDataMap[id] = labels;
+
+  const sketch = (p)=>{
+    let nodes = [];
+    p.setup = ()=>{
+      const c = p.createCanvas(host.clientWidth, host.clientHeight);
+      c.parent(id);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.textStyle(p.BOLD);
+      computeNodes();
+    };
+    function computeNodes(){
+      nodes = [];
+      const cols = p.width < 340 ? 2 : 3;
+      const gapX = 18;
+      const gapY = 18;
+      const w = cols === 2 ? (p.width - 36 - gapX)/2 : (p.width - 48 - 2*gapX)/3;
+      const h = 46;
+      labels.forEach((label, i)=>{
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = 18 + col*(w+gapX);
+        const y = 18 + row*(h+gapY);
+        nodes.push({label, x, y, w, h});
+      });
+    }
+    p.windowResized = ()=>{
+      p.resizeCanvas(host.clientWidth, host.clientHeight);
+      computeNodes();
+    };
+    p.draw = ()=>{
+      p.clear();
+      p.background(255,255,255,0);
+      p.stroke(111, 138, 199);
+      p.strokeWeight(2);
+
+      for(let i=0;i<nodes.length-1;i++){
+        const a = nodes[i];
+        const b = nodes[i+1];
+        const ax = a.x + a.w/2, ay = a.y + a.h;
+        const bx = b.x + b.w/2, by = b.y;
+        p.line(ax, ay, bx, by);
+        drawArrow(p, ax, ay, bx, by);
+      }
+
+      nodes.forEach((n, idx)=>{
+        const hue = idx === 0 || idx === nodes.length-1 ? '#eaf2ff' : '#f8fbff';
+        p.noStroke();
+        p.fill(hue);
+        p.rect(n.x, n.y, n.w, n.h, 12);
+        p.stroke(76,151,255);
+        p.noFill();
+        p.rect(n.x, n.y, n.w, n.h, 12);
+        p.noStroke();
+        p.fill(28,46,94);
+        p.textSize(p.width < 360 ? 10 : 12);
+        p.text(n.label, n.x + n.w/2, n.y + n.h/2);
+      });
+    };
+  };
+
+  flowSketches[id] = new p5(sketch);
+}
+
+function drawArrow(p, x1, y1, x2, y2){
+  const angle = Math.atan2(y2-y1, x2-x1);
+  const len = 10;
+  p.push();
+  p.translate(x2, y2);
+  p.rotate(angle);
+  p.fill(111,138,199);
+  p.noStroke();
+  p.triangle(0,0,-len,-4,-len,4);
+  p.pop();
+}
+
+/* Background p5 sketch */
+new p5((p)=>{
+  let parts = [];
+  p.setup = ()=>{
+    const c = p.createCanvas(p.windowWidth, p.windowHeight);
+    c.parent('bgSketch');
+    for(let i=0;i<55;i++){
+      parts.push({
+        x:p.random(p.width),
+        y:p.random(p.height),
+        r:p.random(5,18),
+        dx:p.random(-.35,.35),
+        dy:p.random(-.2,-.8),
+        a:p.random(35,95)
+      });
+    }
+  };
+  p.windowResized = ()=>p.resizeCanvas(p.windowWidth,p.windowHeight);
+  p.draw = ()=>{
+    p.clear();
+    for(const q of parts){
+      q.x += q.dx;
+      q.y += q.dy;
+      if(q.y < -25){ q.y = p.height + 20; q.x = p.random(p.width); }
+      if(q.x < -25) q.x = p.width + 20;
+      if(q.x > p.width + 25) q.x = -20;
+      p.noStroke();
+      p.fill(255,255,255,q.a);
+      p.circle(q.x,q.y,q.r);
+    }
+  };
+});
+
+renderSlides();
+</script>
+</body>
+</html>
