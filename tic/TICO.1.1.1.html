@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tutorial autónomo de investigación para TICO.1.1.1 · 1.º Bachillerato">
+<title>TICO.1.1.1 · Laboratorio autónomo de investigación</title>
+<style>
+:root{
+  --navy:#0b2340;--blue:#145da0;--cyan:#29b8b0;--cyan2:#e4f8f6;
+  --yellow:#ffd166;--paper:#f5f8fb;--white:#fff;--ink:#102235;
+  --muted:#607181;--line:#d4dee7;--good:#147d64;--warn:#9a5a00;--bad:#a93f52;
+  --shadow:0 18px 48px rgba(11,35,64,.14);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{height:100vh;height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+.topbar{display:flex;gap:16px;align-items:center;padding:10px 18px;background:var(--navy);color:#fff;box-shadow:0 3px 18px rgba(0,0,0,.22);z-index:20}
+.brand{display:flex;gap:10px;align-items:center;min-width:max-content}
+.mark{width:36px;height:36px;border:2px solid var(--cyan);border-radius:10px;display:grid;place-items:center;color:var(--yellow);font-weight:950}
+.brand strong{display:block;font-size:.92rem}.brand small{color:#bdd7e7}
+.progress-wrap{flex:1;max-width:720px;margin:auto}.progress-label{display:flex;justify-content:space-between;font-size:.76rem;color:#d4e6f1;margin-bottom:4px}
+.progress{height:7px;background:#31485f;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;width:5%;background:linear-gradient(90deg,var(--cyan),var(--yellow));transition:.3s}
+.counter{font-weight:900;color:var(--yellow);min-width:62px;text-align:right}
+main{width:min(1240px,100%);height:100%;min-height:0;margin:auto;padding:14px 24px 8px;display:grid;grid-template-rows:minmax(0,1fr) auto}
+.stage{min-height:0;overflow:hidden}.slides{height:100%;display:flex;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+.slide{flex:0 0 100%;height:100%;padding:3px;display:flex}.panel{width:100%;height:100%;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,38px);box-shadow:var(--shadow)}
+.eyebrow{font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--blue)}
+h1,h2,h3{line-height:1.13}h1{font-size:clamp(2.2rem,5vw,4.7rem);letter-spacing:-.05em;margin:.35rem 0 .9rem;max-width:1050px}
+h2{font-size:clamp(1.75rem,3.4vw,2.9rem);letter-spacing:-.035em;margin:.35rem 0 .7rem}h3{font-size:1.08rem;margin:.15rem 0 .5rem}
+.lead{font-size:clamp(1.02rem,1.7vw,1.23rem);color:#40576a;max-width:970px;margin:0 0 1.25rem}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.tint{background:var(--cyan2)}.blue{background:#eaf3ff}.yellow{background:#fff8df}.rose{background:#fff0f3}
+.tag{display:inline-block;border-radius:999px;background:var(--navy);color:#fff;padding:4px 9px;font-size:.73rem;font-weight:900;margin-bottom:7px}.tag.good{background:var(--good)}.tag.gold{background:#8a5a00}.tag.bad{background:var(--bad)}
+.saber{border-left:5px solid var(--cyan);background:#f0fbfa;padding:11px 14px;border-radius:0 12px 12px 0;margin:14px 0;color:#29485a}
+.saber b{color:var(--navy)}
+.flow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:18px 0}.flow div{background:#edf3f7;border-radius:12px;padding:10px 8px;text-align:center;font-weight:850;font-size:.8rem}.flow .on{background:var(--yellow)}
+.field{margin:11px 0}.field label{display:block;font-weight:850;margin-bottom:5px}
+input,textarea,select{width:100%;border:1px solid #aebdca;border-radius:10px;padding:10px 11px;background:#fff;color:var(--ink)}
+textarea{min-height:85px;resize:vertical}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:850;background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(20,93,160,.19)}
+.btn:hover{filter:brightness(1.06)}.btn.secondary{background:#fff;color:var(--navy);border:1px solid var(--line);box-shadow:none}.btn.cyan{background:var(--cyan);color:#053a36}.btn.gold{background:var(--yellow);color:#3a2d00}
+.search,.prompt{background:#071b31;color:#e4f4fb;border-radius:13px;padding:12px;margin:9px 0}.search code,.prompt code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;font:500 .89rem/1.45 Consolas,monospace}.search .row,.prompt .row{justify-content:space-between;margin-top:8px}
+.mini{font-size:.88rem;color:var(--muted)}.callout{background:var(--navy);color:#fff;border-radius:15px;padding:14px 16px}.callout b{color:var(--yellow)}
+.checklist{display:grid;gap:9px}.check{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.check input{width:auto;margin-top:4px}
+table{width:100%;border-collapse:collapse}.table-wrap{overflow:auto}th,td{border:1px solid var(--line);padding:9px;vertical-align:top}th{background:var(--navy);color:#fff;text-align:left}
+.nav{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px}.navBtn{border:0;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.25rem}.navBtn:disabled{opacity:.28;cursor:not-allowed}
+.dots{display:flex;gap:5px;max-width:760px;overflow:auto;padding:4px}.dot{width:10px;height:10px;min-width:10px;border:0;border-radius:50%;padding:0;background:#afbdc8}.dot.active{background:var(--cyan);box-shadow:0 0 0 4px rgba(41,184,176,.18)}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--navy);color:white;padding:10px 14px;border-radius:11px;opacity:0;transform:translateY(12px);transition:.25s;pointer-events:none;z-index:50}.toast.show{opacity:1;transform:none}
+.big{font-size:2.7rem;font-weight:950;color:var(--blue);letter-spacing:-.05em}
+details{border:1px solid var(--line);border-radius:12px;padding:0 13px;background:#fff}details+details{margin-top:8px}summary{padding:12px 0;font-weight:850;cursor:pointer}
+a{color:var(--blue);font-weight:800}
+@media(max-width:850px){.g2,.g3,.flow{grid-template-columns:1fr}.brand small{display:none}.counter{display:none}main{padding:10px 10px 5px}.panel{border-radius:18px}.flow{display:none}}
+@media print{
+  body{background:#fff}.topbar,.nav,.btn,.dots,.toast{display:none!important}.app{display:block;height:auto;overflow:visible}.stage{overflow:visible}.slides{display:block!important;transform:none!important;height:auto}.slide{display:block;height:auto;page-break-after:always}.panel{height:auto;overflow:visible;box-shadow:none;border:0;border-radius:0;padding:14mm}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="mark">TIC</div><div><strong>Investigación autónoma</strong><small>TICO.1.1.1 · 1.º Bachillerato</small></div></div>
+  <div class="progress-wrap"><div class="progress-label"><span id="sectionName">Inicio</span><span>Tu progreso</span></div><div class="progress"><span id="bar"></span></div></div>
+  <div class="counter" id="counter">1 / 18</div>
+</header>
+
+<main>
+<div class="stage">
+<div class="slides" id="slides">
+
+<section class="slide" data-title="Tu misión">
+<article class="panel">
+<span class="eyebrow">Misión · aprende investigando</span>
+<h1>¿Cómo podrían las TIC transformar <span style="background:linear-gradient(transparent 60%,#ffd166 60%)">Campo de Tejada</span>?</h1>
+<p class="lead">Vas a aprender una metodología básica de investigación que después podrás aplicar a tu propio tema. No necesitas avanzar al ritmo de nadie: lee, prueba, anota y continúa cuando tengas cada paso.</p>
+<div class="grid g3">
+<div class="card tint"><div class="big">1</div><b>Pregunta</b><p>Convierte un tema amplio en una pregunta que pueda investigarse.</p></div>
+<div class="card blue"><div class="big">4+</div><b>Fuentes</b><p>Localiza al menos cuatro fuentes y conserva dos institucionales.</p></div>
+<div class="card yellow"><div class="big">1</div><b>Conclusión propia</b><p>NotebookLM ayuda a leer; la valoración final es tuya.</p></div>
+</div>
+<div class="flow"><div class="on">Pregunta</div><div>Hipótesis</div><div>Buscar</div><div>Seleccionar</div><div>NotebookLM</div><div>Analizar</div><div>Comunicar</div></div>
+<div class="saber"><b>Saberes TICO.1.A.1:</b> impacto de la informática, sociedad de la información y del conocimiento, nuevos sectores laborales, Big Data/IoT/IA/robótica, aspectos positivos y negativos, amenazas y sostenibilidad.</div>
+</article></section>
+
+<section class="slide" data-title="Qué se evalúa">
+<article class="panel">
+<span class="eyebrow">Antes de empezar</span><h2>El objetivo no es «hablar de tecnología»</h2>
+<p class="lead">El criterio TICO.1.1.1 pide <b>analizar y valorar el impacto de las TIC en la transformación de la sociedad actual</b>. Por eso tu trabajo debe demostrar cambios, consecuencias y evidencias.</p>
+<div class="grid g2">
+<div class="card"><span class="tag bad">No basta</span><h3>Trabajo descriptivo</h3><p>«La inteligencia artificial es…» + lista de ventajas y desventajas.</p></div>
+<div class="card tint"><span class="tag good">Sí buscamos</span><h3>Trabajo de investigación</h3><p>Pregunta → hipótesis → fuentes → evidencias → contraste → valoración → propuestas.</p></div>
+</div>
+<div class="saber"><b>Idea clave:</b> una transformación afecta de forma distinta a personas, empleo, economía, cultura, derechos o medioambiente. Tu análisis debe detectar esas diferencias.</div>
+</article></section>
+
+<section class="slide" data-title="Caso modelo">
+<article class="panel">
+<span class="eyebrow">Ejemplo cercano</span><h2>Caso modelo: Campo de Tejada</h2>
+<p class="lead">Usaremos un caso cercano para aprender el procedimiento. No debes copiar una conclusión: debes aprender cómo se construye.</p>
+<div class="callout"><b>Pregunta modelo:</b> ¿Cómo podrían las TIC transformar el aprendizaje, la organización y la relación con el entorno del IES Campo de Tejada?</div>
+<div class="grid g3" style="margin-top:14px">
+<div class="card"><h3>Aprendizaje</h3><p>IA educativa, aulas virtuales, simuladores, recursos digitales, accesibilidad.</p></div>
+<div class="card"><h3>Organización</h3><p>Comunicaciones, trámites, datos, coordinación, reducción de papel.</p></div>
+<div class="card"><h3>Entorno</h3><p>Brecha digital, familias, empleo, conectividad rural, sostenibilidad.</p></div>
+</div>
+<div class="saber"><b>TICO.1.A.1.1 y A.1.2:</b> relaciona sociedad de la información/conocimiento con ejemplos reales de digitalización y servicios en línea.</div>
+</article></section>
+
+<section class="slide" data-title="Paso 1 · Tema">
+<article class="panel">
+<span class="eyebrow">Paso 1</span><h2>Del tema amplio al foco concreto</h2>
+<p class="lead">Escribe qué transformación quieres investigar. Un buen tema es lo bastante concreto como para encontrar datos y casos reales.</p>
+<div class="field"><label>Mi tema</label><input data-save id="topic" placeholder="Ej.: IA generativa y aprendizaje en Bachillerato"></div>
+<div class="grid g2">
+<div class="card yellow"><h3>Demasiado amplio</h3><p>«La inteligencia artificial»</p></div>
+<div class="card tint"><h3>Mejor</h3><p>«Uso de IA generativa por alumnado de Bachillerato y su impacto en el aprendizaje»</p></div>
+</div>
+<div class="saber"><b>TICO.1.A.1.4:</b> puedes elegir Big Data, Internet de las cosas, inteligencia artificial o robótica, pero siempre relacionándolo con un cambio social real.</div>
+</article></section>
+
+<section class="slide" data-title="Paso 2 · Pregunta">
+<article class="panel">
+<span class="eyebrow">Paso 2</span><h2>Formula una pregunta investigable</h2>
+<p class="lead">Evita preguntas que se respondan con «sí/no» o con una definición. Busca relaciones, diferencias, consecuencias o condiciones.</p>
+<div class="field"><label>Mi pregunta principal</label><textarea data-save id="question" placeholder="¿Cómo...?, ¿En qué medida...?, ¿Qué efectos...?, ¿Qué diferencias...?"></textarea></div>
+<div class="grid g3">
+<div class="card"><b>¿Cómo cambia…?</b><p>Permite comparar antes/ahora.</p></div>
+<div class="card"><b>¿A quién beneficia/perjudica…?</b><p>Introduce desigualdades.</p></div>
+<div class="card"><b>¿Bajo qué condiciones…?</b><p>Evita conclusiones simplistas.</p></div>
+</div>
+</article></section>
+
+<section class="slide" data-title="Paso 3 · Hipótesis">
+<article class="panel">
+<span class="eyebrow">Paso 3</span><h2>Escribe una hipótesis provisional</h2>
+<p class="lead">No es una respuesta definitiva. Es lo que crees al empezar y que después tendrás que revisar según las evidencias.</p>
+<div class="callout"><b>Ejemplo:</b> La digitalización puede mejorar el acceso a recursos y reducir tareas administrativas, pero sus beneficios dependerán de la conectividad, la competencia digital y la protección de datos.</div>
+<div class="field"><label>Mi hipótesis inicial</label><textarea data-save id="hypothesis" placeholder="Creo que... porque..., aunque podría depender de..."></textarea></div>
+<div class="saber"><b>TICO.1.A.1.5:</b> desde la hipótesis conviene anticipar aspectos positivos, negativos y posibles amenazas, pero sin dar nada por demostrado.</div>
+</article></section>
+
+<section class="slide" data-title="Paso 4 · Caso real">
+<article class="panel">
+<span class="eyebrow">Paso 4</span><h2>Busca un caso que puedas observar</h2>
+<p class="lead">Un caso real conecta la teoría con la vida cotidiana. Puede ser tu centro, un servicio público, una empresa, una plataforma o una experiencia documentada.</p>
+<div class="field"><label>Mi caso real o cercano</label><textarea data-save id="case" placeholder="Ej.: comparar cómo se gestiona actualmente una tarea del centro y cómo podría realizarse con una solución digital; encuesta anónima; análisis de un servicio..."></textarea></div>
+<div class="grid g2">
+<div class="card tint"><h3>En Campo de Tejada</h3><p>Conectividad, Moodle, comunicación con familias, recursos digitales, gestión documental, ciberseguridad o ahorro de papel.</p></div>
+<div class="card blue"><h3>Fuera del centro</h3><p>Administración electrónica, comercio, agricultura inteligente, empleo digital, servicios sanitarios o movilidad.</p></div>
+</div>
+</article></section>
+
+<section class="slide" data-title="Paso 5 · Palabras clave">
+<article class="panel">
+<span class="eyebrow">Paso 5</span><h2>Prepara palabras clave antes de buscar</h2>
+<p class="lead">No escribas una pregunta entera y aceptes el primer resultado. Combina conceptos, contexto, tipo de documento y fecha.</p>
+<div class="field"><label>Mis palabras clave</label><textarea data-save id="keywords" placeholder='Ej.: digitalización educación rural Andalucía; competencia digital; IA educación; brecha digital; sostenibilidad TIC'></textarea></div>
+<div class="grid g2">
+<div class="card"><h3>Operadores útiles</h3><p><code>"frase exacta"</code> · <code>site:</code> · <code>filetype:pdf</code> · <code>OR</code> · <code>-palabra</code> · <code>after:</code></p></div>
+<div class="card yellow"><h3>Objetivo</h3><p>Encontrar informes, estadísticas, normativa o estudios; no coleccionar resultados.</p></div>
+</div>
+</article></section>
+
+<section class="slide" data-title="Paso 6 · Buscar PDF">
+<article class="panel">
+<span class="eyebrow">Paso 6</span><h2>Aprende a localizar PDFs útiles</h2>
+<p class="lead">Empieza por instituciones que tengan responsabilidad, datos o investigación en el tema.</p>
+
+<div class="search"><code>site:juntadeandalucia.es digitalización educación Andalucía filetype:pdf</code><div class="row"><span>Políticas, planes y contexto educativo</span><button class="btn secondary copy" data-copy='site:juntadeandalucia.es digitalización educación Andalucía filetype:pdf'>Copiar</button></div></div>
+<div class="search"><code>site:ine.es "competencias digitales" España filetype:pdf</code><div class="row"><span>Datos estadísticos</span><button class="btn secondary copy" data-copy='site:ine.es "competencias digitales" España filetype:pdf'>Copiar</button></div></div>
+<div class="search"><code>site:unesco.org "generative AI" education filetype:pdf</code><div class="row"><span>IA y educación</span><button class="btn secondary copy" data-copy='site:unesco.org "generative AI" education filetype:pdf'>Copiar</button></div></div>
+<div class="search"><code>site:incibe.es educación ciberseguridad filetype:pdf</code><div class="row"><span>Seguridad digital</span><button class="btn secondary copy" data-copy='site:incibe.es educación ciberseguridad filetype:pdf'>Copiar</button></div></div>
+
+<div class="field"><label>Escribe aquí la búsqueda avanzada que finalmente te funcionó</label><textarea data-save id="searchQuery"></textarea></div>
+<div class="saber"><b>Regla:</b> descarga solo documentos que entiendas por qué necesitas. Tu carpeta de investigación debe tener pocas fuentes buenas, no decenas de PDFs al azar.</div>
+</article></section>
+
+<section class="slide" data-title="Paso 7 · Filtrar fuentes">
+<article class="panel">
+<span class="eyebrow">Paso 7</span><h2>¿Este PDF merece entrar en tu investigación?</h2>
+<p class="lead">Antes de descargar, revisa seis preguntas. Si no puedes contestarlas, probablemente necesitas otra fuente.</p>
+<div class="checklist">
+<label class="check"><input type="checkbox" data-save-check><span><b>Autoridad.</b> ¿Quién lo publica y qué relación tiene con el tema?</span></label>
+<label class="check"><input type="checkbox" data-save-check><span><b>Fecha.</b> ¿Es suficientemente actual para mi pregunta?</span></label>
+<label class="check"><input type="checkbox" data-save-check><span><b>Evidencia.</b> ¿Incluye datos, método, referencias o casos verificables?</span></label>
+<label class="check"><input type="checkbox" data-save-check><span><b>Propósito.</b> ¿Informa, investiga, vende o intenta persuadirme?</span></label>
+<label class="check"><input type="checkbox" data-save-check><span><b>Utilidad.</b> ¿Contiene algo que realmente ayuda a responder mi pregunta?</span></label>
+<label class="check"><input type="checkbox" data-save-check><span><b>Contraste.</b> ¿Puedo comprobar esta afirmación con otra fuente?</span></label>
+</div>
+</article></section>
+
+<section class="slide" data-title="Paso 8 · Carpeta de fuentes">
+<article class="panel">
+<span class="eyebrow">Paso 8</span><h2>Organiza antes de usar IA</h2>
+<p class="lead">Crea una carpeta para tu proyecto y guarda los documentos con nombres que puedas reconocer.</p>
+<div class="grid g2">
+<div class="card blue">
+<h3>Estructura recomendada</h3>
+<pre>Investigacion_TIC/
+├── 01_fuentes/
+│   ├── INE_competencias_digitales.pdf
+│   ├── UNESCO_IA_educacion.pdf
+│   └── ...
+├── 02_datos/
+├── 03_imagenes/
+└── 04_trabajo_final/</pre>
+</div>
+<div class="card tint">
+<h3>Mínimo para continuar</h3>
+<p>✓ 4 fuentes distintas</p><p>✓ 2 institucionales como mínimo</p><p>✓ 1 dato, tabla o gráfico que puedas explicar</p><p>✓ 1 caso real</p>
+</div>
+</div>
+<div class="field"><label>Mis cuatro fuentes previstas</label><textarea data-save id="sources" placeholder="1. Autor/organismo — título — año — enlace&#10;2. ..."></textarea></div>
+</article></section>
+
+<section class="slide" data-title="Paso 9 · NotebookLM">
+<article class="panel">
+<span class="eyebrow">Paso 9</span><h2>Ahora sí: crea tu cuaderno en NotebookLM</h2>
+<p class="lead">NotebookLM puede trabajar sobre las fuentes que añades. El objetivo es usarlo como asistente de lectura y contraste, no para inventar bibliografía.</p>
+<div class="grid g2">
+<div class="card">
+<div class="step"><div class="tag">1</div><h3>Crea un notebook nuevo</h3></div>
+<p>Ponle un nombre claro: <code>TIC1_Impacto_Apellido</code>.</p>
+</div>
+<div class="card">
+<div class="step"><div class="tag">2</div><h3>Añade tus fuentes</h3></div>
+<p>Sube los PDFs seleccionados. También puede admitir otros tipos de fuentes, pero para esta actividad priorizamos documentos verificables.</p>
+</div>
+<div class="card">
+<div class="step"><div class="tag">3</div><h3>Comprueba el listado</h3></div>
+<p>Debes reconocer quién publica cada documento y para qué lo vas a usar.</p>
+</div>
+<div class="card">
+<div class="step"><div class="tag">4</div><h3>Pregunta sobre las fuentes</h3></div>
+<p>Pide evidencias, diferencias y límites. No «hazme el trabajo».</p>
+</div>
+</div>
+<div class="callout" style="margin-top:14px"><b>Norma de clase:</b> NotebookLM no sustituye a las fuentes originales. En tu bibliografía citas el informe, organismo o estudio original.</div>
+</article></section>
+
+<section class="slide" data-title="Paso 10 · Primeros prompts">
+<article class="panel">
+<span class="eyebrow">Paso 10</span><h2>Prompts para comprender antes de escribir</h2>
+<p class="lead">Copia uno, úsalo sobre tus fuentes y verifica en qué documento se apoya la respuesta.</p>
+
+<div class="prompt"><code id="p1">Explica, usando únicamente las fuentes seleccionadas, qué cambios relacionados con mi pregunta de investigación aparecen documentados. Separa hechos, datos y opiniones. Indica qué fuente respalda cada punto.</code><div class="row"><span>Comprender</span><button class="btn secondary copy" data-copy-target="p1">Copiar prompt</button></div></div>
+<div class="prompt"><code id="p2">Localiza en mis fuentes 5 evidencias concretas útiles para responder mi pregunta. Para cada una indica: dato o afirmación, fuente, fecha, contexto y por qué es relevante. No añadas información externa.</code><div class="row"><span>Extraer evidencias</span><button class="btn secondary copy" data-copy-target="p2">Copiar prompt</button></div></div>
+<div class="prompt"><code id="p3">¿Qué afirmaciones de estas fuentes deberían tratarse con cautela? Señala limitaciones metodológicas, datos antiguos, generalizaciones o posibles conflictos entre documentos.</code><div class="row"><span>Evaluar</span><button class="btn secondary copy" data-copy-target="p3">Copiar prompt</button></div></div>
+</article></section>
+
+<section class="slide" data-title="Paso 11 · Contrastar">
+<article class="panel">
+<span class="eyebrow">Paso 11</span><h2>Haz que las fuentes «discutan» entre ellas</h2>
+<p class="lead">La investigación mejora cuando detectas coincidencias y discrepancias.</p>
+<div class="prompt"><code id="p4">Compara las fuentes que he seleccionado. Crea una tabla con: cuestión, coincidencias, diferencias, evidencia utilizada y fuente. No decidas cuál tiene razón si las fuentes no permiten hacerlo.</code><div class="row"><span>Comparación</span><button class="btn secondary copy" data-copy-target="p4">Copiar prompt</button></div></div>
+<div class="prompt"><code id="p5">Respecto a mi pregunta de investigación, identifica qué grupos pueden beneficiarse y cuáles podrían encontrar barreras. Busca solo evidencias presentes en las fuentes y señala cuando falten datos.</code><div class="row"><span>Desigualdades</span><button class="btn secondary copy" data-copy-target="p5">Copiar prompt</button></div></div>
+<div class="saber"><b>TICO.1.A.1.5:</b> aquí trabajas aspectos positivos, negativos y amenazas sin reducir el análisis a una lista superficial de «pros y contras».</div>
+</article></section>
+
+<section class="slide" data-title="Paso 12 · Campo de Tejada">
+<article class="panel">
+<span class="eyebrow">Paso 12 · ejemplo aplicado</span><h2>¿Cómo llevar las evidencias a Campo de Tejada?</h2>
+<p class="lead">Los informes generales no describen automáticamente tu centro. Úsalos para formular hipótesis y después distingue lo que sabes del contexto local de lo que estás infiriendo.</p>
+<div class="prompt"><code id="p6">A partir exclusivamente de mis fuentes, crea una matriz para estudiar una posible transformación digital de un instituto: aprendizaje, organización, relación con familias, accesibilidad, empleo/competencias, ciberseguridad y sostenibilidad. En cada dimensión indica: oportunidad, riesgo, evidencia disponible y qué dato local necesitaría recoger antes de concluir.</code><div class="row"><span>Aplicar al caso</span><button class="btn secondary copy" data-copy-target="p6">Copiar prompt</button></div></div>
+<div class="field"><label>¿Qué datos locales necesitarías para estudiar Campo de Tejada sin inventar?</label><textarea data-save id="localData" placeholder="Ej.: disponibilidad de dispositivos, conectividad, usos actuales de Moodle, incidencias, consumo de papel, encuesta anónima..."></textarea></div>
+</article></section>
+
+<section class="slide" data-title="Paso 13 · Analizar">
+<article class="panel">
+<span class="eyebrow">Paso 13</span><h2>Tu análisis debe ir más allá del resumen</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Lente</th><th>Preguntas que debes responder</th><th>Saber relacionado</th></tr></thead>
+<tbody>
+<tr><td>Sociedad</td><td>¿Qué cambia en la forma de informarse, comunicarse, aprender o participar?</td><td>TICO.1.A.1.1–1.2</td></tr>
+<tr><td>Empleo</td><td>¿Aparecen nuevas tareas, perfiles o competencias?</td><td>TICO.1.A.1.3</td></tr>
+<tr><td>Tecnologías emergentes</td><td>¿Intervienen IA, Big Data, IoT o robótica? ¿Qué hacen realmente?</td><td>TICO.1.A.1.4</td></tr>
+<tr><td>Riesgos</td><td>¿Privacidad, seguridad, dependencia, desinformación o exclusión?</td><td>TICO.1.A.1.5</td></tr>
+<tr><td>Sostenibilidad</td><td>¿Ahorra recursos? ¿Consume energía, equipos o materiales?</td><td>TICO.1.A.1.6</td></tr>
+</tbody></table></div>
+<div class="field"><label>Mi análisis provisional</label><textarea data-save id="analysis" placeholder="Qué transformación observo, qué evidencia la respalda, a quién afecta y con qué límites..."></textarea></div>
+</article></section>
+
+<section class="slide" data-title="Paso 14 · Conclusión">
+<article class="panel">
+<span class="eyebrow">Paso 14</span><h2>Responde a tu pregunta, no a otra</h2>
+<p class="lead">La conclusión no es un resumen del trabajo. Debe contestar la pregunta principal y revisar la hipótesis inicial.</p>
+<div class="prompt"><code id="p7">No redactes mi conclusión. Hazme 6 preguntas de comprobación para que yo pueda construirla: respuesta a la pregunta principal, evidencia más fuerte, evidencia que la limita, revisión de la hipótesis, limitaciones del estudio y dos propuestas de mejora.</code><div class="row"><span>IA como tutor</span><button class="btn secondary copy" data-copy-target="p7">Copiar prompt</button></div></div>
+<div class="field"><label>Mi conclusión provisional, escrita por mí</label><textarea data-save id="conclusion"></textarea></div>
+<div class="field"><label>Dos propuestas de mejora</label><textarea data-save id="proposals" placeholder="1. ...&#10;2. ..."></textarea></div>
+</article></section>
+
+<section class="slide" data-title="Entregable">
+<article class="panel">
+<span class="eyebrow">Producto evaluable</span><h2>Qué debes entregar</h2>
+<div class="grid g2">
+<div class="card tint"><h3>Formato</h3><p><b>Informe PDF de 4–6 páginas</b> o <b>presentación de 8–12 diapositivas</b>.</p><p>Si se solicita: explicación oral de 4–6 minutos.</p><p>Moodle: <code>Apellido_Nombre_TIC1_1.1.pdf</code></p></div>
+<div class="card blue"><h3>Estructura obligatoria</h3><ol><li>Portada.</li><li>Planteamiento.</li><li>Transformación social.</li><li>Evidencias.</li><li>Análisis crítico.</li><li>Conclusión.</li><li>Bibliografía y autoría.</li></ol></div>
+</div>
+<div class="callout" style="margin-top:14px"><b>Uso de IA:</b> declara para qué la has utilizado. La IA no figura como fuente de los datos: cita siempre el documento original que has consultado y verificado.</div>
+</article></section>
+
+<section class="slide" data-title="Rúbrica">
+<article class="panel">
+<span class="eyebrow">Cómo se califica</span><h2>Rúbrica resumida · 10 puntos</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Aspecto</th><th>Puntos</th><th>Qué debe verse</th></tr></thead>
+<tbody>
+<tr><td>Análisis de la transformación</td><td><b>2,5</b></td><td>Explica cambios y grupos afectados; no se limita a definir.</td></tr>
+<tr><td>Evidencias y fuentes</td><td><b>2,0</b></td><td>4 fuentes mínimas, 2 institucionales y evidencias interpretadas.</td></tr>
+<tr><td>Beneficios, riesgos y desigualdades</td><td><b>1,5</b></td><td>Perspectivas distintas y consecuencias justificadas.</td></tr>
+<tr><td>Valoración y propuestas</td><td><b>1,5</b></td><td>Conclusión razonada y dos mejoras coherentes.</td></tr>
+<tr><td>Caso real</td><td><b>1,0</b></td><td>Caso concreto conectado con la pregunta.</td></tr>
+<tr><td>Comunicación</td><td><b>1,0</b></td><td>Organización, claridad y presentación.</td></tr>
+<tr><td>Citas y autoría</td><td><b>0,5</b></td><td>Fuentes, imágenes y uso de IA declarados correctamente.</td></tr>
+</tbody></table></div>
+</article></section>
+
+<section class="slide" data-title="Lista final">
+<article class="panel">
+<span class="eyebrow">Antes de Moodle</span><h2>Control de calidad</h2>
+<div class="checklist">
+<label class="check"><input type="checkbox" data-save-check><span>El trabajo responde claramente a mi pregunta principal.</span></label>
+<label class="check"><input type="checkbox" data-save-check><span>No se limita a definir la tecnología ni a enumerar ventajas y desventajas.</span></label>
+<label class="check"><input type="checkbox" data-save-check><span>Cada dato, imagen o afirmación importante tiene una fuente identificable.</span></label>
+<label class="check"><input type="checkbox" data-save-check><span>El gráfico o tabla se explica y se relaciona con la conclusión.</span></label>
+<label class="check"><input type="checkbox" data-save-check><span>Los enlaces funcionan y el PDF se lee correctamente.</span></label>
+<label class="check"><input type="checkbox" data-save-check><span>La IA no aparece como fuente; declaro para qué la utilicé.</span></label>
+</div>
+<div class="row" style="margin-top:16px">
+<button class="btn gold" id="printBtn">🖨️ Imprimir / guardar como PDF</button>
+<button class="btn cyan" id="downloadPlan">⬇️ Descargar mi plan</button>
+<button class="btn secondary" id="resetBtn">Reiniciar actividad</button>
+</div>
+</article></section>
+
+<section class="slide" data-title="Temas alternativos">
+<article class="panel">
+<span class="eyebrow">Si no eliges Campo de Tejada</span><h2>Seis caminos de investigación</h2>
+<div class="grid g3">
+<div class="card"><b>IA generativa y aprendizaje</b><p>¿Mejora comprensión o facilita tareas sin aprendizaje?</p></div>
+<div class="card"><b>Algoritmos y deepfakes</b><p>¿Cómo afectan a la confianza en la información?</p></div>
+<div class="card"><b>Administración electrónica</b><p>¿Simplifica trámites para todos o crea barreras?</p></div>
+<div class="card"><b>IA y empleo</b><p>¿Sustituye empleos o transforma tareas?</p></div>
+<div class="card"><b>Centros de datos</b><p>¿Cómo comparar beneficios y coste ambiental?</p></div>
+<div class="card"><b>Ciberseguridad</b><p>¿Qué hace creíble un fraude digital y qué medidas funcionan?</p></div>
+</div>
+<div class="field"><label>Mi tema definitivo</label><input data-save id="finalTopic"></div>
+</article></section>
+
+<section class="slide" data-title="Tu plan">
+<article class="panel">
+<span class="eyebrow">Fin del tutorial · empieza tu investigación</span><h2>Tu plan de investigación</h2>
+<p class="lead">Todo lo que escribiste se guarda automáticamente en este navegador. Revisa el resumen, descarga tu plan y empieza a trabajar con tus fuentes.</p>
+<div class="card tint" id="summary"></div>
+<div class="row" style="margin-top:16px">
+<button class="btn cyan" id="downloadPlan2">⬇️ Descargar plan</button>
+<button class="btn gold" id="printBtn2">🖨️ Guardar como PDF</button>
+</div>
+</article></section>
+
+</div>
+</div>
+
+<div class="nav">
+<button class="navBtn" id="prev" aria-label="Anterior">←</button>
+<div class="dots" id="dots"></div>
+<button class="navBtn" id="next" aria-label="Siguiente">→</button>
+</div>
+</main>
+</div>
+<div class="toast" id="toast">Copiado</div>
+
+<script>
+(()=>{
+const slides=[...document.querySelectorAll('.slide')], wrap=document.getElementById('slides');
+const bar=document.getElementById('bar'), counter=document.getElementById('counter'), section=document.getElementById('sectionName');
+const prev=document.getElementById('prev'), next=document.getElementById('next'), dots=document.getElementById('dots');
+const toast=document.getElementById('toast'); let i=0;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.className='dot';b.title=`Ir al paso ${n+1}`;b.onclick=()=>go(n);dots.appendChild(b)});
+const dotEls=[...dots.children];
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));wrap.style.transform=`translateX(-${i*100}%)`;bar.style.width=`${((i+1)/slides.length)*100}%`;counter.textContent=`${i+1} / ${slides.length}`;section.textContent=slides[i].dataset.title;prev.disabled=i===0;next.disabled=i===slides.length-1;dotEls.forEach((d,k)=>d.classList.toggle('active',k===i));slides[i].querySelector('.panel').scrollTop=0;renderSummary()}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1)});
+
+function showToast(msg='Copiado'){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1500)}
+document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.dataset.copy);showToast()});
+document.querySelectorAll('[data-copy-target]').forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.copyTarget);navigator.clipboard.writeText(el.textContent.trim());showToast('Prompt copiado')});
+
+const fields=[...document.querySelectorAll('[data-save]')];
+fields.forEach(el=>{const key='tic11_'+el.id;const old=localStorage.getItem(key);if(old!==null)el.value=old;el.addEventListener('input',()=>{localStorage.setItem(key,el.value);renderSummary()})});
+const checks=[...document.querySelectorAll('[data-save-check]')];
+checks.forEach((el,n)=>{const key='tic11_check_'+n;el.checked=localStorage.getItem(key)==='1';el.addEventListener('change',()=>localStorage.setItem(key,el.checked?'1':'0'))});
+
+const val=id=>(document.getElementById(id)?.value||'').trim()||'—';
+function renderSummary(){
+ const box=document.getElementById('summary'); if(!box)return;
+ box.innerHTML=`<p><b>Tema:</b> ${esc(val('finalTopic')==='—'?val('topic'):val('finalTopic'))}</p>
+ <p><b>Pregunta:</b> ${esc(val('question'))}</p>
+ <p><b>Hipótesis:</b> ${esc(val('hypothesis'))}</p>
+ <p><b>Caso real:</b> ${esc(val('case'))}</p>
+ <p><b>Búsqueda avanzada:</b> ${esc(val('searchQuery'))}</p>
+ <p><b>Fuentes previstas:</b><br>${esc(val('sources')).replace(/\n/g,'<br>')}</p>`;
+}
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+const guide=`CÓMO DEBE SER EL ENTREGABLE EVALUABLE
+=====================================
+Producto final:
+- Informe PDF de 4–6 páginas O presentación de 8–12 diapositivas.
+- Si el profesor lo solicita: explicación oral de 4–6 minutos.
+- Moodle: Apellido_Nombre_TIC1_1.1.pdf.
+
+Estructura:
+1. Portada.
+2. Planteamiento: tema, pregunta, hipótesis y relevancia.
+3. Transformación social: antes/ahora y grupos afectados.
+4. Evidencias: caso real, 4 fuentes como mínimo —2 institucionales— y un dato, tabla o gráfico explicado.
+5. Análisis crítico: beneficios, riesgos, desigualdades y diferentes puntos de vista.
+6. Conclusión: respuesta, revisión de hipótesis, límites y dos propuestas.
+7. Bibliografía y autoría: enlaces, fecha de consulta, créditos y declaración de uso de IA.
+
+Calificación /10:
+- Transformación 2,5
+- Evidencias y fuentes 2
+- Beneficios, riesgos y desigualdades 1,5
+- Valoración y propuestas 1,5
+- Caso real 1
+- Comunicación 1
+- Citas y autoría 0,5
+
+Regla sobre IA:
+La IA no es la fuente de los datos. Deben citarse y verificarse las fuentes originales y declarar para qué se usó la IA.`;
+
+function download(){
+ const text=`PLAN DE INVESTIGACIÓN · IMPACTO DE LAS TIC
+
+Tema:
+${val('finalTopic')==='—'?val('topic'):val('finalTopic')}
+
+Pregunta principal:
+${val('question')}
+
+Hipótesis inicial:
+${val('hypothesis')}
+
+Caso real:
+${val('case')}
+
+Palabras clave:
+${val('keywords')}
+
+Búsqueda avanzada utilizada:
+${val('searchQuery')}
+
+Fuentes previstas:
+${val('sources')}
+
+Datos locales que necesitaría:
+${val('localData')}
+
+Análisis provisional:
+${val('analysis')}
+
+Conclusión provisional:
+${val('conclusion')}
+
+Propuestas:
+${val('proposals')}
+
+${guide}`;
+ const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='plan_investigacion_TICO_1_1_1.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);showToast('Plan descargado');
+}
+document.getElementById('downloadPlan').onclick=download;document.getElementById('downloadPlan2').onclick=download;
+document.getElementById('printBtn').onclick=()=>window.print();document.getElementById('printBtn2').onclick=()=>window.print();
+document.getElementById('resetBtn').onclick=()=>{if(confirm('¿Borrar las respuestas guardadas de esta actividad?')){Object.keys(localStorage).filter(k=>k.startsWith('tic11_')).forEach(k=>localStorage.removeItem(k));fields.forEach(f=>f.value='');checks.forEach(c=>c.checked=false);renderSummary();showToast('Actividad reiniciada')}};
+renderSummary();go(0);
+})();
+</script>
+</body>
+</html>
