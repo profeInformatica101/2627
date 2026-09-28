@@ -3,124 +3,1232 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tecnología y Digitalización 2º ESO · Aprende jugando</title>
+<title>Tecnología y Digitalización 2.º ESO · Aprende jugando</title>
+
+<!-- URL correcta de p5.js -->
 <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+
 <style>
-:root{--bg:#07111f;--p:#0e1c2e;--p2:#13273e;--tx:#f8fbff;--mu:#9eb2c7;--bd:#ffffff1f;--ac:#7c3aed}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 10%,#7c3aed22,transparent 30%),linear-gradient(#06101c,#091522);color:var(--tx);font-family:Inter,system-ui,sans-serif;min-height:100vh}
-button,input,textarea,select{font:inherit}.app{max-width:1200px;margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{display:flex;gap:12px;align-items:center}.logo{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#f97316,#7c3aed);display:grid;place-items:center;font-size:30px}.brand h1{margin:0;font-size:clamp(1.1rem,2vw,1.55rem)}.brand p{margin:3px 0;color:var(--mu)}.stats{display:flex;gap:8px;flex-wrap:wrap}.pill{padding:9px 13px;border:1px solid var(--bd);border-radius:999px;background:#ffffff0d;font-weight:800}
-.bar{height:11px;background:#ffffff0d;border-radius:999px;overflow:hidden;margin:14px 0}.bar>div{height:100%;width:0;background:linear-gradient(90deg,#f97316,#7c3aed,#06b6d4,#22c55e);transition:.3s}
-.card{background:#0e1c2ee8;border:1px solid var(--bd);border-radius:24px}.intro{padding:28px}.intro-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:center}.intro h2{font-size:clamp(2rem,5vw,4rem);line-height:.98;margin:0}.grad{background:linear-gradient(90deg,#fb923c,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}.intro p{color:var(--mu);line-height:1.6}.features{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feature{padding:14px;border:1px solid var(--bd);background:#ffffff0a;border-radius:16px}.feature b{display:block;margin-bottom:4px}
-.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:900;color:white;background:linear-gradient(135deg,#7c3aed,#2563eb);cursor:pointer}.ghost{background:#ffffff0d;border:1px solid var(--bd)}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.stage{display:grid;grid-template-columns:minmax(250px,340px) 1fr;gap:16px}.visual{min-height:330px;overflow:hidden}.qcard{padding:23px;display:flex;flex-direction:column;justify-content:center}.kicker{color:#67e8f9;text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:900;margin-bottom:8px}.qcard h2{font-size:clamp(1.35rem,3vw,2.1rem);line-height:1.15;margin:0}.context{white-space:pre-line;color:var(--mu);margin-top:13px;line-height:1.5}
-.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}.answer{border:0;border-radius:18px;min-height:88px;color:white;font-weight:850;padding:16px;text-align:left;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.14s}.answer:hover{transform:translateY(-2px);filter:brightness(1.08)}.answer:disabled{cursor:default}.shape{width:36px;height:36px;border-radius:10px;background:#0003;display:grid;place-items:center;flex:0 0 auto}.a0{background:#d7263d}.a1{background:#1f6feb}.a2{background:#c99000}.a3{background:#148a55}.answer.correct{outline:4px solid white;box-shadow:0 0 0 7px #22c55e66}.answer.wrong{opacity:.42}
-.feedback{display:none;margin-top:14px;padding:16px 19px;justify-content:space-between;align-items:center;gap:15px}.feedback.show{display:flex}.feedback h3{margin:0 0 4px}.feedback p{margin:0;color:var(--mu);line-height:1.4}.open{margin-top:15px}.open textarea{width:100%;min-height:120px;border:1px solid var(--bd);border-radius:16px;background:#091727;color:white;padding:14px;resize:vertical}.solution{display:none;margin-top:12px;padding:14px;border-radius:15px;background:#22c55e18;border:1px solid #22c55e66;white-space:pre-line;line-height:1.5}.solution.show{display:block}
-.multi{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.check{display:flex;gap:9px;align-items:center;padding:12px;border:1px solid var(--bd);border-radius:14px;background:#0a1828}.check input{width:20px;height:20px}
-.match{display:grid;gap:9px;margin-top:15px}.mrow{display:grid;grid-template-columns:1fr 1.2fr;gap:10px;align-items:center;padding:11px;border:1px solid var(--bd);background:#0a1828;border-radius:14px}.mrow select{width:100%;background:#091727;color:white;border:1px solid var(--bd);border-radius:10px;padding:10px}
-.classify{display:grid;gap:9px;margin-top:15px}.crow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--bd);border-radius:14px;background:#0a1828}.cacts{display:flex;gap:7px}.cacts button{border:1px solid var(--bd);background:#10233a;color:white;border-radius:10px;padding:8px 11px;font-weight:800}.cacts .sel{background:#7c3aed}
-.draw{width:100%;height:250px;background:white;border-radius:16px;display:block;touch-action:none;margin-top:15px}
-.summary{display:none;text-align:center;padding:28px}.summary.show{display:block}.trophy{font-size:70px}.scorebig{font-size:clamp(3rem,8vw,5.4rem);font-weight:950;background:linear-gradient(90deg,#fb923c,#c084fc,#67e8f9,#86efac);-webkit-background-clip:text;color:transparent}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.metric{padding:14px;border:1px solid var(--bd);border-radius:16px;background:#ffffff0a}.metric strong{display:block;font-size:1.6rem}.hidden{display:none!important}
-@media(max-width:800px){.intro-grid,.stage{grid-template-columns:1fr}.visual{min-height:220px}}@media(max-width:600px){.app{padding:10px}.answers,.multi,.features,.metrics{grid-template-columns:1fr}.feedback{align-items:flex-start;flex-direction:column}.mrow,.crow{grid-template-columns:1fr}}
+:root{
+  --bg:#07111f;
+  --panel:#0e1c2e;
+  --text:#f8fbff;
+  --muted:#a9bdd0;
+  --border:#ffffff22;
+  --purple:#7c3aed;
+  --red:#d7263d;
+  --blue:#1f6feb;
+  --yellow:#c99000;
+  --green:#148a55;
+  --good:#22c55e;
+  --bad:#ef4444;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,#7c3aed25,transparent 30rem),
+    radial-gradient(circle at 92% 30%,#0ea5e920,transparent 28rem),
+    linear-gradient(#06101c,#091522);
+}
+button,input,textarea,select{font:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+  outline:3px solid #fbbf24;
+  outline-offset:2px;
+}
+.app{max-width:1220px;margin:auto;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{
+  width:56px;height:56px;border-radius:17px;
+  background:linear-gradient(135deg,#f97316,#7c3aed);
+  display:grid;place-items:center;font-size:31px;
+  box-shadow:0 10px 30px #0004
+}
+.brand h1{margin:0;font-size:clamp(1.08rem,2vw,1.55rem)}
+.brand p{margin:3px 0;color:var(--muted)}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.pill{
+  padding:9px 13px;border:1px solid var(--border);border-radius:999px;
+  background:#ffffff0d;font-weight:850
+}
+.bar{height:11px;background:#ffffff0d;border-radius:999px;overflow:hidden;margin:14px 0}
+.bar>div{
+  height:100%;width:0;
+  background:linear-gradient(90deg,#f97316,#7c3aed,#06b6d4,#22c55e);
+  transition:.3s
+}
+.card{
+  background:#0e1c2ef2;border:1px solid var(--border);
+  border-radius:24px;box-shadow:0 18px 45px #0002
+}
+
+/* Inicio */
+.intro{padding:28px}
+.intro-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:center}
+.intro h2{font-size:clamp(2rem,5vw,4rem);line-height:.98;margin:0}
+.grad{
+  background:linear-gradient(90deg,#fb923c,#c084fc,#67e8f9,#86efac);
+  -webkit-background-clip:text;color:transparent
+}
+.intro p{color:var(--muted);line-height:1.6}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feature{padding:14px;border:1px solid var(--border);background:#ffffff0a;border-radius:16px}
+.feature b{display:block;margin-bottom:4px}
+
+/* Botones */
+.btn{
+  border:0;border-radius:13px;padding:12px 17px;
+  font-weight:900;color:white;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  cursor:pointer
+}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:#ffffff0d;border:1px solid var(--border)}
+.btn.good{background:linear-gradient(135deg,#15803d,#22c55e)}
+.btn:disabled{opacity:.45;cursor:default;filter:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+/* Juego */
+.stage{display:grid;grid-template-columns:minmax(250px,340px) 1fr;gap:16px}
+.visual{
+  min-height:340px;overflow:hidden;
+  position:relative;display:grid;place-items:center
+}
+#p5-holder{width:100%;height:340px}
+.fallback-icon{
+  display:none;font-size:7rem;
+  filter:drop-shadow(0 12px 28px #0007)
+}
+.qcard{padding:23px;display:flex;flex-direction:column;justify-content:center}
+.kicker{
+  color:#67e8f9;text-transform:uppercase;
+  letter-spacing:.1em;font-size:.75rem;font-weight:900;margin-bottom:8px
+}
+.qmeta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.qtag{
+  color:#d8e7f4;font-size:.78rem;font-weight:800;
+  padding:5px 9px;border-radius:999px;background:#ffffff0c;border:1px solid var(--border)
+}
+.qcard h2{font-size:clamp(1.35rem,3vw,2.1rem);line-height:1.15;margin:0}
+.context{
+  white-space:pre-line;color:#d7e3ed;margin-top:13px;line-height:1.55;
+  padding:12px 14px;border-radius:14px;background:#ffffff08;border:1px solid var(--border)
+}
+.hint{
+  margin-top:12px;padding:12px 14px;border-left:4px solid #f59e0b;
+  background:#f59e0b18;border-radius:0 12px 12px 0;color:#fde6b5
+}
+.hidden{display:none!important}
+
+/* Kahoot */
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}
+.answer{
+  border:0;border-radius:18px;min-height:92px;color:white;
+  font-weight:850;padding:16px;text-align:left;
+  display:flex;align-items:center;gap:12px;cursor:pointer;
+  transition:.14s;box-shadow:inset 0 -5px 0 #0002
+}
+.answer:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.answer:disabled{cursor:default}
+.shape{
+  width:38px;height:38px;border-radius:10px;background:#0003;
+  display:grid;place-items:center;flex:0 0 auto;font-size:1.2rem
+}
+.a0{background:var(--red)}
+.a1{background:var(--blue)}
+.a2{background:var(--yellow)}
+.a3{background:var(--green)}
+.answer.correct{
+  outline:4px solid #fff;
+  box-shadow:0 0 0 7px #22c55e66,inset 0 -5px 0 #0002
+}
+.answer.chosen-wrong{
+  outline:4px solid #fff;
+  box-shadow:0 0 0 7px #ef444466,inset 0 -5px 0 #0002
+}
+.answer.dim{opacity:.35}
+
+/* Feedback */
+.feedback{
+  display:none;margin-top:14px;padding:17px 19px;
+  justify-content:space-between;align-items:flex-start;gap:15px
+}
+.feedback.show{display:flex}
+.feedback h3{margin:0 0 6px}
+.feedback p{margin:0;color:#d4e2ed;line-height:1.5}
+.answer-key{
+  margin-top:10px;padding:11px 13px;border-radius:12px;
+  background:#22c55e18;border:1px solid #22c55e66;
+  color:#d7ffe5;line-height:1.55
+}
+
+/* Abiertas */
+.open{margin-top:15px}
+.open textarea{
+  width:100%;min-height:125px;
+  border:1px solid var(--border);border-radius:16px;
+  background:#091727;color:white;padding:14px;resize:vertical
+}
+.solution{
+  display:none;margin-top:12px;padding:15px;border-radius:15px;
+  background:#22c55e18;border:1px solid #22c55e66;
+  white-space:pre-line;line-height:1.55;color:#eafff0
+}
+.solution.show{display:block}
+.solution strong{color:#86efac}
+
+/* Diagnóstico */
+.multi{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.check{
+  display:flex;gap:9px;align-items:center;padding:12px;
+  border:1px solid var(--border);border-radius:14px;background:#0a1828
+}
+.check input{width:20px;height:20px}
+
+/* Orden */
+.order-list{display:grid;gap:9px;margin-top:15px}
+.order-row{
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:10px;align-items:center;padding:11px;
+  border:1px solid var(--border);border-radius:14px;background:#0a1828
+}
+.order-num{
+  width:35px;height:35px;border-radius:10px;
+  background:#7c3aed;display:grid;place-items:center;font-weight:950
+}
+.order-actions{display:flex;gap:5px}
+.order-actions button{
+  border:1px solid var(--border);background:#10233a;color:#fff;
+  border-radius:9px;padding:7px 10px;font-weight:900;cursor:pointer
+}
+
+/* Relaciones */
+.match{display:grid;gap:9px;margin-top:15px}
+.mrow{
+  display:grid;grid-template-columns:1fr 1.35fr;
+  gap:10px;align-items:center;padding:12px;
+  border:1px solid var(--border);background:#0a1828;border-radius:14px
+}
+.mrow select{
+  width:100%;background:#091727;color:white;
+  border:1px solid #ffffff38;border-radius:10px;padding:10px
+}
+.mrow option{background:#fff;color:#111827}
+.mrow.good-row{border-color:#22c55e;background:#22c55e12}
+.mrow.bad-row{border-color:#ef4444;background:#ef444412}
+.mini-key{display:none;grid-column:1/-1;color:#b7f7ca;font-size:.88rem}
+.mrow.checked .mini-key{display:block}
+
+/* Clasificación */
+.classify{display:grid;gap:9px;margin-top:15px}
+.crow{
+  display:grid;grid-template-columns:1fr auto;
+  gap:10px;align-items:center;padding:11px;
+  border:1px solid var(--border);border-radius:14px;background:#0a1828
+}
+.cacts{display:flex;gap:7px;flex-wrap:wrap}
+.cacts button{
+  border:1px solid var(--border);background:#10233a;color:white;
+  border-radius:10px;padding:8px 11px;font-weight:800
+}
+.cacts .sel{background:#7c3aed}
+.crow.good-row{border-color:#22c55e}
+.crow.bad-row{border-color:#ef4444}
+
+/* Dibujo */
+.draw{
+  width:100%;height:260px;background:white;border-radius:16px;
+  display:block;touch-action:none;margin-top:15px;
+  border:4px solid #ffffff22
+}
+
+/* Resumen */
+.summary{display:none;text-align:center;padding:28px}
+.summary.show{display:block}
+.trophy{font-size:70px}
+.scorebig{
+  font-size:clamp(3rem,8vw,5.4rem);font-weight:950;
+  background:linear-gradient(90deg,#fb923c,#c084fc,#67e8f9,#86efac);
+  -webkit-background-clip:text;color:transparent
+}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.metric{padding:14px;border:1px solid var(--border);border-radius:16px;background:#ffffff0a}
+.metric strong{display:block;font-size:1.6rem}
+
+@media(max-width:800px){
+  .intro-grid,.stage{grid-template-columns:1fr}
+  .visual{min-height:220px}
+  #p5-holder{height:220px}
+}
+@media(max-width:600px){
+  .app{padding:10px}
+  .answers,.multi,.features,.metrics{grid-template-columns:1fr}
+  .feedback{align-items:stretch;flex-direction:column}
+  .mrow,.crow{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 <main class="app">
+
 <header class="top">
-<div class="brand"><div class="logo">🛠️</div><div><h1>Tecnología y Digitalización · 2.º ESO</h1><p>Prueba inicial interactiva · Aprende jugando</p></div></div>
-<div class="stats"><div class="pill">⭐ <span id="score">0</span></div><div class="pill">🔥 <span id="streak">0</span></div><div class="pill">🎯 <span id="counter">0/0</span></div></div>
+  <div class="brand">
+    <div class="logo">🛠️</div>
+    <div>
+      <h1>Tecnología y Digitalización · 2.º ESO</h1>
+      <p>Prueba inicial interactiva · Aprende jugando</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="pill">⭐ <span id="score">0</span></div>
+    <div class="pill">🔥 <span id="streak">0</span></div>
+    <div class="pill">🎯 <span id="counter">0/0</span></div>
+  </div>
 </header>
+
 <div class="bar"><div id="progress"></div></div>
 
 <section id="intro" class="card intro">
-<div class="intro-grid">
-<div><div class="kicker">Diagnóstico inicial</div><h2>Diseña, construye y <span class="grad">aprende jugando</span></h2><p>34 preguntas, reto tecnológico y diagnóstico final. Incluye elección, ordenación, relaciones, clasificación, dibujo y respuestas abiertas.</p><div class="row"><button id="start" class="btn">▶ Empezar</button><button id="sound" class="btn ghost">🔊 Sonido: activado</button></div></div>
-<div class="features"><div class="feature"><b>🎮 Tipo Kahoot</b>Una actividad por pantalla.</div><div class="feature"><b>⚡ Feedback</b>Corrección instantánea.</div><div class="feature"><b>✏️ Dibuja</b>Circuitos y bocetos.</div><div class="feature"><b>🧠 Razona</b>Respuestas abiertas.</div></div>
-</div></section>
+  <div class="intro-grid">
+    <div>
+      <div class="kicker">Diagnóstico inicial</div>
+      <h2>Piensa, prueba y <span class="grad">aprende jugando</span></h2>
+      <p>
+        34 preguntas, un reto tecnológico y dos actividades finales de diagnóstico.
+        Las preguntas objetivas se corrigen al momento. En las abiertas compararás tu respuesta
+        con una orientación del profesor.
+      </p>
+      <div class="row">
+        <button id="start" class="btn">▶ Empezar</button>
+        <button id="sound" class="btn ghost">🔊 Sonido: activado</button>
+      </div>
+    </div>
 
-<section id="game" class="hidden">
-<div class="stage">
-<div class="card visual"><div id="p5-holder"></div></div>
-<div class="card qcard"><div id="cat" class="kicker"></div><h2 id="question"></h2><div id="context" class="context"></div><div id="dynamic"></div></div>
-</div>
-<div id="feedback" class="card feedback"><div><h3 id="ft"></h3><p id="fp"></p></div><button id="next" class="btn">Siguiente →</button></div>
+    <div class="features">
+      <div class="feature"><b>🎮 Estilo Kahoot</b>Una actividad por pantalla.</div>
+      <div class="feature"><b>✅ Corrección clara</b>Siempre verás la solución tras comprobar.</div>
+      <div class="feature"><b>✏️ Dibuja</b>Circuitos y bocetos con ratón o táctil.</div>
+      <div class="feature"><b>🧠 Razona</b>Las abiertas incluyen respuesta orientativa.</div>
+    </div>
+  </div>
 </section>
 
-<section id="summary" class="card summary"><div class="trophy">🏆</div><h2>¡Prueba completada!</h2><div id="final" class="scorebig">0 pts</div><p>La puntuación es un elemento de juego. La finalidad real es conocer el punto de partida de la clase.</p><div class="metrics"><div class="metric"><strong id="rights">0</strong>Aciertos</div><div class="metric"><strong id="best">0</strong>Mejor racha</div><div class="metric"><strong id="total">0</strong>Actividades</div></div><button id="restart" class="btn">↻ Volver a jugar</button></section>
+<section id="game" class="hidden">
+  <div class="stage">
+    <div class="card visual">
+      <div id="p5-holder"></div>
+      <div id="fallback-icon" class="fallback-icon">🛠️</div>
+    </div>
+
+    <div class="card qcard">
+      <div class="qmeta">
+        <div id="cat" class="kicker"></div>
+        <div id="qtag" class="qtag"></div>
+      </div>
+      <h2 id="question"></h2>
+      <div id="context" class="context hidden"></div>
+      <div id="hint" class="hint hidden"></div>
+      <div id="dynamic"></div>
+    </div>
+  </div>
+
+  <div id="feedback" class="card feedback">
+    <div style="flex:1">
+      <h3 id="feedback-title"></h3>
+      <p id="feedback-text"></p>
+      <div id="feedback-key" class="answer-key hidden"></div>
+    </div>
+    <button id="next" class="btn" disabled>Siguiente →</button>
+  </div>
+</section>
+
+<section id="summary" class="card summary">
+  <div class="trophy">🏆</div>
+  <h2>¡Prueba completada!</h2>
+  <div id="final" class="scorebig">0 pts</div>
+  <p>
+    La puntuación es solo un elemento de juego. La finalidad real es conocer tu punto de partida
+    y decidir qué necesitamos repasar o aprender.
+  </p>
+  <div class="metrics">
+    <div class="metric"><strong id="rights">0</strong>Aciertos</div>
+    <div class="metric"><strong id="best">0</strong>Mejor racha</div>
+    <div class="metric"><strong id="total">0</strong>Actividades</div>
+  </div>
+  <button id="restart" class="btn">↻ Volver a jugar</button>
+</section>
+
 </main>
 
 <script>
-const Q=[
-[1,"1. Tecnología y resolución de problemas","mc","🛠️","¿Qué entendemos por tecnología?",["Utilizar únicamente ordenadores.","Aplicar conocimientos y técnicas para resolver problemas y necesidades.","Utilizar Internet.","Construir máquinas muy complicadas."],1,"La tecnología aplica conocimientos y técnicas para resolver problemas y necesidades."],
-[2,"1. Tecnología y resolución de problemas","order","📐","Queremos construir un soporte para mantener un teléfono móvil inclinado sobre una mesa. Ordena las fases del 1 al 5.",["Construir el soporte.","Detectar el problema o necesidad.","Comprobar si funciona.","Diseñar una solución.","Elegir los materiales."],[1,3,4,0,2],"1. Detectar el problema o necesidad → 2. Diseñar una solución → 3. Elegir los materiales → 4. Construir el soporte → 5. Comprobar si funciona."],
-[3,"1. Tecnología y resolución de problemas","open","🗑️","Tenemos que fabricar una pequeña papelera para el aula. Indica un material que utilizarías y explica por qué lo elegirías.","","Respuesta orientativa: cartón grueso, plástico reutilizado o madera fina, justificando propiedades como resistencia, coste, facilidad de trabajo o reutilización."],
-[4,"1. Tecnología y resolución de problemas","mc","🌉","Tenemos dos diseños para construir un puente. A: muchas piezas y mucho material. B: menos material, pero suficientemente resistente. ¿Cuál elegirías?",["A","B"],1,"Respuesta orientativa: B, porque utiliza menos material manteniendo la resistencia necesaria."],
+const QUESTIONS = [{"index": 1, "id": 1, "category": "1. Tecnología y resolución de problemas", "type": "mc", "icon": "🛠️", "prompt": "¿Qué entendemos por tecnología?", "options": ["Utilizar únicamente ordenadores.", "Aplicar conocimientos y técnicas para resolver problemas y necesidades.", "Utilizar Internet.", "Construir máquinas muy complicadas."], "answer": 1, "feedback": "La tecnología aplica conocimientos y técnicas para resolver problemas y necesidades."}, {"index": 2, "id": 2, "category": "1. Tecnología y resolución de problemas", "type": "order", "icon": "📐", "prompt": "Queremos construir un soporte para mantener un teléfono móvil inclinado sobre una mesa. Ordena las fases del 1 al 5.", "items": ["Construir el soporte.", "Detectar el problema o necesidad.", "Comprobar si funciona.", "Diseñar una solución.", "Elegir los materiales."], "answer": [1, 3, 4, 0, 2], "feedback": "1. Detectar el problema o necesidad → 2. Diseñar una solución → 3. Elegir los materiales → 4. Construir el soporte → 5. Comprobar si funciona."}, {"index": 3, "id": 3, "category": "1. Tecnología y resolución de problemas", "type": "open", "icon": "🗑️", "prompt": "Tenemos que fabricar una pequeña papelera para el aula. Indica un material que utilizarías y explica por qué lo elegirías.", "starter": "", "solution": "Respuesta orientativa: cartón grueso, plástico reutilizado o madera fina, justificando propiedades como resistencia, coste, facilidad de trabajo o reutilización.", "feedback": "Respuesta orientativa: cartón grueso, plástico reutilizado o madera fina, justificando propiedades como resistencia, coste, facilidad de trabajo o reutilización.", "hint": "Piensa en resistencia, coste, facilidad de trabajo y reutilización."}, {"index": 4, "id": 4, "category": "1. Tecnología y resolución de problemas", "type": "mc", "icon": "🌉", "prompt": "Tenemos dos diseños para construir un puente. A: muchas piezas y mucho material. B: menos material, pero suficientemente resistente. ¿Cuál elegirías?", "options": ["A", "B"], "answer": 1, "feedback": "Respuesta orientativa: B, porque utiliza menos material manteniendo la resistencia necesaria."}, {"index": 5, "id": 5, "category": "2. Estructuras y mecanismos", "type": "mc", "icon": "🔺", "prompt": "¿Cuál de estas formas suele utilizarse para hacer una estructura más rígida?", "options": ["Triángulo", "Círculo", "Espiral", "Línea curva"], "answer": 0, "feedback": "El triángulo se utiliza para rigidizar estructuras porque, a diferencia de un cuadrilátero articulado, mantiene su forma sin deformarse fácilmente cuando actúan fuerzas sobre él."}, {"index": 6, "id": 6, "category": "2. Estructuras y mecanismos", "type": "mc", "icon": "🪢", "prompt": "Una cuerda de la que cuelga un peso está principalmente sometida a:", "options": ["Compresión", "Tracción", "Flexión", "Torsión"], "answer": 1, "feedback": "La cuerda está sometida principalmente a tracción: dos fuerzas tiran de ella en sentidos opuestos y tienden a estirarla."}, {"index": 7, "id": 7, "category": "2. Estructuras y mecanismos", "type": "mc", "icon": "🪵", "prompt": "Cuando te sientas sobre una tabla apoyada en sus extremos, la tabla tiende a:", "options": ["Estirarse únicamente.", "Flexionarse.", "Girar continuamente.", "No sufrir ningún esfuerzo."], "answer": 1, "feedback": "La tabla está sometida a flexión: la carga hace que se curve, combinando zonas sometidas a compresión y otras a tracción."}, {"index": 8, "id": 8, "category": "2. Estructuras y mecanismos", "type": "open", "icon": "🚲", "prompt": "Observa una bicicleta. Escribe dos mecanismos que puedas encontrar en ella y piensa cómo transmiten el movimiento o permiten controlar la bicicleta.", "starter": "", "solution": "Cadena y piñones: la energía muscular de las piernas hace girar los pedales y las bielas. El plato transmite ese movimiento a la cadena; la cadena mueve el piñón y finalmente gira la rueda trasera.\n\nFrenos: al accionar la maneta, el sistema de frenado ejerce rozamiento sobre la llanta o el disco. Parte de la energía del movimiento se transforma en calor y la bicicleta reduce su velocidad.\n\nTambién serían válidos otros mecanismos bien explicados, como ruedas y ejes o el cambio de marchas.", "feedback": "Respuesta orientativa: cadena y piñones, plato, bielas y pedales, frenos, ruedas y ejes. En la transmisión, la energía muscular de las piernas hace girar los pedales y las bielas; el plato transmite ese movimiento a la cadena, la cadena al piñón y finalmente gira la rueda trasera. Los frenos transforman parte de la energía del movimiento en calor por rozamiento.", "hint": "Piensa cómo pasa el movimiento desde tus piernas hasta la rueda y cómo conseguimos frenar."}, {"index": 9, "id": 9, "category": "2. Estructuras y mecanismos", "type": "mc", "icon": "🪨", "prompt": "Para levantar una piedra muy pesada utilizamos una barra y un punto de apoyo. ¿Qué máquina simple estamos utilizando?", "options": ["Polea", "Palanca", "Engranaje", "Motor"], "answer": 1, "feedback": "Una barra rígida que gira alrededor de un punto de apoyo forma una palanca. Permite multiplicar o cambiar la dirección de una fuerza para realizar un esfuerzo con mayor facilidad."}, {"index": 10, "id": 10, "category": "2. Estructuras y mecanismos", "type": "mc", "icon": "⚙️", "prompt": "Tenemos dos engranajes conectados. Si el primero gira hacia la derecha, ¿hacia dónde girará el segundo?", "options": ["Hacia la derecha.", "Hacia la izquierda.", "No gira.", "Depende de su color."], "answer": 1, "feedback": "Dos engranajes exteriores en contacto giran en sentidos contrarios. El engranaje conductor transmite movimiento y energía mecánica al engranaje conducido. El tamaño de ambos determina cómo cambian la velocidad de giro y el par."}, {"index": 11, "id": 11, "category": "3. Electricidad", "type": "mc", "icon": "💡", "prompt": "Para que una bombilla pueda encenderse necesitamos que el circuito esté:", "options": ["Abierto.", "Cerrado.", "Roto.", "Desconectado."], "answer": 1, "feedback": "La bombilla solo puede encenderse si el circuito forma un camino cerrado por el que pueda circular la corriente eléctrica desde la fuente de energía y regresar a ella."}, {"index": 12, "id": 12, "category": "3. Electricidad", "type": "match", "icon": "🔋", "prompt": "Relaciona cada elemento con su función.", "pairs": [["Pila", "Proporcionar energía."], ["Interruptor", "Abrir o cerrar el circuito."], ["Bombilla", "Transformar la energía eléctrica en luz."], ["Cable", "Transportar la corriente."]], "options": ["Transportar la corriente.", "Proporcionar energía.", "Abrir o cerrar el circuito.", "Transformar la energía eléctrica en luz."], "feedback": "Pila → proporcionar energía. Interruptor → abrir o cerrar el circuito. Bombilla → transformar la energía eléctrica principalmente en luz. Cable → transportar la corriente entre los componentes."}, {"index": 13, "id": 13, "category": "3. Electricidad", "type": "draw", "icon": "🔌", "prompt": "Dibuja un circuito que contenga una pila, una bombilla, un interruptor y cables.", "starter": "", "solution": "Debe aparecer una pila, un interruptor, una bombilla y cables formando un camino cerrado. Una representación válida es: pila → interruptor → bombilla → cable de vuelta a la pila. Si el interruptor está abierto, el camino queda interrumpido.", "feedback": "Comprueba que has representado los cuatro elementos conectados formando un circuito."}, {"index": 14, "id": 14, "category": "3. Electricidad", "type": "mc", "icon": "🧲", "prompt": "¿Cuál de estos materiales conduce mejor la electricidad?", "options": ["Plástico", "Madera", "Cobre", "Cartón"], "answer": 2, "feedback": "El cobre conduce muy bien la electricidad porque permite el movimiento de cargas eléctricas con poca resistencia; por eso se utiliza habitualmente en cables."}, {"index": 15, "id": 15, "category": "3. Electricidad", "type": "match", "icon": "⚡", "prompt": "Relaciona cada magnitud con su unidad.", "pairs": [["Tensión", "voltio (V)"], ["Intensidad", "amperio (A)"], ["Resistencia", "ohmio (Ω)"]], "options": ["voltio (V)", "amperio (A)", "ohmio (Ω)"], "feedback": "Tensión → voltio (V). Intensidad → amperio (A). Resistencia → ohmio (Ω)."}, {"index": 16, "id": 16, "category": "4. Representación y diseño", "type": "mc", "icon": "✏️", "prompt": "¿Qué es un boceto?", "options": ["Un dibujo rápido que representa una idea.", "Una fotografía.", "Un programa informático.", "Un cálculo matemático."], "answer": 0, "feedback": "Un boceto es un dibujo rápido que representa una idea."}, {"index": 17, "id": 17, "category": "4. Representación y diseño", "type": "draw", "icon": "📏", "prompt": "Dibuja un objeto sencillo que tengas cerca. Haz un boceto e indica al menos dos medidas aproximadamente.", "starter": "", "solution": "No existe un único dibujo correcto. Debe reconocerse el objeto, mantener unas proporciones razonables e incluir al menos dos medidas aproximadas con su unidad.", "feedback": "No hay una única solución: el boceto debe representar el objeto e incluir al menos dos medidas aproximadas."}, {"index": 18, "id": 18, "category": "4. Representación y diseño", "type": "open", "icon": "📐", "prompt": "Si queremos fabricar una pieza, ¿por qué es útil realizar un dibujo antes de construirla?", "starter": "", "solution": "Respuesta orientativa: permite planificar la forma, medidas y construcción antes de fabricar la pieza.", "feedback": "Respuesta orientativa: permite planificar la forma, medidas y construcción antes de fabricar la pieza.", "hint": "El dibujo permite planificar y comunicar antes de gastar material."}, {"index": 19, "id": 19, "category": "4. Representación y diseño", "type": "multi", "icon": "🧊", "prompt": "¿Has utilizado alguna vez un programa para diseñar objetos o dibujos técnicos?", "options": ["Tinkercad", "FreeCAD", "SketchUp", "AutoCAD", "Otro", "Ninguno"], "diagnostic": true, "feedback": ""}, {"index": 20, "id": 20, "category": "5. Pensamiento computacional", "type": "mc", "icon": "🧠", "prompt": "¿Qué es un algoritmo?", "options": ["Un componente electrónico.", "Una contraseña.", "Un tipo de ordenador.", "Una secuencia ordenada de instrucciones para solucionar un problema."], "answer": 3, "feedback": "Un algoritmo es una secuencia ordenada, finita y clara de instrucciones que permite resolver un problema o realizar una tarea."}, {"index": 21, "id": 21, "category": "5. Pensamiento computacional", "type": "order", "icon": "🚪", "prompt": "Ordena estas instrucciones para que un robot pueda salir de una habitación.", "items": ["Abrir la puerta.", "Avanzar hasta la puerta.", "Salir de la habitación.", "Localizar la puerta."], "answer": [3, 1, 0, 2], "feedback": "1. Localizar la puerta → 2. Avanzar hasta la puerta → 3. Abrir la puerta → 4. Salir de la habitación."}, {"index": 22, "id": 22, "category": "5. Pensamiento computacional", "type": "open", "icon": "📡", "prompt": "Un robot tiene un sensor de distancia. Si encuentra un obstáculo a menos de 10 cm, debe detenerse.", "starter": "SI distancia __________ 10 cm\n____________________________", "solution": "SI distancia < 10 cm → detener motores.\nSI NO → continuar avanzando.\nDespués, volver a leer el sensor y repetir la comprobación.", "feedback": "SI distancia < 10 cm → detenerse.", "hint": "«A menos de 10 cm» se representa con el operador <."}, {"index": 23, "id": 23, "category": "5. Pensamiento computacional", "type": "mc", "icon": "⬜", "prompt": "REPETIR 4 VECES: avanzar · girar 90 grados. ¿Qué figura podría dibujar el robot?", "options": ["Un triángulo.", "Un cuadrado.", "Una línea.", "Un círculo."], "answer": 1, "feedback": "Cuatro tramos iguales y cuatro giros de 90° hacen que el robot vuelva al punto de partida formando un cuadrado."}, {"index": 24, "id": 24, "category": "5. Pensamiento computacional", "type": "multi", "icon": "💻", "prompt": "¿Has utilizado alguna vez alguno de estos sistemas?", "options": ["Scratch", "MakeCode", "micro:bit", "Arduino", "Python", "App Inventor", "Otro", "Ninguno"], "diagnostic": true, "feedback": ""}, {"index": 25, "id": 25, "category": "6. Ordenadores y digitalización", "type": "classify", "icon": "🖥️", "prompt": "Clasifica estos elementos.", "pairs": [["Teclado", "Hardware"], ["Windows", "Software"], ["Memoria RAM", "Hardware"], ["Navegador web", "Software"], ["Disco duro", "Hardware"]], "options": ["Hardware", "Software"], "feedback": "Teclado → Hardware. Windows → Software. Memoria RAM → Hardware. Navegador web → Software. Disco duro → Hardware."}, {"index": 26, "id": 26, "category": "6. Ordenadores y digitalización", "type": "mc", "icon": "💾", "prompt": "¿Qué componente se utiliza principalmente para almacenar información de forma permanente?", "options": ["RAM", "SSD o disco duro", "Procesador", "Ventilador"], "answer": 1, "feedback": "El SSD o el disco duro almacenan información de forma no volátil: los datos permanecen guardados aunque apaguemos el ordenador. La RAM, en cambio, se utiliza como memoria de trabajo temporal."}, {"index": 27, "id": 27, "category": "6. Ordenadores y digitalización", "type": "open", "icon": "📁", "prompt": "Tienes que entregar un trabajo compuesto por un documento, cinco fotografías y una presentación. ¿Cómo organizarías los archivos en el ordenador?", "starter": "", "solution": "Respuesta orientativa: crear una carpeta principal y subcarpetas con nombres claros para documento, fotografías y presentación.", "feedback": "Respuesta orientativa: crear una carpeta principal y subcarpetas con nombres claros para documento, fotografías y presentación.", "hint": "Una buena organización permite localizar rápidamente cada tipo de archivo."}, {"index": 28, "id": 28, "category": "6. Ordenadores y digitalización", "type": "mc", "icon": "☁️", "prompt": "¿Para qué sirve realizar una copia de seguridad?", "options": ["Para que el ordenador vaya más rápido.", "Para poder recuperar nuestros datos si los perdemos.", "Para aumentar la memoria RAM.", "Para conectarnos a Internet."], "answer": 1, "feedback": "Una copia de seguridad guarda una copia de nuestros archivos en otro lugar para poder recuperarlos si el dispositivo falla, se pierde, se infecta con malware o borramos información por accidente."}, {"index": 29, "id": 29, "category": "7. Seguridad digital", "type": "mc", "icon": "🔐", "prompt": "¿Cuál de estas contraseñas es más segura?", "options": ["12345678", "pablo2000", "password", "Nube!Tren-82-Limon"], "answer": 3, "feedback": "La última es más segura porque es larga y combina varias palabras, símbolos y números de forma poco predecible. Aun así, lo más importante es usar una contraseña única para cada servicio y, cuando sea posible, activar la verificación en dos pasos."}, {"index": 30, "id": 30, "category": "7. Seguridad digital", "type": "open", "icon": "🎣", "prompt": "Recibes este mensaje: «URGENTE. Tu cuenta será eliminada. Pulsa este enlace e introduce tu contraseña inmediatamente.» ¿Qué harías?", "starter": "", "solution": "Respuesta orientativa: no pulsar el enlace ni introducir la contraseña; comprobar la cuenta desde la web o aplicación oficial.", "feedback": "Respuesta orientativa: no pulsar el enlace ni introducir la contraseña; comprobar la cuenta desde la web o aplicación oficial.", "hint": "Fíjate en la urgencia, el enlace y la petición de contraseña."}, {"index": 31, "id": 31, "category": "7. Seguridad digital", "type": "open", "icon": "📱", "prompt": "Una aplicación desconocida te pide acceso a cámara, micrófono, ubicación y contactos. ¿Qué deberías hacer antes de aceptar?", "starter": "", "solution": "Respuesta orientativa: comprobar si la aplicación es fiable y si realmente necesita esos permisos; conceder solo los necesarios.", "feedback": "Respuesta orientativa: comprobar si la aplicación es fiable y si realmente necesita esos permisos; conceder solo los necesarios.", "hint": "Pregúntate si una app realmente necesita todos esos permisos."}, {"index": 32, "id": 32, "category": "8. Tecnología y medio ambiente", "type": "mc", "icon": "♻️", "prompt": "Tu teléfono móvil funciona correctamente, pero aparece un modelo nuevo. ¿Qué opción es más sostenible?", "options": ["Comprar siempre el nuevo.", "Continuar utilizando el teléfono mientras cubra nuestras necesidades.", "Tirarlo a la basura.", "Comprar dos teléfonos."], "answer": 1, "feedback": "Alargar la vida útil del dispositivo reduce residuos electrónicos y evita consumir antes de tiempo nuevos materiales, energía y recursos necesarios para fabricar otro teléfono."}, {"index": 33, "id": 33, "category": "8. Tecnología y medio ambiente", "type": "open", "icon": "🗑️", "prompt": "¿Qué problemas puede producir tirar aparatos electrónicos a la basura convencional?", "starter": "", "solution": "Respuesta orientativa: contaminación, pérdida de materiales recuperables y tratamiento inadecuado de componentes electrónicos.", "feedback": "Respuesta orientativa: contaminación, pérdida de materiales recuperables y tratamiento inadecuado de componentes electrónicos.", "hint": "Piensa en contaminación y también en materiales que podrían recuperarse."}, {"index": 34, "id": 34, "category": "8. Tecnología y medio ambiente", "type": "open", "icon": "🌱", "prompt": "Pon un ejemplo de una tecnología que ayude a reducir el impacto ambiental.", "starter": "", "solution": "Respuesta orientativa: paneles solares, aerogeneradores, iluminación LED, sensores de ahorro o riego eficiente.", "feedback": "Respuesta orientativa: paneles solares, aerogeneradores, iluminación LED, sensores de ahorro o riego eficiente.", "hint": "Puede ahorrar energía, agua o materias primas."}, {"index": 35, "id": "Reto", "category": "9. Reto tecnológico", "type": "reto", "icon": "🏫", "prompt": "El instituto quiere evitar que las luces de las aulas permanezcan encendidas cuando no hay nadie. Diseña una posible solución tecnológica.", "starter": "", "solution": "Problema: luces encendidas sin necesidad.\nSensor posible: presencia o movimiento.\nSistema: apagar la luz cuando no haya nadie durante un tiempo.\nAlgoritmo: INICIO → detectar presencia → si hay presencia, mantener/encender luz; si no la hay durante un tiempo, apagarla → repetir.", "feedback": "Problema: luces encendidas sin necesidad.\nSensor posible: presencia o movimiento.\nSistema: apagar la luz cuando no haya nadie durante un tiempo.\nAlgoritmo: INICIO → detectar presencia → si hay presencia, mantener/encender luz; si no la hay durante un tiempo, apagarla → repetir."}, {"index": 36, "id": "Diagnóstico", "category": "10. Cuéntame qué sabes hacer", "type": "multi", "icon": "🧰", "prompt": "Marca aquello que ya hayas hecho alguna vez.", "options": ["Utilizar herramientas manuales.", "Construir algún objeto.", "Montar un circuito eléctrico.", "Dibujar planos o piezas.", "Diseñar en 3D.", "Utilizar Tinkercad.", "Programar con Scratch.", "Programar con otro lenguaje.", "Montar o programar un robot.", "Utilizar una placa micro:bit o Arduino.", "Crear presentaciones.", "Organizar carpetas y archivos.", "Realizar copias de seguridad."], "diagnostic": true, "feedback": ""}, {"index": 37, "id": "Diagnóstico", "category": "10. Cuéntame qué sabes hacer", "type": "open", "icon": "🚀", "prompt": "¿Qué te gustaría construir o aprender este curso?", "starter": "", "solution": "Respuesta personal. No hay una respuesta correcta.", "feedback": "Respuesta personal. No hay una respuesta correcta."}];
 
-[5,"2. Estructuras y mecanismos","mc","🔺","¿Cuál de estas formas suele utilizarse para hacer una estructura más rígida?",["Triángulo","Círculo","Espiral","Línea curva"],0,"El triángulo se utiliza habitualmente para rigidizar estructuras."],
-[6,"2. Estructuras y mecanismos","mc","🪢","Una cuerda de la que cuelga un peso está principalmente sometida a:",["Compresión","Tracción","Flexión","Torsión"],1,"La cuerda está sometida principalmente a tracción."],
-[7,"2. Estructuras y mecanismos","mc","🪵","Cuando te sientas sobre una tabla apoyada en sus extremos, la tabla tiende a:",["Estirarse únicamente.","Flexionarse.","Girar continuamente.","No sufrir ningún esfuerzo."],1,"La tabla se curva: está sometida a flexión."],
-[8,"2. Estructuras y mecanismos","open","🚲","Observa una bicicleta. Escribe dos mecanismos que puedas encontrar en ella.","","Respuesta orientativa: cadena y piñones, platos, frenos, ruedas y ejes o sistema de transmisión."],
-[9,"2. Estructuras y mecanismos","mc","🪨","Para levantar una piedra muy pesada utilizamos una barra y un punto de apoyo. ¿Qué máquina simple estamos utilizando?",["Polea","Palanca","Engranaje","Motor"],1,"Una barra y un punto de apoyo forman una palanca."],
-[10,"2. Estructuras y mecanismos","mc","⚙️","Tenemos dos engranajes conectados. Si el primero gira hacia la derecha, ¿hacia dónde girará el segundo?",["Hacia la derecha.","Hacia la izquierda.","No gira.","Depende de su color."],1,"Dos engranajes exteriores conectados giran en sentidos contrarios."],
+let index = 0;
+let score = 0;
+let streak = 0;
+let bestStreak = 0;
+let rights = 0;
+let locked = false;
+let soundOn = true;
+let visualSketch = null;
 
-[11,"3. Electricidad","mc","💡","Para que una bombilla pueda encenderse necesitamos que el circuito esté:",["Abierto.","Cerrado.","Roto.","Desconectado."],1,"La corriente necesita un camino cerrado para circular."],
-[12,"3. Electricidad","match","🔋","Relaciona cada elemento con su función.",[["Pila","Proporcionar energía."],["Interruptor","Abrir o cerrar el circuito."],["Bombilla","Transformar la energía eléctrica en luz."],["Cable","Transportar la corriente."]],["Transportar la corriente.","Proporcionar energía.","Abrir o cerrar el circuito.","Transformar la energía eléctrica en luz."],""],
-[13,"3. Electricidad","draw","🔌","Dibuja un circuito que contenga una pila, una bombilla, un interruptor y cables.","","Comprueba que has representado los cuatro elementos conectados formando un circuito."],
-[14,"3. Electricidad","mc","🧲","¿Cuál de estos materiales conduce mejor la electricidad?",["Plástico","Madera","Cobre","Cartón"],2,"El cobre es conductor eléctrico."],
-[15,"3. Electricidad","match","⚡","Relaciona cada magnitud con su unidad.",[["Tensión","voltio (V)"],["Intensidad","amperio (A)"],["Resistencia","ohmio (Ω)"]],["voltio (V)","amperio (A)","ohmio (Ω)"],""],
+const $ = id => document.getElementById(id);
+const shapes = ["▲","◆","●","■","★","⬟","⬢","✦"];
 
-[16,"4. Representación y diseño","mc","✏️","¿Qué es un boceto?",["Un dibujo rápido que representa una idea.","Una fotografía.","Un programa informático.","Un cálculo matemático."],0,"Un boceto es un dibujo rápido que representa una idea."],
-[17,"4. Representación y diseño","draw","📏","Dibuja un objeto sencillo que tengas cerca. Haz un boceto e indica al menos dos medidas aproximadamente.","","No hay una única solución: el boceto debe representar el objeto e incluir al menos dos medidas aproximadas."],
-[18,"4. Representación y diseño","open","📐","Si queremos fabricar una pieza, ¿por qué es útil realizar un dibujo antes de construirla?","","Respuesta orientativa: permite planificar la forma, medidas y construcción antes de fabricar la pieza."],
-[19,"4. Representación y diseño","multi","🧊","¿Has utilizado alguna vez un programa para diseñar objetos o dibujos técnicos?",["Tinkercad","FreeCAD","SketchUp","AutoCAD","Otro","Ninguno"],"diag",""],
-
-[20,"5. Pensamiento computacional","mc","🧠","¿Qué es un algoritmo?",["Un componente electrónico.","Una contraseña.","Un tipo de ordenador.","Una secuencia ordenada de instrucciones para solucionar un problema."],3,"Un algoritmo es una secuencia ordenada de instrucciones para solucionar un problema."],
-[21,"5. Pensamiento computacional","order","🚪","Ordena estas instrucciones para que un robot pueda salir de una habitación.",["Abrir la puerta.","Avanzar hasta la puerta.","Salir de la habitación.","Localizar la puerta."],[3,1,0,2],"1. Localizar la puerta → 2. Avanzar hasta la puerta → 3. Abrir la puerta → 4. Salir de la habitación."],
-[22,"5. Pensamiento computacional","open","📡","Un robot tiene un sensor de distancia. Si encuentra un obstáculo a menos de 10 cm, debe detenerse.","SI distancia __________ 10 cm\n____________________________","SI distancia < 10 cm → detenerse."],
-[23,"5. Pensamiento computacional","mc","⬜","REPETIR 4 VECES: avanzar · girar 90 grados. ¿Qué figura podría dibujar el robot?",["Un triángulo.","Un cuadrado.","Una línea.","Un círculo."],1,"Cuatro avances con giros de 90° pueden formar un cuadrado."],
-[24,"5. Pensamiento computacional","multi","💻","¿Has utilizado alguna vez alguno de estos sistemas?",["Scratch","MakeCode","micro:bit","Arduino","Python","App Inventor","Otro","Ninguno"],"diag",""],
-
-[25,"6. Ordenadores y digitalización","classify","🖥️","Clasifica estos elementos.",[["Teclado","Hardware"],["Windows","Software"],["Memoria RAM","Hardware"],["Navegador web","Software"],["Disco duro","Hardware"]],["Hardware","Software"],""],
-[26,"6. Ordenadores y digitalización","mc","💾","¿Qué componente se utiliza principalmente para almacenar información de forma permanente?",["RAM","SSD o disco duro","Procesador","Ventilador"],1,"El SSD o disco duro almacena información de forma permanente."],
-[27,"6. Ordenadores y digitalización","open","📁","Tienes que entregar un trabajo compuesto por un documento, cinco fotografías y una presentación. ¿Cómo organizarías los archivos en el ordenador?","","Respuesta orientativa: crear una carpeta principal y subcarpetas con nombres claros para documento, fotografías y presentación."],
-[28,"6. Ordenadores y digitalización","mc","☁️","¿Para qué sirve realizar una copia de seguridad?",["Para que el ordenador vaya más rápido.","Para poder recuperar nuestros datos si los perdemos.","Para aumentar la memoria RAM.","Para conectarnos a Internet."],1,"Una copia de seguridad permite recuperar datos perdidos o dañados."],
-
-[29,"7. Seguridad digital","mc","🔐","¿Cuál de estas contraseñas es más segura?",["12345678","pablo2000","password","Nube!Tren-82-Limon"],3,"La última es más larga y menos predecible."],
-[30,"7. Seguridad digital","open","🎣","Recibes este mensaje: «URGENTE. Tu cuenta será eliminada. Pulsa este enlace e introduce tu contraseña inmediatamente.» ¿Qué harías?","","Respuesta orientativa: no pulsar el enlace ni introducir la contraseña; comprobar la cuenta desde la web o aplicación oficial."],
-[31,"7. Seguridad digital","open","📱","Una aplicación desconocida te pide acceso a cámara, micrófono, ubicación y contactos. ¿Qué deberías hacer antes de aceptar?","","Respuesta orientativa: comprobar si la aplicación es fiable y si realmente necesita esos permisos; conceder solo los necesarios."],
-
-[32,"8. Tecnología y medio ambiente","mc","♻️","Tu teléfono móvil funciona correctamente, pero aparece un modelo nuevo. ¿Qué opción es más sostenible?",["Comprar siempre el nuevo.","Continuar utilizando el teléfono mientras cubra nuestras necesidades.","Tirarlo a la basura.","Comprar dos teléfonos."],1,"Alargar la vida útil del dispositivo reduce residuos y consumo de recursos."],
-[33,"8. Tecnología y medio ambiente","open","🗑️","¿Qué problemas puede producir tirar aparatos electrónicos a la basura convencional?","","Respuesta orientativa: contaminación, pérdida de materiales recuperables y tratamiento inadecuado de componentes electrónicos."],
-[34,"8. Tecnología y medio ambiente","open","🌱","Pon un ejemplo de una tecnología que ayude a reducir el impacto ambiental.","","Respuesta orientativa: paneles solares, aerogeneradores, iluminación LED, sensores de ahorro o riego eficiente."],
-
-["Reto","9. Reto tecnológico","reto","🏫","El instituto quiere evitar que las luces de las aulas permanezcan encendidas cuando no hay nadie. Diseña una posible solución tecnológica.","","Problema: luces encendidas sin necesidad.\nSensor posible: presencia o movimiento.\nSistema: apagar la luz cuando no haya nadie durante un tiempo.\nAlgoritmo: INICIO → detectar presencia → si hay presencia, mantener/encender luz; si no la hay durante un tiempo, apagarla → repetir."],
-["Diagnóstico","10. Cuéntame qué sabes hacer","multi","🧰","Marca aquello que ya hayas hecho alguna vez.",["Utilizar herramientas manuales.","Construir algún objeto.","Montar un circuito eléctrico.","Dibujar planos o piezas.","Diseñar en 3D.","Utilizar Tinkercad.","Programar con Scratch.","Programar con otro lenguaje.","Montar o programar un robot.","Utilizar una placa micro:bit o Arduino.","Crear presentaciones.","Organizar carpetas y archivos.","Realizar copias de seguridad."],"diag",""],
-["Diagnóstico","10. Cuéntame qué sabes hacer","open","🚀","¿Qué te gustaría construir o aprender este curso?","","Respuesta personal. No hay una respuesta correcta."]
-];
-
-let i=0,score=0,streak=0,best=0,rights=0,locked=false,soundOn=true,order=[];
-const $=x=>document.getElementById(x), shapes=["▲","◆","●","■","★","⬟","⬢","✦"];
-function beep(ok){if(!soundOn)return;try{let A=window.AudioContext||window.webkitAudioContext,a=new A,o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=ok?650:180;o.type=ok?"sine":"sawtooth";g.gain.setValueAtTime(.05,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.15);o.start();o.stop(a.currentTime+.16)}catch(e){}}
-function stats(){$("score").textContent=score;$("streak").textContent=streak;$("counter").textContent=`${Math.min(i+1,Q.length)}/${Q.length}`;$("progress").style.width=`${i/Q.length*100}%`}
-function fb(t,p){$("ft").textContent=t;$("fp").textContent=p;$("feedback").classList.add("show")}
-function render(){
- locked=false;order=[];$("feedback").classList.remove("show");
- let q=Q[i];$("cat").textContent=q[1];$("question").textContent=(typeof q[0]=="number"?q[0]+". ":"")+q[4];$("context").textContent=(q[2]=="open"&&typeof q[5]=="string")?q[5]:"";$("dynamic").innerHTML="";window.icon=q[3];
- ({mc:mc,open:openQ,multi:multi,order:orderQ,match:match,classify:classify,draw:draw,reto:reto}[q[2]])(q,$("dynamic"));stats()
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
 }
-function mc(q,d){let w=document.createElement("div");w.className="answers";q[5].forEach((x,n)=>{let b=document.createElement("button");b.className=`answer a${n%4}`;b.innerHTML=`<span class="shape">${shapes[n]}</span><span>${x}</span>`;b.onclick=()=>{if(locked)return;locked=true;let bs=[...w.children];bs.forEach(z=>z.disabled=true);bs[q[6]].classList.add("correct");if(n==q[6]){score+=100+streak*10;streak++;best=Math.max(best,streak);rights++;beep(1);fb("✅ ¡Correcto!",q[7])}else{b.classList.add("wrong");streak=0;beep(0);fb("❌ Esta vez no",q[7])}stats()};w.appendChild(b)});d.appendChild(w)}
-function openQ(q,d){let w=document.createElement("div");w.className="open";w.innerHTML=`<textarea placeholder="Escribe aquí tu respuesta..."></textarea><div class="row"><button class="btn see">💡 Ver respuesta orientativa</button><button class="btn ghost skip">Continuar sin verla</button></div><div class="solution"></div>`;w.querySelector(".solution").textContent=q[7];w.querySelector(".see").onclick=()=>{if(locked)return;locked=true;score+=50;w.querySelector(".solution").classList.add("show");fb("🧠 Compara tu idea","La respuesta mostrada es orientativa.");stats()};w.querySelector(".skip").onclick=()=>{if(locked)return;locked=true;fb("✍️ Respuesta realizada","Continúa cuando quieras.");stats()};d.appendChild(w)}
-function multi(q,d){let w=document.createElement("div");w.className="multi";q[5].forEach(x=>{let l=document.createElement("label");l.className="check";l.innerHTML=`<input type="checkbox"><span>${x}</span>`;w.appendChild(l)});let r=document.createElement("div");r.className="row";let b=document.createElement("button");b.className="btn";b.textContent="Guardar y continuar";b.onclick=()=>{if(locked)return;locked=true;score+=25;fb("📌 Respuesta registrada","Es una pregunta de diagnóstico y no tiene una respuesta correcta.");stats()};r.appendChild(b);d.append(w,r)}
-function orderQ(q,d){let w=document.createElement("div");w.className="answers";q[5].forEach((x,n)=>{let b=document.createElement("button");b.className=`answer a${n%4}`;b.innerHTML=`<span class="shape">?</span><span>${x}</span>`;b.onclick=()=>{if(locked||order.includes(n))return;order.push(n);b.querySelector(".shape").textContent=order.length;b.disabled=true;if(order.length==q[5].length){locked=true;let ok=order.every((v,k)=>v==q[6][k]);if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(1);fb("✅ Orden correcto",q[7])}else{streak=0;beep(0);fb("🔁 Revisa el orden",q[7])}stats()}};w.appendChild(b)});d.appendChild(w)}
-function match(q,d){let w=document.createElement("div");w.className="match";q[5].forEach(p=>{let r=document.createElement("div");r.className="mrow";let s=document.createElement("select");s.dataset.ok=p[1];s.innerHTML='<option value="">Selecciona…</option>'+q[6].map(x=>`<option>${x}</option>`).join("");r.innerHTML=`<strong>${p[0]}</strong>`;r.appendChild(s);w.appendChild(r)});let rr=document.createElement("div");rr.className="row";let b=document.createElement("button");b.className="btn";b.textContent="Comprobar";b.onclick=()=>{if(locked)return;let ss=[...w.querySelectorAll("select")];if(ss.some(s=>!s.value)){fb("ℹ️ Falta alguna relación","Completa todas las filas.");return}locked=true;let ok=ss.every(s=>s.value==s.dataset.ok);if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(1);fb("✅ Todo correcto","Muy bien.")}else{streak=0;beep(0);fb("🔁 Revisa las relaciones",q[5].map(p=>p[0]+" → "+p[1]).join(" · "))}stats()};rr.appendChild(b);d.append(w,rr)}
-function classify(q,d){let w=document.createElement("div");w.className="classify",ch={};q[5].forEach((p,n)=>{let r=document.createElement("div");r.className="crow";let a=document.createElement("div");a.className="cacts";q[6].forEach(x=>{let b=document.createElement("button");b.textContent=x;b.onclick=()=>{[...a.children].forEach(y=>y.classList.remove("sel"));b.classList.add("sel");ch[n]=x};a.appendChild(b)});r.innerHTML=`<strong>${p[0]}</strong>`;r.appendChild(a);w.appendChild(r)});let rr=document.createElement("div");rr.className="row";let b=document.createElement("button");b.className="btn";b.textContent="Comprobar clasificación";b.onclick=()=>{if(locked)return;if(Object.keys(ch).length<q[5].length){fb("ℹ️ Falta clasificar","Clasifica todos los elementos.");return}locked=true;let ok=q[5].every((p,n)=>ch[n]==p[1]);if(ok){score+=100;streak++;best=Math.max(best,streak);rights++;beep(1);fb("✅ Clasificación correcta","Hardware = elementos físicos. Software = programas.")}else{streak=0;beep(0);fb("🔁 Revisa la clasificación",q[5].map(p=>p[0]+" → "+p[1]).join(" · "))}stats()};rr.appendChild(b);d.append(w,rr)}
-function draw(q,d){let c=document.createElement("canvas");c.className="draw";c.width=900;c.height=360;paint(c);let r=document.createElement("div");r.className="row";let clear=document.createElement("button");clear.className="btn ghost";clear.textContent="🧽 Borrar";clear.onclick=()=>clearCanvas(c);let done=document.createElement("button");done.className="btn";done.textContent="✓ Terminar dibujo";let sol=document.createElement("div");sol.className="solution";sol.textContent=q[7];done.onclick=()=>{if(locked)return;locked=true;score+=50;sol.classList.add("show");fb("✏️ Dibujo terminado","Comprueba si tu dibujo cumple el enunciado.");stats()};r.append(clear,done);d.append(c,r,sol)}
-function reto(q,d){let w=document.createElement("div");w.className="open";["¿Cuál es el problema?","¿Qué sensor podríamos utilizar?","¿Qué debería hacer el sistema?","Escribe el algoritmo con tus propias palabras."].forEach(x=>{let t=document.createElement("textarea");t.placeholder=x;t.style.minHeight="78px";t.style.marginBottom="8px";w.appendChild(t)});let c=document.createElement("canvas");c.className="draw";c.width=900;c.height=360;paint(c);w.appendChild(c);let r=document.createElement("div");r.className="row";let cl=document.createElement("button");cl.className="btn ghost";cl.textContent="🧽 Borrar dibujo";cl.onclick=()=>clearCanvas(c);let b=document.createElement("button");b.className="btn";b.textContent="💡 Ver solución orientativa";let sol=document.createElement("div");sol.className="solution";sol.textContent=q[7];b.onclick=()=>{if(locked)return;locked=true;score+=75;sol.classList.add("show");fb("🏫 Reto tecnológico","La propuesta mostrada es una posible solución, no la única.");stats()};r.append(cl,b);w.append(r,sol);d.appendChild(w)}
-function clearCanvas(c){let x=c.getContext("2d");x.fillStyle="white";x.fillRect(0,0,c.width,c.height)}
-function paint(c){clearCanvas(c);let x=c.getContext("2d");x.strokeStyle="#111827";x.lineWidth=4;x.lineCap="round";let on=false;const pos=e=>{let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}};c.onpointerdown=e=>{on=true;let p=pos(e);x.beginPath();x.moveTo(p.x,p.y)};c.onpointermove=e=>{if(!on)return;let p=pos(e);x.lineTo(p.x,p.y);x.stroke()};c.onpointerup=()=>on=false;c.onpointerleave=()=>on=false}
-function next(){if(i<Q.length-1){i++;render()}else finish()}
-function finish(){$("game").classList.add("hidden");$("summary").classList.add("show");$("progress").style.width="100%";$("final").textContent=score+" pts";$("rights").textContent=rights;$("best").textContent=best;$("total").textContent=Q.length}
-$("start").onclick=()=>{$("intro").classList.add("hidden");$("game").classList.remove("hidden");render()};$("next").onclick=next;$("restart").onclick=()=>{i=score=streak=best=rights=0;locked=false;$("summary").classList.remove("show");$("game").classList.remove("hidden");render()};$("sound").onclick=()=>{soundOn=!soundOn;$("sound").textContent="🔊 Sonido: "+(soundOn?"activado":"desactivado")};
 
-new p5(p=>{let pts=[];p.setup=()=>{let h=document.getElementById("p5-holder"),c=p.createCanvas(h.clientWidth||320,h.clientHeight||330);c.parent("p5-holder");for(let j=0;j<28;j++)pts.push({x:p.random(p.width),y:p.random(p.height),r:p.random(2,7),s:p.random(.2,1)})};p.windowResized=()=>{let h=document.getElementById("p5-holder");p.resizeCanvas(h.clientWidth||320,h.clientHeight||330)};p.draw=()=>{p.background(9,23,39);p.noStroke();pts.forEach(t=>{p.fill(249,115,22,70);p.circle(t.x,t.y,t.r);t.y-=t.s;if(t.y<0){t.y=p.height;t.x=p.random(p.width)}});p.push();p.translate(p.width/2,p.height/2);p.scale(1+Math.sin(p.frameCount*.04)*.04);p.fill(124,58,237,35);p.circle(0,0,Math.min(p.width,p.height)*.68);p.fill(255);p.textAlign(p.CENTER,p.CENTER);p.textSize(Math.min(p.width,p.height)*.28);p.text(window.icon||"🛠️",0,0);p.pop()}}); 
+function beep(ok){
+  if(!soundOn) return;
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const audio = new AC();
+    const osc = audio.createOscillator();
+    const gain = audio.createGain();
+    osc.connect(gain);
+    gain.connect(audio.destination);
+    osc.frequency.value = ok ? 650 : 180;
+    osc.type = ok ? "sine" : "sawtooth";
+    gain.gain.setValueAtTime(.05,audio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.15);
+    osc.start();
+    osc.stop(audio.currentTime+.16);
+  }catch(error){}
+}
+
+function updateStats(){
+  $("score").textContent = score;
+  $("streak").textContent = streak;
+  $("counter").textContent = `${Math.min(index+1,QUESTIONS.length)}/${QUESTIONS.length}`;
+  $("progress").style.width = `${index/QUESTIONS.length*100}%`;
+}
+
+function resetFeedback(){
+  $("feedback").classList.remove("show");
+  $("feedback-key").classList.add("hidden");
+  $("feedback-key").innerHTML = "";
+  $("next").disabled = true;
+}
+
+function showFeedback(title,text,keyHTML=""){
+  $("feedback-title").textContent = title;
+  $("feedback-text").textContent = text || "";
+  if(keyHTML){
+    $("feedback-key").innerHTML = keyHTML;
+    $("feedback-key").classList.remove("hidden");
+  }else{
+    $("feedback-key").classList.add("hidden");
+  }
+  $("feedback").classList.add("show");
+  $("next").disabled = false;
+  $("feedback").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function currentQuestion(){
+  return QUESTIONS[index];
+}
+
+function render(){
+  locked = false;
+  resetFeedback();
+
+  const q = currentQuestion();
+
+  $("cat").textContent = q.category;
+  $("question").textContent =
+    (typeof q.id === "number" ? q.id + ". " : "") + q.prompt;
+
+  $("qtag").textContent =
+    q.type === "multi" ? "Diagnóstico" :
+    q.type === "open" ? "Respuesta razonada" :
+    q.type === "draw" ? "Dibujo" :
+    q.type === "reto" ? "Reto final" :
+    "Autocorregible";
+
+  const context = $("context");
+  if(q.starter){
+    context.textContent = q.starter;
+    context.classList.remove("hidden");
+  }else{
+    context.textContent = "";
+    context.classList.add("hidden");
+  }
+
+  const hint = $("hint");
+  if(q.hint){
+    hint.innerHTML = "<strong>💡 Pista:</strong> " + escapeHTML(q.hint);
+    hint.classList.remove("hidden");
+  }else{
+    hint.innerHTML = "";
+    hint.classList.add("hidden");
+  }
+
+  $("dynamic").innerHTML = "";
+  window.quizIcon = q.icon;
+
+  const renderers = {
+    mc: renderMC,
+    open: renderOpen,
+    multi: renderMulti,
+    order: renderOrder,
+    match: renderMatch,
+    classify: renderClassify,
+    draw: renderDraw,
+    reto: renderChallenge
+  };
+
+  renderers[q.type](q,$("dynamic"));
+  updateStats();
+  refreshVisual();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- OPCIÓN MÚLTIPLE ---------- */
+
+function renderMC(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "answers";
+
+  q.options.forEach((option,n)=>{
+    const button = document.createElement("button");
+    button.className = `answer a${n%4}`;
+    button.innerHTML =
+      `<span class="shape">${shapes[n]}</span><span>${escapeHTML(option)}</span>`;
+
+    button.addEventListener("click",()=>{
+      if(locked) return;
+      locked = true;
+
+      const buttons = [...wrapper.children];
+      buttons.forEach(b=>b.disabled=true);
+      buttons[q.answer].classList.add("correct");
+
+      const ok = n === q.answer;
+
+      if(!ok){
+        button.classList.add("chosen-wrong");
+        buttons.forEach((b,i)=>{
+          if(i !== q.answer && i !== n) b.classList.add("dim");
+        });
+      }
+
+      registerResult(ok);
+
+      showFeedback(
+        ok ? "✅ ¡Correcto!" : "❌ Revisa la respuesta",
+        q.feedback,
+        `<strong>Respuesta correcta:</strong> ${escapeHTML(q.options[q.answer])}`
+      );
+    });
+
+    wrapper.appendChild(button);
+  });
+
+  container.appendChild(wrapper);
+}
+
+/* ---------- RESPUESTAS ABIERTAS ---------- */
+
+function renderOpen(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "open";
+
+  const textarea = document.createElement("textarea");
+  textarea.placeholder = "Escribe aquí tu respuesta con tus propias palabras…";
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const compare = document.createElement("button");
+  compare.className = "btn good";
+  compare.textContent = "✅ Comparar mi respuesta";
+
+  const dontKnow = document.createElement("button");
+  dontKnow.className = "btn ghost";
+  dontKnow.textContent = "🤔 No lo sé / ver orientación";
+
+  const solution = document.createElement("div");
+  solution.className = "solution";
+  solution.innerHTML =
+    `<strong>Respuesta orientativa del profesor</strong>\n${escapeHTML(q.solution || q.feedback || "Respuesta personal.")}`;
+
+  compare.addEventListener("click",()=>{
+    if(locked) return;
+
+    if(textarea.value.trim().length < 3){
+      showFeedback(
+        "✍️ Inténtalo primero",
+        "Escribe al menos una idea. No tiene que ser perfecta: esta es una prueba inicial."
+      );
+      $("next").disabled = true;
+      return;
+    }
+
+    locked = true;
+    solution.classList.add("show");
+
+    showFeedback(
+      "🧠 Compara y aprende",
+      "No tiene que coincidir palabra por palabra. Comprueba si tu explicación contiene las ideas importantes.",
+      buildOpenKey(q)
+    );
+  });
+
+  dontKnow.addEventListener("click",()=>{
+    if(locked) return;
+    locked = true;
+    solution.classList.add("show");
+
+    showFeedback(
+      "💡 Esta era una posible respuesta",
+      "Que no la supieras todavía también es información útil en una prueba inicial.",
+      buildOpenKey(q)
+    );
+  });
+
+  controls.append(compare,dontKnow);
+  wrapper.append(textarea,controls,solution);
+  container.appendChild(wrapper);
+}
+
+function buildOpenKey(q){
+  const solution = q.solution || q.feedback || "Respuesta personal.";
+  return `<strong>Orientación:</strong><br>${escapeHTML(solution).replace(/\n/g,"<br>")}`;
+}
+
+/* ---------- DIAGNÓSTICO ---------- */
+
+function renderMulti(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "multi";
+
+  q.options.forEach(option=>{
+    const label = document.createElement("label");
+    label.className = "check";
+    label.innerHTML =
+      `<input type="checkbox"><span>${escapeHTML(option)}</span>`;
+    wrapper.appendChild(label);
+  });
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const button = document.createElement("button");
+  button.className = "btn";
+  button.textContent = "Guardar y continuar";
+
+  button.addEventListener("click",()=>{
+    if(locked) return;
+    locked = true;
+
+    showFeedback(
+      "📌 Respuesta registrada",
+      "Esta pregunta sirve para conocer tu experiencia previa. No tiene una respuesta correcta o incorrecta."
+    );
+  });
+
+  controls.appendChild(button);
+  container.append(wrapper,controls);
+}
+
+/* ---------- ORDENACIÓN ---------- */
+
+function renderOrder(q,container){
+  const list = document.createElement("div");
+  list.className = "order-list";
+
+  q.items.forEach((item,n)=>{
+    const row = document.createElement("div");
+    row.className = "order-row";
+    row.dataset.originalIndex = n;
+
+    row.innerHTML = `
+      <span class="order-num">${n+1}</span>
+      <span>${escapeHTML(item)}</span>
+      <span class="order-actions">
+        <button type="button" aria-label="Subir">↑</button>
+        <button type="button" aria-label="Bajar">↓</button>
+      </span>`;
+
+    const [up,down] = row.querySelectorAll("button");
+    up.addEventListener("click",()=>moveOrder(row,-1));
+    down.addEventListener("click",()=>moveOrder(row,1));
+
+    list.appendChild(row);
+  });
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const check = document.createElement("button");
+  check.className = "btn";
+  check.textContent = "Comprobar orden";
+
+  check.addEventListener("click",()=>{
+    if(locked) return;
+    locked = true;
+
+    const current = [...list.children].map(row=>Number(row.dataset.originalIndex));
+    const ok = current.every((value,k)=>value === q.answer[k]);
+
+    [...list.querySelectorAll("button")].forEach(button=>button.disabled=true);
+    registerResult(ok);
+
+    const orderedText = q.answer
+      .map((originalIndex,k)=>`${k+1}. ${escapeHTML(q.items[originalIndex])}`)
+      .join("<br>");
+
+    showFeedback(
+      ok ? "✅ Orden correcto" : "🔁 Este es el orden correcto",
+      q.feedback,
+      `<strong>Secuencia:</strong><br>${orderedText}`
+    );
+  });
+
+  controls.appendChild(check);
+  container.append(list,controls);
+  renumberOrder(list);
+}
+
+function moveOrder(row,direction){
+  if(locked) return;
+
+  const list = row.parentElement;
+
+  if(direction < 0 && row.previousElementSibling){
+    list.insertBefore(row,row.previousElementSibling);
+  }
+  if(direction > 0 && row.nextElementSibling){
+    list.insertBefore(row.nextElementSibling,row);
+  }
+
+  renumberOrder(list);
+}
+
+function renumberOrder(list){
+  [...list.children].forEach((row,k)=>{
+    row.querySelector(".order-num").textContent = k+1;
+  });
+}
+
+/* ---------- RELACIONAR ---------- */
+
+function renderMatch(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "match";
+
+  q.pairs.forEach((pair,rowIndex)=>{
+    const [left,correct] = pair;
+
+    const row = document.createElement("div");
+    row.className = "mrow";
+    row.dataset.correct = correct;
+
+    const select = document.createElement("select");
+    select.dataset.row = rowIndex;
+    select.innerHTML =
+      `<option value="">Selecciona una función…</option>` +
+      q.options.map(option=>
+        `<option value="${escapeHTML(option)}">${escapeHTML(option)}</option>`
+      ).join("");
+
+    select.addEventListener("change",()=>refreshUniqueMatchChoices(wrapper));
+
+    row.innerHTML = `<strong>${escapeHTML(left)}</strong>`;
+    row.appendChild(select);
+
+    const key = document.createElement("div");
+    key.className = "mini-key";
+    key.innerHTML =
+      `✓ <strong>Correcto:</strong> ${escapeHTML(left)} → ${escapeHTML(correct)}`;
+    row.appendChild(key);
+
+    wrapper.appendChild(row);
+  });
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const check = document.createElement("button");
+  check.className = "btn";
+  check.textContent = "Comprobar relaciones";
+
+  check.addEventListener("click",()=>{
+    if(locked) return;
+
+    const rows = [...wrapper.querySelectorAll(".mrow")];
+    const selects = rows.map(row=>row.querySelector("select"));
+
+    if(selects.some(select=>!select.value)){
+      showFeedback(
+        "ℹ️ Falta alguna relación",
+        "Selecciona una función para cada elemento antes de comprobar."
+      );
+      $("next").disabled = true;
+      return;
+    }
+
+    locked = true;
+    let ok = true;
+
+    rows.forEach(row=>{
+      const select = row.querySelector("select");
+      const rowOk = select.value === row.dataset.correct;
+
+      row.classList.add("checked");
+      row.classList.add(rowOk ? "good-row" : "bad-row");
+      select.disabled = true;
+
+      if(!rowOk) ok = false;
+    });
+
+    registerResult(ok);
+
+    const mapping = q.pairs
+      .map(pair=>`${escapeHTML(pair[0])} → ${escapeHTML(pair[1])}`)
+      .join("<br>");
+
+    showFeedback(
+      ok ? "✅ Todas las relaciones son correctas" : "🔁 Revisa las relaciones marcadas",
+      q.feedback || "Comprueba qué función desempeña cada elemento.",
+      `<strong>Relaciones correctas:</strong><br>${mapping}`
+    );
+  });
+
+  controls.appendChild(check);
+  container.append(wrapper,controls);
+}
+
+function refreshUniqueMatchChoices(wrapper){
+  const selects = [...wrapper.querySelectorAll("select")];
+  const chosen = selects.map(select=>select.value).filter(Boolean);
+
+  selects.forEach(select=>{
+    [...select.options].forEach(option=>{
+      if(!option.value){
+        option.disabled = false;
+        return;
+      }
+      option.disabled =
+        chosen.includes(option.value) && select.value !== option.value;
+    });
+  });
+}
+
+/* ---------- CLASIFICACIÓN ---------- */
+
+function renderClassify(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "classify";
+  const choices = {};
+
+  q.pairs.forEach((pair,n)=>{
+    const row = document.createElement("div");
+    row.className = "crow";
+    row.dataset.correct = pair[1];
+
+    const actions = document.createElement("div");
+    actions.className = "cacts";
+
+    q.options.forEach(option=>{
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = option;
+
+      button.addEventListener("click",()=>{
+        if(locked) return;
+        [...actions.children].forEach(other=>other.classList.remove("sel"));
+        button.classList.add("sel");
+        choices[n] = option;
+      });
+
+      actions.appendChild(button);
+    });
+
+    row.innerHTML = `<strong>${escapeHTML(pair[0])}</strong>`;
+    row.appendChild(actions);
+    wrapper.appendChild(row);
+  });
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const check = document.createElement("button");
+  check.className = "btn";
+  check.textContent = "Comprobar clasificación";
+
+  check.addEventListener("click",()=>{
+    if(locked) return;
+
+    if(Object.keys(choices).length < q.pairs.length){
+      showFeedback(
+        "ℹ️ Falta clasificar",
+        "Clasifica todos los elementos antes de comprobar."
+      );
+      $("next").disabled = true;
+      return;
+    }
+
+    locked = true;
+    let ok = true;
+
+    [...wrapper.children].forEach((row,n)=>{
+      const rowOk = choices[n] === row.dataset.correct;
+      row.classList.add(rowOk ? "good-row" : "bad-row");
+
+      row.querySelectorAll("button").forEach(button=>button.disabled=true);
+
+      if(!rowOk) ok = false;
+    });
+
+    registerResult(ok);
+
+    const mapping = q.pairs
+      .map(pair=>`${escapeHTML(pair[0])} → ${escapeHTML(pair[1])}`)
+      .join("<br>");
+
+    showFeedback(
+      ok ? "✅ Clasificación correcta" : "🔁 Esta es la clasificación correcta",
+      q.feedback || "Hardware son componentes físicos; software son programas y sistemas.",
+      `<strong>Solución:</strong><br>${mapping}`
+    );
+  });
+
+  controls.appendChild(check);
+  container.append(wrapper,controls);
+}
+
+/* ---------- DIBUJO ---------- */
+
+function renderDraw(q,container){
+  const canvas = document.createElement("canvas");
+  canvas.className = "draw";
+  canvas.width = 900;
+  canvas.height = 380;
+  enablePainting(canvas);
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const clear = document.createElement("button");
+  clear.className = "btn ghost";
+  clear.textContent = "🧽 Borrar";
+  clear.addEventListener("click",()=>clearCanvas(canvas));
+
+  const done = document.createElement("button");
+  done.className = "btn good";
+  done.textContent = "✅ Terminar y comparar";
+
+  const solution = document.createElement("div");
+  solution.className = "solution";
+  solution.innerHTML =
+    `<strong>Qué debería aparecer</strong>\n${escapeHTML(q.solution || "Comprueba que el dibujo cumple el enunciado.")}`;
+
+  done.addEventListener("click",()=>{
+    if(locked) return;
+    locked = true;
+    solution.classList.add("show");
+
+    showFeedback(
+      "✏️ Comprueba tu dibujo",
+      "No buscamos que quede bonito: importa que represente correctamente la idea tecnológica.",
+      `<strong>Criterios de comprobación:</strong><br>${escapeHTML(q.solution || "El dibujo debe cumplir el enunciado.")}`
+    );
+  });
+
+  controls.append(clear,done);
+  container.append(canvas,controls,solution);
+}
+
+/* ---------- RETO ---------- */
+
+function renderChallenge(q,container){
+  const wrapper = document.createElement("div");
+  wrapper.className = "open";
+
+  const prompts = [
+    "¿Cuál es el problema que debemos resolver?",
+    "¿Qué sensor o sensores podríamos utilizar?",
+    "¿Qué debería hacer el sistema?",
+    "Escribe el algoritmo con tus propias palabras."
+  ];
+
+  prompts.forEach(text=>{
+    const textarea = document.createElement("textarea");
+    textarea.placeholder = text;
+    textarea.style.minHeight = "82px";
+    textarea.style.marginBottom = "8px";
+    wrapper.appendChild(textarea);
+  });
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "draw";
+  canvas.width = 900;
+  canvas.height = 360;
+  enablePainting(canvas);
+  wrapper.appendChild(canvas);
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+
+  const clear = document.createElement("button");
+  clear.className = "btn ghost";
+  clear.textContent = "🧽 Borrar dibujo";
+  clear.addEventListener("click",()=>clearCanvas(canvas));
+
+  const compare = document.createElement("button");
+  compare.className = "btn good";
+  compare.textContent = "✅ Comparar con una solución";
+
+  const solution = document.createElement("div");
+  solution.className = "solution";
+  solution.innerHTML =
+    `<strong>Una posible solución</strong>\n${escapeHTML(q.solution || "")}`;
+
+  compare.addEventListener("click",()=>{
+    if(locked) return;
+
+    const texts = [...wrapper.querySelectorAll("textarea")];
+    const hasAttempt = texts.some(textarea=>textarea.value.trim().length > 2);
+
+    if(!hasAttempt){
+      showFeedback(
+        "✍️ Inténtalo primero",
+        "Escribe al menos una idea antes de ver la propuesta. No tiene que estar perfecta."
+      );
+      $("next").disabled = true;
+      return;
+    }
+
+    locked = true;
+    solution.classList.add("show");
+
+    showFeedback(
+      "🏫 Reto tecnológico",
+      "La propuesta es una posible solución, no la única. Compara sensores, actuación y algoritmo.",
+      escapeHTML(q.solution || "").replace(/\n/g,"<br>")
+    );
+  });
+
+  controls.append(clear,compare);
+  wrapper.append(controls,solution);
+  container.appendChild(wrapper);
+}
+
+/* ---------- CANVAS ---------- */
+
+function clearCanvas(canvas){
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+function enablePainting(canvas){
+  clearCanvas(canvas);
+
+  const ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "#111827";
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  let drawing = false;
+
+  function position(event){
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x:(event.clientX-rect.left)*canvas.width/rect.width,
+      y:(event.clientY-rect.top)*canvas.height/rect.height
+    };
+  }
+
+  canvas.addEventListener("pointerdown",event=>{
+    drawing = true;
+    canvas.setPointerCapture?.(event.pointerId);
+    const p = position(event);
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+  });
+
+  canvas.addEventListener("pointermove",event=>{
+    if(!drawing) return;
+    const p = position(event);
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+  });
+
+  function stop(event){
+    drawing = false;
+    if(event?.pointerId !== undefined){
+      try{ canvas.releasePointerCapture?.(event.pointerId); }catch(error){}
+    }
+  }
+
+  canvas.addEventListener("pointerup",stop);
+  canvas.addEventListener("pointercancel",stop);
+}
+
+/* ---------- RESULTADOS ---------- */
+
+function registerResult(ok){
+  if(ok){
+    score += 100 + streak*10;
+    streak += 1;
+    bestStreak = Math.max(bestStreak,streak);
+    rights += 1;
+    beep(true);
+  }else{
+    streak = 0;
+    beep(false);
+  }
+  updateStats();
+}
+
+function nextQuestion(){
+  if(index < QUESTIONS.length-1){
+    index += 1;
+    render();
+  }else{
+    finish();
+  }
+}
+
+function finish(){
+  $("game").classList.add("hidden");
+  $("summary").classList.add("show");
+  $("progress").style.width = "100%";
+  $("final").textContent = score + " pts";
+  $("rights").textContent = rights;
+  $("best").textContent = bestStreak;
+  $("total").textContent = QUESTIONS.length;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- P5.JS ---------- */
+
+function initVisual(){
+  if(visualSketch || !window.p5){
+    if(!window.p5){
+      $("p5-holder").style.display = "none";
+      $("fallback-icon").style.display = "block";
+    }
+    return;
+  }
+
+  $("fallback-icon").style.display = "none";
+
+  visualSketch = new p5(p=>{
+    const particles=[];
+
+    p.setup=()=>{
+      const host=$("p5-holder");
+      const canvas=p.createCanvas(host.clientWidth || 320,host.clientHeight || 340);
+      canvas.parent("p5-holder");
+
+      for(let j=0;j<30;j++){
+        particles.push({
+          x:p.random(p.width),
+          y:p.random(p.height),
+          r:p.random(2,7),
+          speed:p.random(.2,1)
+        });
+      }
+    };
+
+    p.windowResized=()=>{
+      const host=$("p5-holder");
+      p.resizeCanvas(host.clientWidth || 320,host.clientHeight || 340);
+    };
+
+    p.draw=()=>{
+      p.background(9,23,39);
+      p.noStroke();
+
+      particles.forEach(dot=>{
+        p.fill(249,115,22,70);
+        p.circle(dot.x,dot.y,dot.r);
+        dot.y -= dot.speed;
+
+        if(dot.y < 0){
+          dot.y = p.height;
+          dot.x = p.random(p.width);
+        }
+      });
+
+      p.push();
+      p.translate(p.width/2,p.height/2);
+      p.scale(1 + Math.sin(p.frameCount*.04)*.04);
+      p.fill(124,58,237,38);
+      p.circle(0,0,Math.min(p.width,p.height)*.72);
+      p.fill(255);
+      p.textAlign(p.CENTER,p.CENTER);
+      p.textSize(Math.min(p.width,p.height)*.28);
+      p.text(window.quizIcon || "🛠️",0,0);
+      p.pop();
+    };
+  });
+}
+
+function refreshVisual(){
+  $("fallback-icon").textContent = window.quizIcon || "🛠️";
+
+  if(!window.p5){
+    $("p5-holder").style.display = "none";
+    $("fallback-icon").style.display = "block";
+  }
+}
+
+/* ---------- EVENTOS ---------- */
+
+$("start").addEventListener("click",()=>{
+  $("intro").classList.add("hidden");
+  $("game").classList.remove("hidden");
+
+  requestAnimationFrame(()=>{
+    initVisual();
+    render();
+  });
+});
+
+$("next").addEventListener("click",nextQuestion);
+
+$("restart").addEventListener("click",()=>{
+  index=0;
+  score=0;
+  streak=0;
+  bestStreak=0;
+  rights=0;
+  locked=false;
+
+  $("summary").classList.remove("show");
+  $("game").classList.remove("hidden");
+
+  render();
+});
+
+$("sound").addEventListener("click",()=>{
+  soundOn = !soundOn;
+  $("sound").textContent =
+    (soundOn ? "🔊" : "🔇") +
+    " Sonido: " +
+    (soundOn ? "activado" : "desactivado");
+});
+
+/* Si p5.js no carga, el cuestionario sigue funcionando. */
+if(!window.p5){
+  $("p5-holder").style.display="none";
+  $("fallback-icon").style.display="block";
+}
 </script>
-</body></html>
+</body>
+</html>
