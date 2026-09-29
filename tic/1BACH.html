@@ -1,0 +1,295 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>12 Situaciones de Aprendizaje · TIC · 1.º Bachillerato</title>
+<meta name="description" content="12 situaciones de aprendizaje de Tecnología y Digitalización de 2.º ESO ajustadas al currículo de Andalucía.">
+
+<style>
+.tyd2-sda{
+  --bg:#f4f6fa;
+  --surface:#fff;
+  --soft:#f8fafc;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#dce3ed;
+  --primary:#315fe9;
+  --primary-dark:#2447b8;
+  --primary-soft:#edf2ff;
+  --green:#087a5b;
+  --green-soft:#e8f7f1;
+  --orange:#ad5a00;
+  --orange-soft:#fff2e2;
+  --yellow:#fff7d6;
+  --yellow-line:#eedb85;
+  --shadow:0 9px 28px rgba(28,39,64,.09);
+
+  color:var(--ink);
+  line-height:1.55;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+.tyd2-sda *{box-sizing:border-box}
+.tyd2-sda .hero{
+  overflow:hidden;
+  padding:30px 22px 26px;
+  border-radius:22px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 87% 18%,rgba(255,255,255,.14),transparent 21rem),
+    linear-gradient(135deg,#17233f 0%,#29457d 55%,#315fe9 100%);
+  box-shadow:var(--shadow);
+}
+.tyd2-sda .hero h2{
+  margin:0 0 8px;
+  color:#fff;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  line-height:1.08;
+}
+.tyd2-sda .hero p{
+  max-width:940px;
+  margin:0;
+  color:#e4ebff;
+}
+.tyd2-sda .badge{
+  display:inline-flex;
+  margin-bottom:10px;
+  padding:5px 10px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  font-size:.8rem;
+  font-weight:850;
+}
+.tyd2-sda .toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:16px;
+}
+.tyd2-sda select,
+.tyd2-sda button{
+  min-height:42px;
+  padding:9px 13px;
+  border:1px solid #c8d1df;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+}
+.tyd2-sda button{cursor:pointer;font-weight:800}
+.tyd2-sda button:hover{border-color:var(--primary)}
+.tyd2-sda .intro,
+.tyd2-sda .law{
+  margin:16px 0;
+  padding:15px 17px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+}
+.tyd2-sda .law{
+  background:var(--yellow);
+  border-color:var(--yellow-line);
+}
+.tyd2-sda .law a{
+  color:#2447b8;
+  font-weight:800;
+}
+.tyd2-sda .term{margin:28px 0 34px}
+.tyd2-sda .term h3{
+  margin:0 0 10px;
+  font-size:clamp(1.25rem,2.5vw,1.65rem);
+}
+.tyd2-sda .term-note{
+  margin-bottom:13px;
+  padding:12px 14px;
+  border-left:4px solid var(--primary);
+  border-radius:9px;
+  background:#f7faff;
+}
+.tyd2-sda details{
+  margin:10px 0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(28,39,64,.035);
+}
+.tyd2-sda details[open]{box-shadow:var(--shadow)}
+.tyd2-sda details.project{border-color:#b8dfd3}
+.tyd2-sda details.project[open]{box-shadow:0 8px 28px rgba(8,122,91,.09)}
+.tyd2-sda details.digital{border-color:#cabcf1}
+.tyd2-sda details.tech{border-color:#f0c48f}
+.tyd2-sda summary{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:58px;
+  padding:13px 16px;
+  cursor:pointer;
+  list-style:none;
+  font-weight:850;
+}
+.tyd2-sda summary::-webkit-details-marker{display:none}
+.tyd2-sda summary::before{
+  content:"▸";
+  color:var(--primary);
+  transition:transform .18s ease;
+}
+.tyd2-sda details[open] summary::before{transform:rotate(90deg)}
+.tyd2-sda .num,
+.tyd2-sda .sessions{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 9px;
+  border-radius:999px;
+  background:var(--primary-soft);
+  color:var(--primary);
+  font-size:.78rem;
+  font-weight:850;
+  white-space:nowrap;
+}
+.tyd2-sda .sessions{margin-left:auto}
+.tyd2-sda .project .num{background:var(--green-soft);color:var(--green)}
+.tyd2-sda .tech .num{background:var(--orange-soft);color:var(--orange)}
+.tyd2-sda .in{
+  padding:15px 16px 17px;
+  border-top:1px solid var(--line);
+}
+.tyd2-sda .meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:11px;
+}
+.tyd2-sda .chip{
+  display:inline-flex;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#edf1f6;
+  color:#344054;
+  font-size:.79rem;
+  font-weight:800;
+}
+.tyd2-sda .criterion{
+  background:#eaf1ff;
+  color:#2447b8;
+}
+.tyd2-sda .question{
+  margin-bottom:13px;
+  padding:12px 13px;
+  border-left:4px solid var(--primary);
+  border-radius:8px;
+  background:#f7faff;
+}
+.tyd2-sda .grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.tyd2-sda .box{
+  min-width:0;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--soft);
+}
+.tyd2-sda .box strong{
+  display:block;
+  margin-bottom:5px;
+  color:#27364f;
+}
+.tyd2-sda .codes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin:6px 0 8px;
+}
+.tyd2-sda .code{
+  display:inline-flex;
+  padding:4px 7px;
+  border-radius:7px;
+  background:#edf1f6;
+  color:#344054;
+  font:700 .76rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.tyd2-sda ol,
+.tyd2-sda ul{margin:.45rem 0 .45rem 1.2rem;padding:0}
+.tyd2-sda li{margin:.24rem 0}
+.tyd2-sda .flow{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:6px;
+  margin:.6rem 0;
+}
+.tyd2-sda .flow span{
+  padding:6px 9px;
+  border-radius:9px;
+  background:#edf2ff;
+  color:#315fe9;
+  font-size:.81rem;
+  font-weight:850;
+}
+.tyd2-sda .flow b{color:#8aa1c7}
+.tyd2-sda .hidden{display:none!important}
+.tyd2-sda .footer{
+  margin-top:26px;
+  padding:15px 0 4px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.9rem;
+}
+@media(max-width:760px){
+  .tyd2-sda .hero{padding:23px 15px}
+  .tyd2-sda .toolbar select,
+  .tyd2-sda .toolbar button{width:100%}
+  .tyd2-sda .grid{grid-template-columns:1fr}
+  .tyd2-sda summary{flex-wrap:wrap;align-items:flex-start}
+  .tyd2-sda .sessions{margin-left:0}
+}
+@media print{
+  .tyd2-sda .toolbar{display:none}
+  .tyd2-sda details{box-shadow:none;break-inside:avoid}
+  .tyd2-sda details>.in{display:block!important}
+  .tyd2-sda .term.hidden{display:block!important}
+}
+
+/* Mejora visual final */
+.tyd2-sda details{--theme:#315fe9}
+.tyd2-sda details.project{--theme:#087a5b}
+.tyd2-sda details.tech{--theme:#ad5a00}
+.tyd2-sda details.digital{--theme:#6554c0}
+.tyd2-sda details summary .num{
+  background:var(--theme)!important;color:#fff!important;
+  border:2px solid rgba(255,255,255,.9);
+  box-shadow:0 1px 4px rgba(0,0,0,.16);
+  min-width:58px;text-align:center;
+}
+.curriculum-end{margin:34px 0 20px;padding-top:12px;border-top:2px solid var(--line)}
+.curriculum-end>h3{font-size:1.55rem;margin:10px 0 14px}
+.curriculum-end details{border-left:6px solid #315fe9}
+.curriculum-end details.saberes{border-left-color:#087a5b}
+.curriculum-end summary{background:#f8fafc}
+.curriculum-section{margin:12px 0;padding:13px 15px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.curriculum-section h4{margin:0 0 8px}
+.criteria-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.criteria-table th,.criteria-table td{padding:9px 10px;border:1px solid var(--line);vertical-align:top;text-align:left}
+.criteria-table th{background:#edf2ff}
+.grade-scale{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}
+.grade-scale span{padding:6px 9px;border-radius:8px;background:#edf2ff;color:#2447b8;font-weight:800;font-size:.82rem}
+
+</style>
+
+<style>
+.tic1 details{--theme:#315fe9}.tic1 details.data{--theme:#087a5b}.tic1 details.system{--theme:#ad5a00}.tic1 details.net{--theme:#6554c0}.tic1 details.prog{--theme:#a23c73}
+.tic1 details summary .num{background:var(--theme)!important;color:#fff!important;border:2px solid rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.16);min-width:58px;text-align:center}
+.tic1 .curriculum-end{margin:34px 0 20px;padding-top:12px;border-top:2px solid var(--line)}
+.tic1 .criteria-table{width:100%;border-collapse:collapse;font-size:.92rem}.tic1 .criteria-table th,.tic1 .criteria-table td{padding:9px 10px;border:1px solid var(--line);vertical-align:top;text-align:left}.tic1 .criteria-table th{background:#edf2ff}
+.tic1 .curriculum-section{margin:12px 0;padding:13px 15px;border:1px solid var(--line);border-radius:11px;background:#fff}.tic1 .curriculum-section h4{margin:0 0 8px}
+</style>
+</head>
+
+<body><div class="tyd2-sda tic1"><section class="hero"><span class="badge">💻 Tecnologías de la Información y la Comunicación I · 1.º Bachillerato · Curso 2026/2027</span><h2>12 Situaciones de Aprendizaje</h2><p>Secuencia: impacto TIC → representación binaria → hardware → sistemas operativos → aplicaciones → documentos → hojas de cálculo → bases de datos → Internet → búsqueda crítica → programación → proyecto final de programación.</p><div class="toolbar"><select id="tyd2Filter"><option value="0">Todo el curso</option><option value="1">1.º trimestre</option><option value="2">2.º trimestre</option><option value="3">3.º trimestre</option></select><button type="button" id="tyd2Open">Abrir todo</button></div></section><div class="intro"><strong>Hilo conductor:</strong> comprender primero el impacto y la representación de la información, conocer después el equipo y su software, aprender a producir y analizar información con aplicaciones, entender Internet y cerrar el curso desarrollando programas para resolver problemas.</div><section class="term" data-tri="1"><h3>1.º trimestre · Sociedad digital, información y sistemas</h3><div class="term-note"><strong>Progresión:</strong> impacto TIC → binario → hardware → sistemas operativos.</div><details class=""><summary><span class="num">SA 01</span>TIC y sociedad: investigar su impacto<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE1</span><span class="chip criterion">Criterio 1.1</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo están transformando las TIC nuestra forma de aprender, trabajar y relacionarnos?</div><div class="grid"><div class="box"><strong>Producto final</strong>Investigación documentada sobre un impacto actual de las TIC, con fuentes contrastadas y conclusión propia.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.A.1</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Formular una pregunta e hipótesis.</li><li>Buscar y seleccionar fuentes fiables.</li><li>Recoger evidencias.</li><li>Contrastar impactos positivos y negativos.</li><li>Elaborar una conclusión argumentada.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Informe o presentación con evidencias y fuentes. Esta SA evalúa exclusivamente el criterio 1.1.</div></div></div></details><details class=""><summary><span class="num">SA 02</span>Del mundo real al binario<span class="sessions">4 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE1</span><span class="chip criterion">Criterio 1.2</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo representa un ordenador textos, números, imágenes y otros datos?</div><div class="grid"><div class="box"><strong>Producto final</strong>Resolución de conversiones y pequeña explicación visual de la representación binaria.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.A.2</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Sistemas de numeración.</li><li>Conversión decimal-binario.</li><li>Bits, bytes y unidades.</li><li>Codificación de información.</li><li>Actividad de aplicación.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Ejercicios razonados + recurso explicativo breve.</div></div></div></details><details class="system"><summary><span class="num">SA 03</span>Hardware: diseñamos un equipo equilibrado<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE2</span><span class="chip criterion">Criterio 2.1</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Qué componentes determinan realmente las prestaciones de un ordenador?</div><div class="grid"><div class="box"><strong>Producto final</strong>Propuesta razonada de configuración de un equipo para una necesidad concreta.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.B.1</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Arquitectura básica.</li><li>CPU, memoria y almacenamiento.</li><li>Placa base y buses.</li><li>Periféricos.</li><li>Comparar configuraciones y justificar una elección.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Ficha técnica comparativa + propuesta razonada.</div></div></div></details><details class="system"><summary><span class="num">SA 04</span>Sistemas operativos: instalar, configurar y administrar<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE2</span><span class="chip criterion">Criterio 2.2</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo podemos configurar un sistema operativo para que sea estable, seguro y eficiente?</div><div class="grid"><div class="box"><strong>Producto final</strong>Práctica guiada de administración y monitorización de un sistema operativo.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.B.2</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Funciones y arquitectura del SO.</li><li>Usuarios, procesos y sistema de archivos.</li><li>Dispositivos y almacenamiento.</li><li>Monitorización y rendimiento.</li><li>Configuración y mantenimiento básico.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Capturas/práctica + explicación de las decisiones adoptadas.</div></div></div></details></section><section class="term" data-tri="2"><h3>2.º trimestre · Aplicaciones, documentos y datos</h3><div class="term-note"><strong>Progresión:</strong> integración de software → documentos → hoja de cálculo → bases de datos.</div><details class="data"><summary><span class="num">SA 05</span>Aplicaciones digitales: elegir e integrar herramientas<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE3</span><span class="chip criterion">Criterio 3.1</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo combinamos distintas aplicaciones para resolver una tarea real?</div><div class="grid"><div class="box"><strong>Producto final</strong>Producto digital elaborado combinando varias aplicaciones de propósito general.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.C.1</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Tipos de software.</li><li>Aplicaciones de escritorio y web.</li><li>Instalación/requisitos.</li><li>Intercambio de información entre aplicaciones.</li><li>Resolución de una tarea integrada.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Producto digital + breve memoria del flujo de trabajo.</div></div></div></details><details class="data"><summary><span class="num">SA 06</span>Documentos digitales profesionales<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE3</span><span class="chip criterion">Criterio 3.2</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo transformamos información en un documento claro, estructurado y reutilizable?</div><div class="grid"><div class="box"><strong>Producto final</strong>Documento extenso con estilos, tablas, imágenes, índices y elementos de edición avanzada.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.C.2</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Estructura y estilos.</li><li>Tablas e imágenes.</li><li>Cabeceras y numeración.</li><li>Índices y referencias.</li><li>Exportación y revisión.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Documento editable + PDF final.</div></div></div></details><details class="data"><summary><span class="num">SA 07</span>Hoja de cálculo: datos que responden preguntas<span class="sessions">6 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE3</span><span class="chip criterion">Criterio 3.3</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo usamos datos y fórmulas para analizar una situación y tomar decisiones?</div><div class="grid"><div class="box"><strong>Producto final</strong>Libro de cálculo con fórmulas, funciones, gráficos y análisis de datos.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.C.3</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Diseñar tablas de datos.</li><li>Referencias y fórmulas.</li><li>Funciones.</li><li>Ordenar/filtrar.</li><li>Gráficos.</li><li>Interpretar resultados.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Hoja de cálculo + conclusiones basadas en los resultados.</div></div></div></details><details class="data"><summary><span class="num">SA 08</span>Bases de datos: organizar y consultar información<span class="sessions">6 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE3</span><span class="chip criterion">Criterio 3.4</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo diseñamos una base de datos para evitar desorden y recuperar información con precisión?</div><div class="grid"><div class="box"><strong>Producto final</strong>Base de datos sencilla con tablas, relaciones y consultas.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.C.4</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Modelo de datos.</li><li>Tablas, campos y claves.</li><li>Relaciones.</li><li>Consultas.</li><li>Introducción práctica a SQL.</li><li>Comprobación de resultados.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Esquema + base de datos/consultas + breve explicación.</div></div></div></details></section><section class="term" data-tri="3"><h3>3.º trimestre · Internet y programación</h3><div class="term-note"><strong>Progresión:</strong> redes → búsqueda crítica → fundamentos de programación → aplicación final.</div><details class="net"><summary><span class="num">SA 09</span>Internet y redes: cómo viaja la información<span class="sessions">5 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE4</span><span class="chip criterion">Criterio 4.1</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Qué ocurre desde que escribimos una dirección web hasta que recibimos una página?</div><div class="grid"><div class="box"><strong>Producto final</strong>Mapa explicativo de una comunicación en red y práctica de diagnóstico básico.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.D.1</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Redes y dispositivos.</li><li>Direccionamiento y servicios.</li><li>TCP/IP.</li><li>DNS.</li><li>HTTP/HTTPS.</li><li>Diagnóstico básico.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Esquema de comunicación + actividad práctica.</div></div></div></details><details class="net"><summary><span class="num">SA 10</span>Buscar, contrastar y citar información en Internet<span class="sessions">4 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE4</span><span class="chip criterion">Criterio 4.2</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo distinguimos una fuente útil y fiable de un resultado simplemente popular?</div><div class="grid"><div class="box"><strong>Producto final</strong>Dossier de búsqueda crítica sobre un problema tecnológico.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.D.2</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Diseñar búsquedas.</li><li>Seleccionar resultados.</li><li>Autoría, actualidad y evidencia.</li><li>Contrastar fuentes.</li><li>Citar y organizar recursos.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Dossier de fuentes comentadas + síntesis propia.</div></div></div></details><details class="prog"><summary><span class="num">SA 11</span>Programación: de la idea al código<span class="sessions">6 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterio 5.1</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Qué construcciones necesita un lenguaje para expresar una solución?</div><div class="grid"><div class="box"><strong>Producto final</strong>Colección de pequeños programas que empleen variables, entrada/salida, decisiones y bucles.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.E.1</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Sintaxis y semántica.</li><li>Variables y tipos.</li><li>Entrada y salida.</li><li>Condicionales.</li><li>Bucles.</li><li>Pruebas y depuración.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Código fuente + pruebas de funcionamiento.</div></div></div></details><details class="prog"><summary><span class="num">SA 12</span>Proyecto de programación: resolver un problema real<span class="sessions">7 sesiones</span></summary><div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterio 5.2</span></div><div class="question"><strong>Pregunta guía:</strong> ¿Cómo pasamos de un problema real a una aplicación pequeña, comprobable y mejorable?</div><div class="grid"><div class="box"><strong>Producto final</strong>Aplicación sencilla desarrollada a partir de un algoritmo, con pruebas y documentación.</div><div class="box"><strong>Saberes vinculados</strong><div class="codes"><span class="code">TICO.1.E.2</span></div></div><div class="box"><strong>Secuencia</strong><ol><li>Analizar requisitos.</li><li>Diseñar algoritmo/pseudocódigo o diagrama.</li><li>Implementar.</li><li>Probar casos.</li><li>Depurar.</li><li>Documentar y presentar.</li></ol></div><div class="box"><strong>Entrega / evidencias</strong>Programa + algoritmo + batería de pruebas + memoria breve.</div></div></div></details></section><section class="curriculum-end"><h3>6. Criterios de evaluación y calificación</h3><details><summary>📊 Evaluación, calificación y criterios · TIC I</summary><div class="in"><p>La evaluación en Bachillerato es <strong>continua, competencial, formativa, integradora, diferenciada y objetiva</strong> y toma como referentes los criterios de evaluación. Los criterios asociados a una competencia específica contribuyen en la misma medida a su grado de desarrollo.</p><p>Se utilizarán instrumentos variados y coherentes con cada criterio: investigaciones, prácticas, documentos, hojas de cálculo, bases de datos, actividades de redes, código, proyectos y pruebas, entre otros.</p><div style="overflow-x:auto"><table class="criteria-table"><thead><tr><th>Criterio</th><th>Descripción</th></tr></thead><tbody><tr><td><strong>1.1</strong></td><td>Analizar y valorar el impacto de las tecnologías de la información y la comunicación en la transformación de la sociedad actual.</td></tr><tr><td><strong>1.2</strong></td><td>Explicar cómo se representa digitalmente la información en forma de secuencias binarias y describir los mecanismos de abstracción empleados.</td></tr><tr><td><strong>2.1</strong></td><td>Describir el funcionamiento de ordenadores y equipos informáticos, identificando los subsistemas que los componen y relacionándolos con las prestaciones del conjunto.</td></tr><tr><td><strong>2.2</strong></td><td>Configurar, utilizar y administrar sistemas operativos de forma básica, monitorizando y optimizando el sistema para su uso.</td></tr><tr><td><strong>3.1</strong></td><td>Seleccionar y utilizar de manera combinada aplicaciones informáticas para la creación de contenidos digitales y la resolución de problemas específicos.</td></tr><tr><td><strong>3.2</strong></td><td>Utilizar aplicaciones de procesamiento de texto de manera avanzada para elaborar documentos digitales estructurados.</td></tr><tr><td><strong>3.3</strong></td><td>Utilizar hojas de cálculo para resolver problemas mediante el tratamiento, análisis y representación de datos.</td></tr><tr><td><strong>3.4</strong></td><td>Diseñar y utilizar bases de datos sencillas para almacenar, organizar y consultar información.</td></tr><tr><td><strong>4.1</strong></td><td>Explicar el funcionamiento de Internet y de las redes de ordenadores, utilizando sus servicios y protocolos de forma adecuada.</td></tr><tr><td><strong>4.2</strong></td><td>Buscar recursos digitales en Internet, comprendiendo cómo se seleccionan y organizan los resultados y evaluando críticamente los contenidos y recursos disponibles.</td></tr><tr><td><strong>5.1</strong></td><td>Conocer y comprender la sintaxis y la semántica de las construcciones fundamentales de un lenguaje de programación.</td></tr><tr><td><strong>5.2</strong></td><td>Realizar pequeños programas de aplicación en un lenguaje de programación, aplicándolos a la solución de problemas reales.</td></tr></tbody></table></div></div></details><details><summary>📚 Saberes básicos · TIC I</summary><div class="in"><div class="curriculum-section"><h4>A. Sociedad de la información y digitalización</h4><ul><li><strong>TICO.1.A.1.</strong> Sociedad de la información y del conocimiento, transformación digital e impacto social de las TIC.</li><li><strong>TICO.1.A.2.</strong> Representación digital de la información y sistemas de numeración.</li></ul></div><div class="curriculum-section"><h4>B. Arquitectura y sistemas</h4><ul><li><strong>TICO.1.B.1.</strong> Arquitectura de ordenadores, componentes, características y prestaciones.</li><li><strong>TICO.1.B.2.</strong> Sistemas operativos: arquitectura, funciones, licencias, procesos, archivos, usuarios, dispositivos, monitorización, instalación y configuración.</li></ul></div><div class="curriculum-section"><h4>C. Software y creación de contenidos</h4><ul><li><strong>TICO.1.C.1.</strong> Software y aplicaciones de propósito general y específico; aplicaciones de escritorio, web y colaborativas.</li><li><strong>TICO.1.C.2.</strong> Procesadores de texto y elaboración avanzada de documentos.</li><li><strong>TICO.1.C.3.</strong> Hojas de cálculo, tratamiento y representación de datos.</li><li><strong>TICO.1.C.4.</strong> Bases de datos: diseño, organización, consulta y tratamiento de información.</li></ul></div><div class="curriculum-section"><h4>D. Internet y redes</h4><ul><li><strong>TICO.1.D.1.</strong> Redes de ordenadores, Internet, servicios, protocolos y comunicación.</li><li><strong>TICO.1.D.2.</strong> Búsqueda, selección, organización y evaluación crítica de recursos digitales.</li></ul></div><div class="curriculum-section"><h4>E. Programación</h4><ul><li><strong>TICO.1.E.1.</strong> Lenguajes de programación: sintaxis, semántica y construcciones fundamentales.</li><li><strong>TICO.1.E.2.</strong> Diseño e implementación de programas sencillos para resolver problemas.</li></ul></div></div></details></section><div class="footer"><strong>Referencia curricular:</strong> Orden de 30 de mayo de 2023 para Bachillerato en Andalucía. La secuenciación y los productos constituyen una propuesta docente adaptable al grupo.</div></div><script>(function(){const root=document.querySelector('.tic1');const filter=root.querySelector('#tyd2Filter'),btn=root.querySelector('#tyd2Open');let opened=false;filter.addEventListener('change',()=>root.querySelectorAll('.term').forEach(s=>s.classList.toggle('hidden',filter.value!=='0'&&s.dataset.tri!==filter.value)));btn.addEventListener('click',()=>{opened=!opened;root.querySelectorAll('.term:not(.hidden) details').forEach(d=>d.open=opened);btn.textContent=opened?'Cerrar todo':'Abrir todo'});document.querySelectorAll('.tic1 details').forEach(d=>d.open=false)})();</script></body></html>
