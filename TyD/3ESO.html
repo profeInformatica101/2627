@@ -32,12 +32,51 @@ details[class*="theme-"] .moodle{border-left-color:var(--theme)}
 .legend .prog i{background:#6657d9}.legend .project i{background:#b66a12}.legend .cad i{background:#147d91}
 .legend .electric i{background:#c18b00}.legend .digital i{background:#2469a0}.legend .sustain i{background:#398052}
 
+
+
+.tyd2-sda .theme-video{--theme:#8b4bb3;--theme-soft:#f7effc}
+
+
+.evaluation-block{margin:34px 0 20px;padding-top:8px;border-top:2px solid var(--line)}
+.evaluation-block>h3{font-size:1.55rem;margin:18px 0 14px}
+.evaluation-main{border-left:6px solid #315fe9!important}
+.knowledge-block{border-left:6px solid #087a5b!important}
+.evaluation-main summary,.knowledge-block summary{background:#f8fafc}
+.grade-scale{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+.grade-scale span{padding:7px 10px;border-radius:9px;background:#edf2ff;color:#2447b8;font-size:.84rem;font-weight:700}
+.final-grade{margin-top:15px;padding:13px 14px;border-left:4px solid #315fe9;border-radius:8px;background:#f7faff}
+.final-grade p{margin:.45rem 0 0}
+.knowledge-section{margin:12px 0;padding:13px 15px;border-radius:11px;border:1px solid var(--line);background:#fff}
+.knowledge-section h4{margin:0 0 7px}
+.knowledge-section li{margin:.45rem 0}
+.k-a{border-left:5px solid #b66a12}.k-b{border-left:5px solid #147d91}
+.k-c{border-left:5px solid #6657d9}.k-d{border-left:5px solid #2469a0}
+.k-e{border-left:5px solid #398052}
+
+
+/* Corrección visual de los identificadores SA */
+.tyd2-sda details summary .num,
+.tyd2-sda summary .num,
+details summary .num{
+  background:var(--theme,#315fe9) !important;
+  color:#fff !important;
+  border:2px solid rgba(255,255,255,.92) !important;
+  box-shadow:0 1px 4px rgba(0,0,0,.18);
+  font-weight:800 !important;
+  min-width:58px;
+  text-align:center;
+}
+
 </style></head>
 <body><main class="wrap"><section class="hero"><span class="badge">🛠️ Tecnología y Digitalización · 3.º ESO · Curso 2026/2027</span><h1>12 Situaciones de Aprendizaje</h1>
-<p>Secuencia adaptada al curso iniciado por algoritmia: algoritmos → Scratch y Python → proceso tecnológico → representación y CAD → electricidad/electrónica → fabricación → control → robótica → entorno digital → proyecto sostenible.</p>
+<p>Secuencia adaptada al curso iniciado por algoritmia: programación → edición de vídeo → investigación → diseño → CAD → electricidad → fabricación → proyecto eléctrico → control → robótica → entorno digital → proyecto sostenible.</p>
 <div class="toolbar"><select id="filter"><option value="0">Todo el curso</option><option value="1">1.º trimestre</option><option value="2">2.º trimestre</option><option value="3">3.º trimestre</option></select><button id="open">Abrir todo</button><button id="close">Cerrar todo</button></div></section>
 <div class="law"><strong>⚖️ Marco curricular:</strong> Decreto 102/2023, de 9 de mayo, y Orden de 30 de mayo de 2023 para ESO en Andalucía. Los códigos y descripciones de saberes se han adaptado específicamente a Tecnología y Digitalización de 3.º ESO.</div>
-<div class="intro"><strong>Hilo conductor:</strong> comenzamos por algoritmia y diagramas de flujo, que se aplican inmediatamente en Scratch y progresivamente en Python. El pensamiento computacional reaparece después de forma puntual en control y robótica. Al existir una materia específica de Computación y Robótica, la programación se trabaja aquí con carácter instrumental y sin profundizar, dando mayor peso a representación técnica, CAD, electricidad/electrónica, fabricación, entorno digital y sostenibilidad.</div><div class="legend">
+<div class="intro"><strong>Hilo conductor:</strong>
+el curso comienza con <strong>programación</strong> y avanza hacia la investigación, el diseño y la representación
+de soluciones tecnológicas. Después se trabajan electricidad/electrónica, fabricación, control y robótica.
+El tramo final aborda el entorno digital y la sostenibilidad, y culmina con una <strong>situación de aprendizaje
+de edición de vídeo</strong> para comunicar mediante un producto audiovisual el trabajo tecnológico desarrollado.</div><div class="legend">
 <strong>Relación temática de las SdA</strong>
 <span class="prog"><i></i>Algoritmia · Programación · Control · Robótica</span>
 <span class="project"><i></i>Investigación · Proyecto · Fabricación</span>
@@ -45,90 +84,283 @@ details[class*="theme-"] .moodle{border-left-color:var(--theme)}
 <span class="electric"><i></i>Electricidad · Electrónica</span>
 <span class="digital"><i></i>Entorno digital</span>
 <span class="sustain"><i></i>Sostenibilidad · Proyecto final</span>
+<span style="background:#f7effc">🎬 Edición de vídeo · Comunicación digital</span>
 </div>
-<section class="term" data-tri="1"><h2>1.º trimestre · Algoritmia, programación y proceso tecnológico</h2><div class="term-note">Progresión: algoritmo → Scratch/Python → investigación → proyecto tecnológico.</div><details open class="theme-prog"><summary><span class="num">SA 01</span>Del problema al algoritmo<span class="sessions">3 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterio 5.1</span></div>
-<div class="question"><strong>Pregunta guía:</strong> ¿Cómo expresamos una solución de forma precisa antes de programarla?</div><div class="grid">
-<div class="box"><strong>Producto final</strong>Diagramas de flujo y resolución de problemas: mayor de dos/tres números, par/impar, contador y otros retos.</div>
-<div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.C.1 TYD.3.C.2 TYD.3.C.3</div><div class="definition">Aplicaciones informáticas sencillas para ordenador y dispositivos móviles. Fundamentos de robótica: montaje y control programado de robots simples, físicos o mediante simuladores. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje.</div></div>
-<div class="box"><strong>Secuencia</strong><ol><li>Identificar entradas, proceso y salidas.</li><li>Diseñar secuencias.</li><li>Introducir decisiones.</li><li>Introducir repeticiones.</li><li>Representar mediante diagramas de flujo.</li><li>Probar casos y depurar errores.</li></ol></div>
-<div class="box moodle"><strong>Entrega Moodle</strong>Diagramas de flujo + explicación breve de dos algoritmos + pruebas realizadas.</div>
-<div class="box"><strong>Evidencias</strong>Interpretación del problema; lógica; representación; prueba y depuración.</div></div></div></details><details  class="theme-prog"><summary><span class="num">SA 02</span>De los algoritmos a Scratch y Python<span class="sessions">4 sesiones</span></summary>
+
+<section class="term" data-tri="1"><h2>1.º trimestre · Algoritmia, programación y proceso tecnológico</h2><div class="term-note">Progresión: algoritmo → Scratch/Python → investigación → proyecto tecnológico.</div>
+<section class="term" data-tri="1">
+
+<!-- 1.º TRIMESTRE -->
+<section class="term" data-tri="1">
+<h3>1.º trimestre · Programación y diseño tecnológico</h3>
+<div class="term-note"><strong>Progresión:</strong> programación → investigación → diseño y planificación → representación técnica.</div>
+<details class="theme-prog"><summary><span class="num">SA 01</span>Programación: del algoritmo a Scratch y Python<span class="sessions">5 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterios 5.1 · 5.2</span></div>
-<div class="question"><strong>Pregunta guía:</strong> ¿Cómo transformamos un algoritmo en un programa y comprobamos que realmente funciona?</div><div class="grid">
-<div class="box"><strong>Producto final</strong>Ejercicios breves en Scratch y una introducción básica a Python a partir de algoritmos trabajados previamente.</div>
+<div class="question"><strong>Pregunta guía:</strong> ¿Cómo expresamos una solución de forma precisa antes de programarla?</div><div class="grid">
+<div class="box"><strong>Producto final</strong> Algoritmo y diagrama de flujo + microprograma funcional en Scratch y una aplicación básica equivalente o relacionada en Python.
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.C.1 TYD.3.C.2 TYD.3.C.3</div><div class="definition">Aplicaciones informáticas sencillas para ordenador y dispositivos móviles. Fundamentos de robótica: montaje y control programado de robots simples, físicos o mediante simuladores. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje.</div></div>
-<div class="box"><strong>Secuencia</strong><ol><li>Relacionar diagrama de flujo y programa.</li><li>Programar secuencias en Scratch.</li><li>Variables y entrada/salida de datos.</li><li>Condicionales.</li><li>Bucles.</li><li>Introducción básica a Python: entrada/salida, variables y estructuras de control sencillas.</li><li>Relacionar de forma básica los bloques de Scratch con instrucciones equivalentes en Python.</li><li>Probar, corregir y mejorar.</li></ol></div>
-<div class="box moodle"><strong>Entrega Moodle</strong>Ejercicio Scratch + uno o dos programas básicos en Python + algoritmo/diagrama de flujo.</div>
-<div class="box"><strong>Evidencias</strong>Correspondencia algoritmo-programa; variables; control de flujo; funcionamiento; depuración.</div></div></div></details><details  class="theme-project"><summary><span class="num">SA 03</span>Investigamos para resolver un problema tecnológico<span class="sessions">5 sesiones</span></summary>
+<div class="box"><strong>Secuencia</strong>
+            <ol>
+              <li>Identificar entradas, proceso y salidas.</li>
+              <li>Representar la solución mediante algoritmo y diagrama de flujo.</li>
+              <li>Implementar secuencias, variables, decisiones y repeticiones en Scratch.</li>
+              <li>Trasladar ejemplos básicos a Python.</li>
+              <li>Probar, detectar errores, depurar y mejorar.</li>
+            </ol></div>
+<div class="box moodle"><strong>Entrega Moodle</strong> Diagrama de flujo + proyecto Scratch + uno o dos ejercicios básicos en Python + breve explicación de las pruebas realizadas.</div>
+<div class="box"><strong>Evidencias</strong>Interpretación del problema; lógica; representación; prueba y depuración.</div></div></div></details>
+<details  class="theme-project"><summary><span class="num">SA 02</span>Investigamos para resolver un problema tecnológico<span class="sessions">5 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE1</span><span class="chip criterion">Criterios 1.1 · 1.2</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo obtenemos información fiable para comprender un problema y plantear una solución tecnológica?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Informe de investigación y análisis de un objeto o sistema tecnológico.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.1 TYD.3.A.2 TYD.3.A.3 TYD.3.A.5 TYD.3.C.3</div><div class="definition">Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases. Estrategias de búsqueda crítica de información durante la investigación y definición de problemas sencillos planteados. Electricidad y electrónica básica: montaje de circuitos físicos o simulados, interpretación, cálculo, diseño, magnitudes y simbología. Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Definir el problema o necesidad.</li><li>Buscar y contrastar información.</li><li>Analizar un producto o sistema.</li><li>Utilizar simulaciones cuando aporten información.</li><li>Extraer requisitos y conclusiones.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Informe breve con fuentes consultadas, análisis y conclusiones.</div>
-<div class="box"><strong>Evidencias</strong>Calidad de las fuentes; análisis; razonamiento; definición del problema.</div></div></div></details><details  class="theme-project"><summary><span class="num">SA 04</span>Del reto al proyecto tecnológico<span class="sessions">5 sesiones</span></summary>
+<div class="box"><strong>Evidencias</strong>Calidad de las fuentes; análisis; razonamiento; definición del problema.</div></div></div></details>
+<details  class="theme-project"><summary><span class="num">SA 03</span>Del reto al proyecto tecnológico<span class="sessions">5 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE2 · CE4</span><span class="chip criterion">Criterios 2.1 · 4.1</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo convertimos una necesidad en una solución planificada, representada y comunicable?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Dossier inicial: necesidad, alternativas, solución elegida, boceto/croquis y planificación.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.1 TYD.3.A.5 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.D.2</div><div class="definition">Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases. Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Definir requisitos.</li><li>Generar alternativas.</li><li>Valorar soluciones.</li><li>Elegir justificadamente.</li><li>Representar la propuesta.</li><li>Planificar tareas y documentar.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Dossier del proyecto con alternativas, solución elegida, representación y planificación.</div>
-<div class="box"><strong>Evidencias</strong>Creatividad; justificación; planificación; representación; documentación.</div></div></div></details></section><section class="term" data-tri="2"><h2>2.º trimestre · Representación, electricidad y fabricación</h2><div class="term-note">Progresión: dibujo/CAD → circuitos → fabricación → proyecto integrado.</div><details  class="theme-cad"><summary><span class="num">SA 05</span>Acotación, escalas, vistas y CAD<span class="sessions">7 sesiones</span></summary>
+<div class="box"><strong>Evidencias</strong>Creatividad; justificación; planificación; representación; documentación.</div></div></div></details>
+<details  class="theme-cad"><summary><span class="num">SA 04</span>Acotación, escalas, vistas y CAD<span class="sessions">7 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE2 · CE4</span><span class="chip criterion">Criterios 2.1 · 4.1</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo comunicamos la forma y las medidas de una pieza para que pueda interpretarse o fabricarse?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Lámina técnica con vistas, escala y acotación + modelo CAD 2D/3D sencillo.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.1 TYD.3.A.5 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.D.2</div><div class="definition">Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases. Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Boceto y croquis.</li><li>Alzado, planta y perfil.</li><li>Escalas.</li><li>Acotación.</li><li>Representación CAD 2D.</li><li>Introducción al modelado 3D.</li><li>Exportar y documentar.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Lámina/PDF + archivo o capturas CAD + breve ficha técnica.</div>
-<div class="box"><strong>Evidencias</strong>Precisión; vistas; escala; acotación; CAD; presentación técnica.</div></div></div></details><details  class="theme-electric"><summary><span class="num">SA 06</span>Electricidad y electrónica: diseñamos circuitos<span class="sessions">8 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE1 · CE3 · CE4</span><span class="chip criterion">Criterios 1.2 · 3.1 · 4.1</span></div>
+<div class="box"><strong>Evidencias</strong>Precisión; vistas; escala; acotación; CAD; presentación técnica.</div></div></div></details>
+</section>
+<!-- 2.º TRIMESTRE -->
+<section class="term" data-tri="2">
+<h3>2.º trimestre · Electricidad, fabricación y control</h3>
+<div class="term-note"><strong>Progresión:</strong> electricidad/electrónica → fabricación → proyecto eléctrico/electrónico → control programado.</div>
+<details  class="theme-electric"><summary><span class="num">SA 05</span>Electricidad y electrónica: diseñamos circuitos<span class="sessions">7 sesiones</span></summary>
+<div class="in"><div class="meta"><span class="chip">CE1 · CE3</span><span class="chip criterion">Criterios 1.2 · 3.1</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo diseñamos, calculamos y comprobamos un circuito eléctrico o electrónico sencillo?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Circuitos físicos o simulados con esquema, cálculos y comprobación.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.2 TYD.3.A.3 TYD.3.A.4 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.D.2</div><div class="definition">Estrategias de búsqueda crítica de información durante la investigación y definición de problemas sencillos planteados. Electricidad y electrónica básica: montaje de circuitos físicos o simulados, interpretación, cálculo, diseño, magnitudes y simbología. Herramientas y técnicas elementales de manipulación y mecanizado de materiales; introducción a la fabricación digital y normas de seguridad e higiene. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Componentes y simbología.</li><li>Tensión, intensidad y resistencia.</li><li>Ley de Ohm.</li><li>Diseño del esquema.</li><li>Simulación.</li><li>Montaje y medida.</li><li>Detección de fallos.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Esquemas + cálculos + capturas de simulación o fotografías del montaje + conclusiones.</div>
-<div class="box"><strong>Evidencias</strong>Interpretación; cálculo; simbología; montaje seguro; medida y diagnóstico.</div></div></div></details><details  class="theme-project"><summary><span class="num">SA 07</span>Fabricación: del diseño al prototipo<span class="sessions">7 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE2 · CE3 · CE4</span><span class="chip criterion">Criterios 2.2 · 3.1 · 4.1</span></div>
+<div class="box"><strong>Evidencias</strong>Interpretación; cálculo; simbología; montaje seguro; medida y diagnóstico.</div></div></div></details>
+<details  class="theme-project"><summary><span class="num">SA 06</span>Fabricación: del diseño al prototipo<span class="sessions">7 sesiones</span></summary>
+<div class="in"><div class="meta"><span class="chip">CE2 · CE3 · CE7</span><span class="chip criterion">Criterios 2.2 · 3.1 · 7.1</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo fabricamos un objeto a partir de un diseño previo de forma precisa y segura?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Prototipo físico diseñado previamente y documentación del proceso.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.3 TYD.3.A.4 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.D.2</div><div class="definition">Electricidad y electrónica básica: montaje de circuitos físicos o simulados, interpretación, cálculo, diseño, magnitudes y simbología. Herramientas y técnicas elementales de manipulación y mecanizado de materiales; introducción a la fabricación digital y normas de seguridad e higiene. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Seleccionar materiales y herramientas.</li><li>Planificar operaciones.</li><li>Preparar medidas y piezas.</li><li>Manipular y mecanizar con seguridad.</li><li>Ensamblar.</li><li>Comprobar dimensiones y funcionamiento.</li><li>Documentar mejoras.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Planos + planificación + fotografías del proceso y prototipo + reflexión de mejora.</div>
-<div class="box"><strong>Evidencias</strong>Planificación; precisión; uso de herramientas; seguridad; calidad del prototipo; mejora.</div></div></div></details><details  class="theme-electric"><summary><span class="num">SA 08</span>Proyecto eléctrico/electrónico<span class="sessions">7 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE2 · CE3 · CE4</span><span class="chip criterion">Criterios 2.1 · 2.2 · 3.1 · 4.1</span></div>
+<div class="box"><strong>Evidencias</strong>Planificación; precisión; uso de herramientas; seguridad; calidad del prototipo; mejora.</div></div></div></details>
+<details  class="theme-electric"><summary><span class="num">SA 07</span>Proyecto eléctrico/electrónico<span class="sessions">7 sesiones</span></summary>
+<div class="in"><div class="meta"><span class="chip">CE2 · CE3 · CE4 · CE7</span><span class="chip criterion">Criterios 2.1 · 2.2 · 3.1 · 4.1 · 7.1</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Podemos construir una solución útil que integre diseño, fabricación y un circuito?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Objeto funcional que integre estructura/carcasa y circuito eléctrico o electrónico sencillo.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.1 TYD.3.A.3 TYD.3.A.4 TYD.3.A.5 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.D.2</div><div class="definition">Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases. Electricidad y electrónica básica: montaje de circuitos físicos o simulados, interpretación, cálculo, diseño, magnitudes y simbología. Herramientas y técnicas elementales de manipulación y mecanizado de materiales; introducción a la fabricación digital y normas de seguridad e higiene. Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Definir requisitos.</li><li>Diseñar y representar.</li><li>Seleccionar materiales.</li><li>Diseñar/simular el circuito.</li><li>Construir.</li><li>Integrar el circuito.</li><li>Probar y mejorar.</li><li>Documentar.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Memoria técnica + planos + esquema/cálculos + fotografías o vídeo + valoración final.</div>
-<div class="box"><strong>Evidencias</strong>Diseño; circuito; fabricación; seguridad; funcionamiento; documentación.</div></div></div></details></section><section class="term" data-tri="3"><h2>3.º trimestre · Control, robótica, entorno digital y sostenibilidad</h2><div class="term-note">Progresión: control programado → robótica → entorno digital seguro → proyecto final sostenible.</div><details  class="theme-prog"><summary><span class="num">SA 09</span>Control programado: sensores y actuadores<span class="sessions">4 sesiones</span></summary>
+<div class="box"><strong>Evidencias</strong>Diseño; circuito; fabricación; seguridad; funcionamiento; documentación.</div></div></div></details>
+<details  class="theme-prog"><summary><span class="num">SA 08</span>Control tecnológico: sensores y actuadores<span class="sessions">4 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterios 5.2 · 5.3</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo conseguimos que un sistema tome decisiones a partir de información del entorno?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Sistema programado, físico o simulado, con entrada, procesamiento y salida.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.C.1 TYD.3.C.2 TYD.3.C.3</div><div class="definition">Aplicaciones informáticas sencillas para ordenador y dispositivos móviles. Fundamentos de robótica: montaje y control programado de robots simples, físicos o mediante simuladores. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Identificar entradas y salidas.</li><li>Diseñar el algoritmo.</li><li>Programar condiciones y bucles.</li><li>Configurar sensor y actuador.</li><li>Simular o montar.</li><li>Probar y depurar.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Algoritmo/diagrama + programa + captura/fotografías o vídeo de funcionamiento + pruebas.</div>
-<div class="box"><strong>Evidencias</strong>Algoritmo; programación; integración; funcionamiento; depuración.</div></div></div></details><details  class="theme-prog"><summary><span class="num">SA 10</span>Robótica: programamos una máquina<span class="sessions">4 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE5</span><span class="chip criterion">Criterios 5.1 · 5.2 · 5.3</span></div>
+<div class="box"><strong>Evidencias</strong>Algoritmo; programación; integración; funcionamiento; depuración.</div></div></div></details>
+</section>
+<!-- 3.º TRIMESTRE -->
+<section class="term" data-tri="3">
+<h3>3.º trimestre · Robótica, entorno digital, sostenibilidad y comunicación audiovisual</h3>
+<div class="term-note"><strong>Progresión:</strong> robótica aplicada → entorno digital seguro → proyecto sostenible → edición de vídeo como comunicación final.</div>
+<details  class="theme-prog"><summary><span class="num">SA 09</span>Robótica aplicada a un sistema tecnológico<span class="sessions">5 sesiones</span></summary>
+<div class="in"><div class="meta"><span class="chip">CE3 · CE5</span><span class="chip criterion">Criterios 3.1 · 5.1 · 5.3</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo diseñamos el comportamiento de un robot para que realice una tarea de forma autónoma?</div><div class="grid">
-<div class="box"><strong>Producto final</strong>Actividad breve de robótica, física o simulada, para aplicar el control programado sin profundizar en contenidos propios de Computación y Robótica.</div>
+<div class="box"><strong>Producto final</strong>Sistema tecnológico sencillo, físico o simulado, que integre estructura, sensor/actuador y un control programado mínimo. La programación se limita a la necesaria para comprobar el funcionamiento.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.C.1 TYD.3.C.2 TYD.3.C.3</div><div class="definition">Aplicaciones informáticas sencillas para ordenador y dispositivos móviles. Fundamentos de robótica: montaje y control programado de robots simples, físicos o mediante simuladores. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Definir el reto.</li><li>Descomponerlo en acciones.</li><li>Diseñar el algoritmo.</li><li>Programar el control.</li><li>Integrar sensores/actuadores cuando proceda.</li><li>Realizar pruebas.</li><li>Depurar y optimizar.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Diagrama de flujo + programa + vídeo/capturas del robot + tabla de pruebas y mejoras.</div>
-<div class="box"><strong>Evidencias</strong>Descomposición; control; programación; autonomía; pruebas; depuración.</div></div></div></details><details  class="theme-digital"><summary><span class="num">SA 11</span>Comunicación y seguridad en nuestro entorno digital<span class="sessions">4 sesiones</span></summary>
-<div class="in"><div class="meta"><span class="chip">CE1 · CE6</span><span class="chip criterion">Criterios 1.3 · 6.1 · 6.2 · 6.3</span></div>
+<div class="box"><strong>Evidencias</strong>Descomposición; control; programación; autonomía; pruebas; depuración.</div></div></div></details>
+<details  class="theme-digital"><summary><span class="num">SA 10</span>Comunicación y seguridad en nuestro entorno digital<span class="sessions">5 sesiones</span></summary>
+<div class="in"><div class="meta"><span class="chip">CE1 · CE6 · CE7</span><span class="chip criterion">Criterios 1.3 · 6.1 · 6.2 · 6.3 · 7.2</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Cómo nos comunicamos, almacenamos y creamos contenidos de manera segura y responsable?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Auditoría del entorno digital + guía de comunicación, seguridad, copias y propiedad intelectual.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.4 TYD.3.D.1 TYD.3.D.2 TYD.3.D.3 TYD.3.D.4 TYD.3.E.2</div><div class="definition">Herramientas y técnicas elementales de manipulación y mecanizado de materiales; introducción a la fabricación digital y normas de seguridad e higiene. Sistemas de comunicación digital de uso común, transmisión de datos y tecnologías inalámbricas. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual. Tratamiento, organización y almacenamiento seguro de la información; copias de seguridad. Seguridad en la red: riesgos, amenazas, protección de datos e información y bienestar digital. Tecnología sostenible y valoración crítica de su contribución a los Objetivos de Desarrollo Sostenible.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Transmisión de datos y comunicaciones inalámbricas.</li><li>Organizar archivos y copias.</li><li>Analizar riesgos y amenazas.</li><li>Aplicar medidas de protección.</li><li>Crear y compartir contenido respetando autoría.</li><li>Resolver casos prácticos.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Informe/guía + capturas de organización y copia de seguridad + actividad de seguridad y propiedad intelectual.</div>
-<div class="box"><strong>Evidencias</strong>Seguridad; organización; comunicaciones; creación responsable; autonomía digital.</div></div></div></details><details  class="theme-sustain"><summary><span class="num">SA 12</span>Proyecto final: tecnología sostenible y automatización<span class="sessions">6 sesiones</span></summary>
+<div class="box"><strong>Evidencias</strong>Seguridad; organización; comunicaciones; creación responsable; autonomía digital.</div></div></div></details>
+<details  class="theme-sustain"><summary><span class="num">SA 11</span>Proyecto final: tecnología sostenible y automatización<span class="sessions">7 sesiones</span></summary>
 <div class="in"><div class="meta"><span class="chip">CE2 · CE3 · CE4 · CE5 · CE7</span><span class="chip criterion">Criterios 2.1 · 2.2 · 3.1 · 4.1 · 5.3 · 7.1 · 7.2</span></div>
 <div class="question"><strong>Pregunta guía:</strong> ¿Podemos diseñar una solución tecnológica automatizada que sea funcional y responsable con su entorno?</div><div class="grid">
 <div class="box"><strong>Producto final</strong>Proyecto final por equipos que integre diseño, fabricación, circuito/control programado y valoración de sostenibilidad.</div>
 <div class="box"><strong>Saberes vinculados</strong><div class="codes">TYD.3.A.1 TYD.3.A.3 TYD.3.A.4 TYD.3.A.5 TYD.3.B.1 TYD.3.B.2 TYD.3.B.3 TYD.3.C.2 TYD.3.C.3 TYD.3.D.2 TYD.3.E.1 TYD.3.E.2</div><div class="definition">Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases. Electricidad y electrónica básica: montaje de circuitos físicos o simulados, interpretación, cálculo, diseño, magnitudes y simbología. Herramientas y técnicas elementales de manipulación y mecanizado de materiales; introducción a la fabricación digital y normas de seguridad e higiene. Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar. Técnicas de representación gráfica: acotación y escalas, boceto y croquis, y vistas normalizadas de una pieza. Aplicaciones CAD en dos y tres dimensiones para representar esquemas, circuitos, planos y objetos básicos. Herramientas digitales para elaborar, publicar y difundir documentación técnica e información multimedia de proyectos sencillos. Fundamentos de robótica: montaje y control programado de robots simples, físicos o mediante simuladores. Autoconfianza e iniciativa: error, reevaluación y depuración como parte del aprendizaje. Herramientas de edición y creación de contenidos: instalación, configuración, uso responsable y propiedad intelectual. Desarrollo tecnológico: creatividad, innovación, investigación, obsolescencia e impacto social y ambiental; ética y tecnología en Andalucía. Tecnología sostenible y valoración crítica de su contribución a los Objetivos de Desarrollo Sostenible.</div></div>
 <div class="box"><strong>Secuencia</strong><ol><li>Definir requisitos.</li><li>Investigar y diseñar.</li><li>Representar con planos/CAD.</li><li>Planificar y fabricar.</li><li>Integrar circuito y/o actuadores.</li><li>Programar el control.</li><li>Probar, depurar y mejorar.</li><li>Analizar impacto y sostenibilidad.</li><li>Presentar el proyecto.</li></ol></div>
 <div class="box moodle"><strong>Entrega Moodle</strong>Informe completo + planos/CAD + programa/algoritmo + fotografías/vídeo + pruebas + reflexión de sostenibilidad.</div>
-<div class="box"><strong>Evidencias</strong>Diseño; fabricación; programación; seguridad; depuración; comunicación; cooperación y sostenibilidad.</div></div></div></details></section><div class="footer">Tecnología y Digitalización · 3.º ESO · Curso 2026/2027 · Andalucía.</div></main>
-<script>const f=document.getElementById('filter');f.onchange=()=>document.querySelectorAll('.term').forEach(x=>x.classList.toggle('hidden',f.value!=='0'&&x.dataset.tri!==f.value));document.getElementById('open').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=true);document.getElementById('close').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=false);</script></body></html>
+<div class="box"><strong>Evidencias</strong>Diseño; fabricación; programación; seguridad; depuración; comunicación; cooperación y sostenibilidad.</div></div></div></details>
+<details class="theme-video">
+      <summary>
+        <span class="num">SA 12</span>
+        Edición de vídeo: comunicar con imágenes y sonido
+        <span class="sessions">5 sesiones</span>
+      </summary>
+      <div class="in">
+        <div class="meta">
+          <span class="chip">CE4 · CE6</span>
+          <span class="chip criterion">Criterios 4.1 · 6.2 · 6.3</span>
+        </div>
+
+        <div class="question">
+          <strong>Pregunta guía:</strong>
+          ¿Cómo podemos transformar la documentación de un proyecto tecnológico en un vídeo breve, claro, atractivo y respetuoso con los derechos de autor?
+        </div>
+
+        <div class="grid">
+          <div class="box">
+            <strong>Producto final</strong>
+            Vídeo breve e informativo en formato MP4, planificado mediante guion o storyboard y elaborado con grabaciones propias y recursos reutilizables con licencia adecuada.
+          </div>
+
+          <div class="box">
+            <strong>Saberes vinculados</strong>
+            <div class="codes">
+              <span class="code">TYD.3.B.3</span>
+              <span class="code">TYD.3.D.2</span>
+              <span class="code">TYD.3.D.3</span>
+            </div>
+            Herramientas digitales para elaborar y difundir documentación técnica e información multimedia;
+            edición y creación responsable de contenidos; propiedad intelectual; organización y almacenamiento seguro de la información.
+          </div>
+
+          <div class="box">
+            <strong>Secuencia</strong>
+            <ol>
+              <li>Analizar ejemplos y definir el mensaje.</li>
+              <li>Preparar un guion y seleccionar imágenes, clips y recursos propios o reutilizables.</li>
+              <li>Grabar o recopilar evidencias del proyecto.</li>
+              <li>Editar: cortes, orden, títulos, transiciones y audio.</li>
+              <li>Añadir créditos y fuentes respetando autoría y licencias.</li>
+              <li>Exportar, organizar el archivo y revisar el resultado.</li>
+            </ol>
+          </div>
+
+          <div class="box">
+            <strong>Entrega Moodle</strong>
+            Vídeo final MP4 + guion o storyboard + archivo editable del proyecto + documento de fuentes y licencias.
+          </div>
+
+          <div class="box">
+            <strong>Evidencias</strong>
+            Planificación y guion; edición audiovisual; claridad y creatividad; privacidad; licencias y derechos de autor; organización y entrega.
+          </div>
+        </div>
+      </div>
+    </details>
+</section>
+<div class="intro criterion-summary">
+<strong>Distribución de criterios:</strong>
+CE1 se trabaja en investigación, análisis y seguridad; CE2 en diseño, planificación y proyectos;
+CE3 en electricidad, fabricación, robótica y construcción; CE4 en comunicación audiovisual, documentación,
+CAD y proyectos; CE5 al inicio y se recupera en control/robótica; CE6 en creación audiovisual y entorno digital;
+CE7 se incorpora en selección/fabricación, proyectos y sostenibilidad. Así se evita evaluar todos los criterios
+en todas las SdA y se obtienen evidencias repetidas en contextos distintos.
+</div>
+
+<section class="evaluation-block">
+  <h3>6. Criterios de evaluación y calificación</h3>
+
+  <details class="evaluation-main">
+    <summary>📊 Evaluación y calificación · Tecnología y Digitalización · 3.º ESO</summary>
+    <div class="in">
+      <p>Según el <strong>artículo 10.1 de la Orden de 30 de mayo de 2023</strong>, por la que se desarrolla el currículo correspondiente a la etapa de Educación Secundaria Obligatoria en la Comunidad Autónoma de Andalucía, la evaluación del proceso de aprendizaje del alumnado será <strong>continua, competencial, formativa, integradora, diferenciada y objetiva</strong> según las distintas materias del currículo y será un instrumento para la mejora tanto de los procesos de enseñanza como de los procesos de aprendizaje. Tomará como <strong>referentes</strong> los <strong>criterios de evaluación</strong> de las diferentes materias curriculares, <strong>a través de los cuales se medirá el grado de consecución de las competencias específicas.</strong></p>
+
+      <p>El <strong>artículo 11.1 de la ya referida Orden</strong> señala que el profesorado llevará a cabo la evaluación, preferentemente, a través de la observación continuada de la evolución del proceso de aprendizaje en relación con los criterios de evaluación y el grado de desarrollo de las competencias específicas de cada materia.</p>
+
+      <p>A lo largo de cada unidad se evaluarán los distintos criterios de evaluación utilizando diversos instrumentos de evaluación.</p>
+
+      <p>La calificación de cada competencia específica se obtiene mediante la media aritmética de todos los criterios de evaluación que la componen y que han sido trabajados.</p>
+
+      <div class="grade-scale">
+        <span><b>1–4</b> Insuficiente</span>
+        <span><b>5</b> Suficiente</span>
+        <span><b>6</b> Bien</span>
+        <span><b>7–8</b> Notable</span>
+        <span><b>9–10</b> Sobresaliente</span>
+      </div>
+
+      <p>Se considerará <strong>superada</strong> la materia cuando la <strong>media aritmética sea de 5</strong>, y a partir de esta calificación se redondeará teniendo en cuenta la <strong>Norma de redondeo matemático</strong>:</p>
+      <ul>
+        <li>Si la cifra decimal es igual o mayor que 0,50, se redondea hacia arriba.</li>
+        <li>Si es menor que 0,50, se redondea hacia abajo.</li>
+      </ul>
+
+      <div class="final-grade">
+        <strong>Criterios de calificación final</strong>
+        <p>Las calificaciones de las evaluaciones parciales son informativas, en relación al conocimiento y progreso del alumnado. La calificación final será la media aritmética de las calificaciones obtenidas en los <strong>criterios de evaluación</strong> a través de los diferentes instrumentos, que corresponden a una <strong>competencia específica</strong>, que se han utilizado a lo largo del curso.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="knowledge-block">
+    <summary>📚 Saberes básicos · Tecnología y Digitalización · 3.º ESO</summary>
+    <div class="in">
+      <div class="knowledge-section k-a">
+        <h4>A. Proceso de resolución de problemas</h4>
+        <ul>
+          <li><strong>TYD.3.A.1.</strong> Estrategias, técnicas y marcos de resolución de problemas sencillos en diferentes contextos y sus fases.</li>
+          <li><strong>TYD.3.A.2.</strong> Estrategias de búsqueda crítica de información durante la investigación y definición de problemas sencillos planteados.</li>
+          <li><strong>TYD.3.A.3.</strong> Electricidad y electrónica básica para el montaje de esquemas y circuitos físicos o simulados. Interpretación, cálculo, diseño y aplicación en proyectos sencillos. Elementos de un circuito eléctrico básico. Magnitudes fundamentales eléctricas: concepto y unidades de medida. Simbología normalizada de circuitos. Interpretación.</li>
+          <li><strong>TYD.3.A.4.</strong> Herramientas y técnicas elementales de manipulación y mecanizado de materiales en la construcción de objetos y prototipos básicos. Introducción a la fabricación digital. Respeto de las normas de seguridad e higiene.</li>
+          <li><strong>TYD.3.A.5.</strong> Emprendimiento, resiliencia, perseverancia y creatividad para abordar problemas sencillos desde una perspectiva interdisciplinar.</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-section k-b">
+        <h4>B. Comunicación y difusión de ideas</h4>
+        <ul>
+          <li><strong>TYD.3.B.1.</strong> Técnicas de representación gráfica: acotación y escalas. Boceto y croquis. Proyección cilíndrica octogonal para la representación de objetos: vistas normalizadas de una pieza.</li>
+          <li><strong>TYD.3.B.2.</strong> Aplicaciones CAD en dos y tres dimensiones para la representación de esquemas, circuitos, planos y objetos básicos.</li>
+          <li><strong>TYD.3.B.3.</strong> Herramientas digitales para la elaboración, publicación y difusión de documentación técnica e información multimedia relativa a proyectos sencillos.</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-section k-c">
+        <h4>C. Pensamiento computacional, programación y robótica</h4>
+        <ul>
+          <li><strong>TYD.3.C.1.</strong> Aplicaciones informáticas sencillas para ordenador y dispositivos móviles e introducción a la inteligencia artificial.</li>
+          <li><strong>TYD.3.C.2.</strong> Fundamentos de la robótica: montaje y control programado de robots simples de manera física o por medio de simuladores.</li>
+          <li><strong>TYD.3.C.3.</strong> Autoconfianza e iniciativa: el error, la reevaluación y la depuración de errores como parte del proceso de aprendizaje.</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-section k-d">
+        <h4>D. Digitalización del entorno personal de aprendizaje</h4>
+        <ul>
+          <li><strong>TYD.3.D.1.</strong> Sistemas de comunicación digital de uso común. Transmisión de datos. Tecnologías inalámbricas para la comunicación.</li>
+          <li><strong>TYD.3.D.2.</strong> Herramientas de edición y creación de contenidos: instalación, configuración y uso responsable. Propiedad intelectual.</li>
+          <li><strong>TYD.3.D.3.</strong> Técnicas de tratamiento, organización y almacenamiento seguro de la información. Copias de seguridad.</li>
+          <li><strong>TYD.3.D.4.</strong> Seguridad en la red: riesgos, amenazas y ataques. Medidas de protección de datos y de información. Bienestar digital: prácticas seguras y riesgos (ciberacoso, sextorsión, vulneración de la propia imagen y de la intimidad, acceso a contenidos inadecuados, adicciones, etc.).</li>
+        </ul>
+      </div>
+
+      <div class="knowledge-section k-e">
+        <h4>E. Tecnología sostenible</h4>
+        <ul>
+          <li><strong>TYD.3.E.1.</strong> Desarrollo tecnológico: creatividad, innovación, investigación, obsolescencia e impacto social y ambiental. Ética y aplicaciones de las tecnologías emergentes. La tecnología en Andalucía.</li>
+          <li><strong>TYD.3.E.2.</strong> Tecnología sostenible. Valoración crítica de la contribución a la consecución de los Objetivos de Desarrollo Sostenible.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>
+
+<div class="footer">Tecnología y Digitalización · 3.º ESO · Curso 2026/2027 · Andalucía.</div></main>
+<script>const f=document.getElementById('filter');f.onchange=()=>document.querySelectorAll('.term').forEach(x=>x.classList.toggle('hidden',f.value!=='0'&&x.dataset.tri!==f.value));document.getElementById('open').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=true);document.getElementById('close').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=false);</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('details').forEach(d => d.open = false);
+});
+</script>
+
+</body></html>
