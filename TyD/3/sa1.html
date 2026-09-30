@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SA01 · Sesión 1 · Del problema al algoritmo · TyD 3.º ESO</title>
+  <title>SA01 · Entrega final · Algoritmos y programación · TyD 3.º ESO</title>
   <meta name="description" content="Web interactiva con slider de problemas básicos de algoritmia y su implementación en Scratch.">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
   <style>
@@ -293,7 +293,21 @@
       .flow-card .flow-host{height:220px}
       .footer-tools{align-items:flex-start}
     }
-  </style>
+  
+    .formal-doc{margin-top:18px;padding:18px;border-radius:20px;background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow)}
+    .formal-doc h2{margin:0 0 8px}
+    .formal-doc h3{margin:18px 0 8px;font-size:1.12rem}
+    .formal-doc ol{margin:.45rem 0 .2rem 1.25rem;padding:0}
+    .formal-doc li{margin:.38rem 0}
+    .rubric-wrap{overflow-x:auto;margin-top:12px}
+    .rubric{width:100%;border-collapse:collapse;min-width:900px;font-size:.9rem}
+    .rubric th,.rubric td{border:1px solid #d9e2ef;padding:10px;vertical-align:top}
+    .rubric th{background:#edf4ff;color:#2447b8;text-align:left}
+    .rubric .weight{white-space:nowrap;font-weight:900;color:#2447b8}
+    .rubric .level{font-weight:850}
+    .rubric-note{margin-top:12px;padding:12px 14px;border-left:4px solid #315fe9;background:#f7faff;border-radius:9px}
+
+</style>
 </head>
 <body>
   <div id="bgSketch"></div>
@@ -301,8 +315,8 @@
   <div class="app">
     <section class="hero">
       <div class="hero-card">
-        <span class="eyebrow">🧠 SA01 · Sesión 1 · Tecnología y Digitalización · 3.º ESO</span>
-        <h1>Del problema al <span style="color:#315fe9">algoritmo</span></h1>
+        <span class="eyebrow">🧠 SA01 · Entrega final · Tecnología y Digitalización · 3.º ESO</span>
+        <h1>Del problema al <span style="color:#315fe9">programa</span></h1>
         <p>
           Esta web presenta problemas sencillos para trabajar <strong>estructuras secuenciales,
           condicionales y repetitivas</strong>. En cada tarjeta aparece el enunciado, el algoritmo,
@@ -322,20 +336,105 @@
       </div>
 
       <aside class="moodle-card">
-<h2>📦 Entrega · Sesión 1</h2>
-<div class="moodle-box">
-<strong>Objetivo de aprendizaje</strong>
-<p style="margin:.45rem 0 .65rem">Analizar un problema sencillo y expresar una solución ordenada antes de programarla.</p>
-<ul>
-<li>Identificar correctamente <strong>datos de entrada</strong> y <strong>resultado esperado</strong>.</li>
-<li>Redactar un <strong>algoritmo paso a paso</strong>, claro, ordenado y finito.</li>
-<li>Representar <strong>uno de los problemas mediante un diagrama de flujo</strong>.</li>
-<li><strong>Comprobar el algoritmo</strong> con un ejemplo y corregirlo si fuera necesario.</li>
-</ul>
-</div>
-<div class="teacher-tip"><strong>Entrega en Moodle:</strong> una ficha o PDF con <strong>2 problemas resueltos</strong>. En cada uno deben aparecer entrada, salida y algoritmo; <strong>uno de ellos</strong> incluirá además su diagrama de flujo y una prueba manual con datos de ejemplo.<br><br><strong>En esta sesión no se entrega Scratch.</strong> La programación se trabajará después, una vez comprendida la solución algorítmica.</div>
-<div class="teacher-tip"><strong>Evidencias observables · criterio 5.1:</strong> interpreta el problema; identifica entradas y salidas; ordena las instrucciones; utiliza decisiones o repeticiones cuando proceda; representa la solución; prueba el algoritmo y detecta/corrige errores.</div>
-</aside>
+        <h2>📦 Entrega final · SA01</h2>
+        <div class="moodle-box">
+          <strong>Documento formal + archivos de programación</strong>
+          <ul>
+            <li>Elaborar un <strong>documento formal</strong> que explique el trabajo realizado.</li>
+            <li>Incluir <strong>algoritmos y diagramas de flujo</strong>.</li>
+            <li>Incluir y explicar la <strong>implementación en Scratch y/o Python</strong>.</li>
+            <li>Adjuntar los archivos fuente: <strong>.sb3</strong> y/o <strong>.py</strong>.</li>
+            <li>Realizar <strong>pruebas de funcionamiento</strong> y explicar las correcciones realizadas.</li>
+          </ul>
+        </div>
+        <div class="teacher-tip">
+          <strong>Importante:</strong> una captura del programa no sustituye al código ni al archivo fuente.
+          El documento debe permitir comprender el problema, la solución diseñada y cómo se ha implementado.
+        </div>
+      </aside>
+    </section>
+
+    
+    <section class="formal-doc">
+      <h2>📄 Documento formal que debes entregar</h2>
+      <p>El documento será la memoria de la <strong>SA01 · Programación: del algoritmo a Scratch y Python</strong>. Debe estar ordenado, redactado con tus propias palabras y permitir seguir todo el proceso desde el problema hasta el programa.</p>
+
+      <h3>Contenido obligatorio</h3>
+      <ol>
+        <li><strong>Portada:</strong> título del trabajo, nombre y apellidos, curso/grupo y fecha.</li>
+        <li><strong>Índice:</strong> apartados del documento y numeración de páginas cuando proceda.</li>
+        <li><strong>Planteamiento:</strong> indicar qué problemas se han elegido y explicar brevemente qué debe resolver cada uno.</li>
+        <li><strong>Análisis del problema:</strong> identificar claramente los datos de entrada, el proceso necesario y los resultados o salidas.</li>
+        <li><strong>Algoritmo:</strong> describir paso a paso la solución de forma ordenada, precisa y finita.</li>
+        <li><strong>Diagrama de flujo:</strong> representar gráficamente la lógica de al menos uno de los algoritmos utilizando símbolos adecuados y conexiones comprensibles.</li>
+        <li><strong>Implementación:</strong> programar la solución en <strong>Scratch y/o Python</strong>. Incluir el código o capturas legibles y explicar qué hace cada parte relevante.</li>
+        <li><strong>Correspondencia algoritmo–programa:</strong> explicar cómo las entradas, operaciones, decisiones y/o repeticiones del algoritmo se han trasladado al código.</li>
+        <li><strong>Pruebas:</strong> mostrar varios datos de prueba, el resultado esperado y el obtenido. Indicar los errores encontrados y cómo se corrigieron.</li>
+        <li><strong>Conclusión:</strong> explicar brevemente qué se ha aprendido, qué ha resultado más difícil y qué se mejoraría.</li>
+        <li><strong>Anexos/archivos:</strong> adjuntar el proyecto <strong>.sb3</strong> y/o los archivos <strong>.py</strong> utilizados.</li>
+      </ol>
+
+      <div class="rubric-note">
+        <strong>Formato:</strong> documento claro y legible, con títulos y apartados, buena organización visual y vocabulario técnico adecuado. Las imágenes o capturas deben servir para explicar el trabajo, no sustituir las explicaciones.
+      </div>
+
+      <h2 style="margin-top:24px">📊 Rúbrica de evaluación</h2>
+      <div class="rubric-wrap">
+        <table class="rubric">
+          <thead>
+            <tr>
+              <th>Aspecto</th><th>Peso</th><th>4 · Excelente</th><th>3 · Adecuado</th><th>2 · En proceso</th><th>1 · Inicial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Análisis y algoritmo</strong></td><td class="weight">20 %</td>
+              <td>Identifica entradas, proceso y salidas y construye algoritmos completos, precisos y coherentes.</td>
+              <td>El análisis y el algoritmo son correctos, con pequeños errores que no alteran la solución.</td>
+              <td>La solución se entiende, pero faltan pasos o existen errores lógicos relevantes.</td>
+              <td>No identifica adecuadamente el problema o el algoritmo no permite resolverlo.</td>
+            </tr>
+            <tr>
+              <td><strong>Diagrama de flujo</strong></td><td class="weight">15 %</td>
+              <td>Representa correctamente la lógica, con símbolos y conexiones claros y coherentes con el algoritmo.</td>
+              <td>Representación comprensible y prácticamente correcta, con algún detalle mejorable.</td>
+              <td>Presenta errores de símbolos, conexiones o correspondencia con el algoritmo.</td>
+              <td>Es incompleto, difícil de interpretar o no representa la solución.</td>
+            </tr>
+            <tr>
+              <td><strong>Implementación Scratch/Python</strong></td><td class="weight">25 %</td>
+              <td>Programa funcional y coherente con el algoritmo; usa correctamente variables, operaciones y estructuras necesarias.</td>
+              <td>Programa funcional con pequeños errores o aspectos mejorables.</td>
+              <td>Funciona parcialmente o necesita correcciones importantes.</td>
+              <td>No funciona o no corresponde con el algoritmo planteado.</td>
+            </tr>
+            <tr>
+              <td><strong>Explicación algoritmo–código</strong></td><td class="weight">15 %</td>
+              <td>Explica con claridad cómo cada parte esencial del algoritmo se transforma en instrucciones del programa.</td>
+              <td>Explica correctamente la relación general entre algoritmo y programa.</td>
+              <td>La explicación es superficial o deja partes importantes sin justificar.</td>
+              <td>No explica la relación o se limita a mostrar capturas/código.</td>
+            </tr>
+            <tr>
+              <td><strong>Pruebas y depuración</strong></td><td class="weight">15 %</td>
+              <td>Realiza pruebas variadas, compara resultados y documenta errores, correcciones y mejoras.</td>
+              <td>Realiza pruebas suficientes y comprueba el funcionamiento.</td>
+              <td>Las pruebas son escasas o no justifican bien el funcionamiento.</td>
+              <td>No aporta pruebas suficientes ni evidencia de revisión.</td>
+            </tr>
+            <tr>
+              <td><strong>Documento formal</strong></td><td class="weight">10 %</td>
+              <td>Documento completo, bien estructurado, claro, cuidado y con vocabulario técnico apropiado.</td>
+              <td>Documento ordenado y comprensible con pequeños defectos formales.</td>
+              <td>Faltan apartados o la presentación dificulta parcialmente la comprensión.</td>
+              <td>Documento incompleto, desordenado o difícil de interpretar.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rubric-note">
+        <strong>Criterios de la SA01:</strong> 5.1 y 5.2. La actividad valora el diseño de la solución algorítmica y su transformación en una aplicación sencilla, además de las pruebas y la mejora del programa.
+      </div>
     </section>
 
     <section class="slider-wrap">
