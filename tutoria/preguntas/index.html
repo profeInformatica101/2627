@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos conocemos · Tutoría 3.º ESO</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { min-height:100vh; padding:24px 0; background:#f4f5f7; }
+    .container { max-width:900px; }
+    .card-main { background:white; border:0; border-radius:18px; padding:32px; box-shadow:0 8px 30px rgba(0,0,0,.08); }
+    .eyebrow { text-transform:uppercase; letter-spacing:.08em; font-size:.8rem; font-weight:700; opacity:.65; }
+    h1 { font-weight:800; }
+    .question-area { min-height:210px; display:flex; align-items:center; justify-content:center; margin:24px 0; padding:28px; border-radius:16px; background:#f8f9fa; }
+    .question-text { margin:0; font-size:clamp(1.45rem, 3vw, 2.15rem); line-height:1.35; font-weight:700; text-align:center; }
+    .btn-question { border:0; border-radius:12px; padding:13px 24px; font-size:1.05rem; font-weight:700; }
+    .hint { font-size:.9rem; opacity:.7; }
+    select.form-control { height:auto; padding:11px; border-radius:10px; }
+    @media (max-width:576px) { .card-main{padding:22px 16px}.question-area{min-height:240px;padding:20px} }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card-main">
+      <div class="text-center mb-4">
+        <div class="eyebrow">Tutoría · 3.º ESO</div>
+        <h1>🎲 Nos conocemos</h1>
+        <p class="text-muted mb-0">Una pregunta, muchas respuestas. Escuchamos sin juzgar y respetamos el turno.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="topicSelector"><strong>Elige un tipo de pregunta</strong></label>
+        <select class="form-control" id="topicSelector"></select>
+      </div>
+
+      <div class="question-area" aria-live="polite">
+        <p id="questionText" class="question-text">Preparando una pregunta…</p>
+      </div>
+
+      <div class="text-center">
+        <button id="newQuestionButton" class="btn btn-primary btn-question">🎲 Nueva pregunta</button>
+        <p class="hint mt-3 mb-1" id="questionCount"></p>
+        <p class="hint mt-2 mb-0">💡 Se puede pasar turno. No es obligatorio responder a una pregunta que resulte incómoda.</p>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
