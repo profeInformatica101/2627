@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Código ASCII · TIC 1.º Bachillerato</title>
+<style>
+:root{--bg:#f6f3ea;--panel:#fffdf7;--ink:#1d2b24;--mute:#5d6b63;--acc:#0b6b4f;--hi:#b45309;--line:#cfc8b4;--code:#e9efe6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17302a;--panel:#1d3b33;--ink:#f1f0e6;--mute:#b7c4bb;--acc:#8be0b8;--hi:#ffd166;--line:#3d6357;--code:#13261f}}
+:root[data-theme="dark"]{--bg:#17302a;--panel:#1d3b33;--ink:#f1f0e6;--mute:#b7c4bb;--acc:#8be0b8;--hi:#ffd166;--line:#3d6357;--code:#13261f}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-direction:column;font-size:18px;line-height:1.5}
+#deck{flex:1;min-height:0;overflow:auto;padding:20px 22px}.slide{display:none;max-width:980px;margin:0 auto}.slide.on{display:block}
+h1{font-size:2rem;margin:0 0 .3em;color:var(--acc)}h2{font-size:1.15rem;margin:1em 0 .3em;color:var(--hi)}p{margin:.4em 0}
+.k{font-family:"Courier New",monospace;background:var(--code);padding:1px 7px;border-radius:5px;font-weight:700}
+.big{font-family:"Courier New",monospace;font-size:1.5rem;font-weight:700;letter-spacing:.06em}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.sc{overflow-x:auto}table{border-collapse:collapse;margin:6px 0;width:auto;max-width:100%}
+td,th{border:1px solid var(--line);padding:4px 10px;text-align:center}th{color:var(--hi)}
+ol,ul{margin:.3em 0;padding-left:1.3em}li{margin:.25em 0}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin:8px 0}
+summary{cursor:pointer;color:var(--acc);font-weight:600}
+nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid var(--line);background:var(--panel)}
+button{font:inherit;background:var(--acc);color:var(--bg);border:0;border-radius:8px;padding:6px 16px;cursor:pointer}
+button:disabled{opacity:.35;cursor:default}
+input{font:inherit;max-width:100%;width:190px;padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink)}
+.result{font-weight:700;color:var(--acc);overflow-wrap:anywhere}
+.gridascii{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:6px}
+.gridascii div{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:6px;text-align:center}
+.gridascii b{display:block;font-family:"Courier New",monospace}
+.muted{color:var(--mute)}
+@media(max-width:500px){body{font-size:16px}h1{font-size:1.55rem}#deck{padding:12px}.big{font-size:1.15rem}}
+</style>
+</head>
+<body>
+<div id="deck">
+<section class="slide on">
+<h1>¿Cómo representa el ordenador las letras?</h1>
+<p class="muted">TIC · 1.º Bachillerato · Representación de la información · Tema 2</p>
+<div class="card"><h2 style="margin-top:0">El problema</h2>
+<p>Un ordenador trabaja con bits (0 y 1), pero nosotros escribimos letras, números, signos de puntuación y símbolos.</p>
+<p>Necesitamos una <b>tabla de correspondencias</b> que asigne un número a cada carácter. Una de las primeras normas ampliamente utilizadas fue <b>ASCII</b>.</p></div>
+<div class="cols">
+<div class="card"><b>Carácter</b><p>Lo que vemos y escribimos: <span class="k">A</span>, <span class="k">?</span>, <span class="k">7</span>.</p></div>
+<div class="card"><b>Código</b><p>Un número asociado al carácter, por ejemplo, <span class="k">A = 65</span>.</p></div>
+<div class="card"><b>Binario</b><p>Ese número puede almacenarse como bits: <span class="k">01000001</span>.</p></div>
+</div>
+<p>En esta unidad veremos cómo pasar de carácter a decimal y de decimal a binario.</p>
+</section>
+
+<section class="slide">
+<h1>1. ¿Qué es ASCII?</h1>
+<p><b>ASCII</b> significa *American Standard Code for Information Interchange* (Código Estándar Estadounidense para el Intercambio de Información).</p>
+<div class="card"><h2 style="margin-top:0">La idea fundamental</h2>
+<p>ASCII asigna un número a cada carácter. El ASCII estándar utiliza <b>7 bits</b>, por lo que permite representar:</p>
+<p class="big">2⁷ = 128 códigos (0–127)</p></div>
+<div class="cols">
+<div class="card"><b>Caracteres de control</b><p>Códigos 0–31 y 127. Se crearon para controlar dispositivos y comunicaciones; muchos no se muestran como símbolos.</p></div>
+<div class="card"><b>Caracteres imprimibles</b><p>Códigos 32–126: espacio, signos de puntuación, cifras, letras y algunos símbolos.</p></div>
+</div>
+<p><b>Importante:</b> ASCII estándar no incluye directamente letras como <span class="k">ñ</span> ni vocales acentuadas.</p>
+</section>
+
+<section class="slide">
+<h1>2. ¿Cómo se almacena un carácter?</h1>
+<p>El código ASCII de un carácter es un número. Después, ese número se representa en binario.</p>
+<div class="card">
+<p><b>Ejemplo: la letra A</b></p>
+<div class="cols">
+<div><p>Carácter</p><p class="big">A</p></div>
+<div><p>Decimal</p><p class="big">65</p></div>
+<div><p>Binario (7 bits)</p><p class="big">1000001</p></div>
+</div>
+<p>Si se muestra en un byte de 8 bits, se añade un cero a la izquierda:</p>
+<p class="big">01000001</p>
+</div>
+<p>Otro ejemplo: <span class="k">a</span> minúscula = 97 = <span class="k">01100001</span>. Las mayúsculas y minúsculas tienen códigos diferentes.</p>
+</section>
+
+<section class="slide">
+<h1>3. Grupos de caracteres ASCII</h1>
+<p>Estos rangos ayudan a localizar los caracteres en la tabla:</p>
+<div class="card sc"><table>
+<tr><th>Rango decimal</th><th>Contenido</th><th>Ejemplos</th></tr>
+<tr><td>0–31</td><td>Caracteres de control</td><td>Intro, tabulador, etc.</td></tr>
+<tr><td>32</td><td>Espacio</td><td>␠</td></tr>
+<tr><td>48–57</td><td>Dígitos</td><td>0 1 2 3 4 5 6 7 8 9</td></tr>
+<tr><td>65–90</td><td>Letras mayúsculas</td><td>A–Z</td></tr>
+<tr><td>97–122</td><td>Letras minúsculas</td><td>a–z</td></tr>
+<tr><td>127</td><td>Control DEL</td><td>Eliminar</td></tr>
+</table></div>
+<div class="card"><b>Observa:</b> los dígitos también son caracteres. El carácter <span class="k">5</span> tiene código ASCII 53; no es lo mismo que el valor numérico cinco almacenado como número.</div>
+</section>
+
+<section class="slide">
+<h1>4. Tabla ASCII: ejemplos frecuentes</h1>
+<p>Consulta algunos códigos imprimibles habituales:</p>
+<div class="gridascii">
+<div><b>32</b>Espacio</div><div><b>33</b>!</div><div><b>44</b>,</div><div><b>46</b>.</div>
+<div><b>48</b>0</div><div><b>49</b>1</div><div><b>57</b>9</div><div><b>63</b>?</div>
+<div><b>65</b>A</div><div><b>66</b>B</div><div><b>90</b>Z</div><div><b>97</b>a</div>
+<div><b>98</b>b</div><div><b>122</b>z</div><div><b>64</b>@</div><div><b>35</b>#</div>
+</div>
+<h2>Una regularidad útil</h2>
+<div class="card"><p>Las letras mayúsculas A–Z ocupan los códigos 65–90 y las minúsculas a–z los códigos 97–122.</p>
+<p>La diferencia entre una letra minúscula y su correspondiente mayúscula es <b>32</b>. Por ejemplo: <span class="k">a = 97</span> y <span class="k">A = 65</span>.</p></div>
+</section>
+
+<section class="slide">
+<h1>5. De carácter a decimal y binario</h1>
+<p><b>Método:</b> busca el carácter en la tabla ASCII, localiza su número decimal y convierte ese número a binario.</p>
+<div class="card">
+<h2 style="margin-top:0">Ejemplo: carácter C</h2>
+<p>1. En la tabla ASCII, <span class="k">C</span> corresponde al decimal <b>67</b>.</p>
+<p>2. Descomponemos 67 en potencias de 2: 64 + 2 + 1.</p>
+<p>3. Marcamos los pesos 64, 2 y 1:</p>
+<p class="big">67 = 01000011</p>
+<p>Por tanto: <b>C → 67 → 01000011</b> (en 8 bits).</p>
+</div>
+<h2>Otro ejemplo: el carácter 0</h2>
+<p><span class="k">0</span> (carácter) = 48 (decimal) = <span class="k">00110000</span> (binario).</p>
+<p>Recuerda: el carácter «0» no tiene el mismo código que el número cero usado en una operación.</p>
+</section>
+
+<section class="slide">
+<h1>6. De decimal a carácter</h1>
+<p>El proceso inverso consiste en consultar qué carácter corresponde a un código decimal.</p>
+<div class="cols">
+<div class="card"><h2 style="margin-top:0">Ejemplo 1</h2>
+<p>El código decimal <span class="k">66</span> corresponde a la letra <b>B</b>.</p></div>
+<div class="card"><h2 style="margin-top:0">Ejemplo 2</h2>
+<p>El código decimal <span class="k">63</span> corresponde al signo <b>?</b>.</p></div>
+</div>
+<div class="card"><b>Atención:</b> los códigos 0–31 y 127 son controles, no caracteres imprimibles normales. No todos producen un símbolo visible.</div>
+<p>Si recibes una secuencia de códigos, debes separar cada código y buscar su carácter correspondiente.</p>
+</section>
+
+<section class="slide">
+<h1>7. Codificar una palabra</h1>
+<p>Para codificar una palabra, sustituimos cada carácter por su código ASCII. Cada carácter se representa por separado.</p>
+<div class="card">
+<h2 style="margin-top:0">Ejemplo: SOL</h2>
+<div class="sc"><table>
+<tr><th>Carácter</th><td>S</td><td>O</td><td>L</td></tr>
+<tr><th>Decimal</th><td>83</td><td>79</td><td>76</td></tr>
+<tr><th>Binario (8 bits)</th><td>01010011</td><td>01001111</td><td>01001100</td></tr>
+</table></div>
+<p>La palabra <b>SOL</b> se representa como tres códigos consecutivos: 83, 79 y 76.</p>
+</div>
+<p>Para recuperar el texto, agrupamos los bits en bytes, convertimos cada byte a decimal y consultamos la tabla.</p>
+</section>
+
+<section class="slide">
+<h1>8. ASCII y Unicode: ¿son lo mismo?</h1>
+<div class="cols">
+<div class="card"><h2 style="margin-top:0">ASCII</h2>
+<ul><li>Estándar de 7 bits.</li><li>128 códigos.</li><li>Incluye letras inglesas básicas, cifras y signos.</li><li>No incluye directamente ñ ni vocales acentuadas.</li></ul></div>
+<div class="card"><h2 style="margin-top:0">Unicode</h2>
+<ul><li>Estándar para representar caracteres de muchos idiomas y sistemas de escritura.</li><li>Incluye caracteres como ñ, á, €, y muchos otros.</li><li>UTF-8 es una forma habitual de codificar Unicode.</li></ul></div>
+</div>
+<div class="card"><b>Relación:</b> los primeros 128 códigos de Unicode coinciden con ASCII. UTF-8 representa esos caracteres con los mismos valores de un byte.</div>
+<p>Por eso, al trabajar con textos actuales en español, normalmente encontramos Unicode/UTF-8 y no solo ASCII.</p>
+</section>
+
+<section class="slide">
+<h1>9. Laboratorio interactivo: carácter → ASCII</h1>
+<p>Escribe un carácter ASCII imprimible y consulta su código decimal y binario.</p>
+<div class="card">
+<label for="char">Carácter (uno solo): </label>
+<input id="char" type="text" maxlength="2" value="A" autocomplete="off">
+<button id="encode">Codificar</button>
+<p id="encout" class="result" aria-live="polite"></p>
+<p id="encsteps"></p>
+</div>
+<p>Prueba con <b>A, a, 5, ?, espacio y Z</b>. Observa cómo cambia el código.</p>
+</section>
+
+<section class="slide">
+<h1>10. Laboratorio interactivo: decimal → carácter</h1>
+<p>Introduce un código decimal entre 0 y 127.</p>
+<div class="card">
+<label for="decimal">Código decimal: </label>
+<input id="decimal" type="number" min="0" max="127" value="65">
+<button id="decode">Decodificar</button>
+<p id="decout" class="result" aria-live="polite"></p>
+<p id="decsteps"></p>
+</div>
+<p>Prueba con <b>32, 48, 65, 66, 97, 122 y 63</b>.</p>
+</section>
+
+<section class="slide">
+<h1>11. Actividades de práctica</h1>
+<div class="cols">
+<div class="card"><h2 style="margin-top:0">A. Decimal → carácter</h2>
+<ol><li>65</li><li>90</li><li>97</li><li>48</li><li>63</li></ol></div>
+<div class="card"><h2 style="margin-top:0">B. Carácter → decimal</h2>
+<ol><li>A</li><li>m</li><li>0</li><li>?</li><li>Espacio</li></ol></div>
+</div>
+<details><summary>Soluciones</summary>
+<p><b>A:</b> a) A · b) Z · c) a · d) 0 · e) ?</p>
+<p><b>B:</b> a) 65 · b) 109 · c) 48 · d) 63 · e) 32</p></details>
+</section>
+
+<section class="slide">
+<h1>12. Actividades: binario y texto</h1>
+<h2>A. Decimal → binario (8 bits)</h2>
+<ol><li>65</li><li>97</li><li>48</li><li>63</li></ol>
+<h2>B. Binario → carácter</h2>
+<ol><li>01000001</li><li>01000010</li><li>01100001</li><li>00110000</li></ol>
+<h2>C. Razonamiento</h2>
+<ol><li>¿Cuántos códigos diferentes permite ASCII estándar?</li><li>¿Por qué el carácter «7» no tiene el código decimal 7?</li><li>¿ASCII estándar incluye la letra ñ?</li><li>¿Qué diferencia hay entre ASCII y Unicode?</li></ol>
+<details><summary>Ver soluciones</summary>
+<p><b>A:</b> 01000001 · 01100001 · 00110000 · 00111111.</p>
+<p><b>B:</b> A · B · a · 0.</p>
+<p><b>C:</b> 1) 128 códigos. 2) Porque «7» es un carácter imprimible y su código ASCII es 55; el valor 7 corresponde a un carácter de control. 3) No. 4) Unicode abarca caracteres de muchos idiomas; ASCII es un conjunto limitado de 128 códigos.</p>
+</details>
+</section>
+
+<section class="slide">
+<h1>13. Reto final: descifra el mensaje</h1>
+<div class="card">
+<p>Un mensaje se ha almacenado usando códigos ASCII decimales:</p>
+<p class="big">72 – 79 – 76 – 65</p>
+<ol><li>Busca cada número en la tabla ASCII.</li><li>Escribe el carácter que corresponde a cada código.</li><li>¿Qué palabra se forma?</li><li>Convierte el código decimal 72 a binario de 8 bits.</li></ol>
+</div>
+<details><summary>Solución razonada</summary>
+<p>72 = H, 79 = O, 76 = L y 65 = A. El mensaje es <b>HOLA</b>. El código 72 en binario de 8 bits es <span class="k">01001000</span>.</p>
+</details>
+</section>
+</div>
+<nav><button id="p">← Anterior</button><span id="n"></span><button id="s">Siguiente →</button></nav>
+<script>
+var S=document.querySelectorAll(".slide"),i=0,n=document.getElementById("n"),p=document.getElementById("p"),s=document.getElementById("s");
+function go(k){i=Math.max(0,Math.min(S.length-1,k));S.forEach(function(e,j){e.classList.toggle("on",j===i)});n.textContent=(i+1)+" / "+S.length;p.disabled=i===0;s.disabled=i===S.length-1;document.getElementById("deck").scrollTop=0}
+p.onclick=function(){go(i-1)};s.onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){if(e.target.matches("input"))return;if(e.key==="ArrowRight"||e.key===" ")go(i+1);if(e.key==="ArrowLeft")go(i-1)});
+function encode(){var v=document.getElementById("char").value,out=document.getElementById("encout"),steps=document.getElementById("encsteps");if(v.length!==1){out.textContent="Introduce exactamente un carácter.";steps.textContent="";return}var code=v.charCodeAt(0);if(code<32||code>126){out.textContent="Para este laboratorio, introduce un carácter ASCII imprimible (códigos 32–126).";steps.textContent="ASCII estándar no incluye directamente ñ ni vocales acentuadas.";return}var bin=code.toString(2).padStart(8,"0");out.textContent=v===" "?"Espacio → "+code+" → "+bin:v+" → "+code+" → "+bin;steps.textContent="Código decimal: "+code+". Representación binaria en 8 bits: "+bin+"."}
+function decode(){var raw=document.getElementById("decimal").value,n=Number(raw),out=document.getElementById("decout"),steps=document.getElementById("decsteps");if(raw.trim()===""||!Number.isInteger(n)||n<0||n>127){out.textContent="Introduce un entero entre 0 y 127.";steps.textContent="";return}var ch=n>=32&&n<=126?String.fromCharCode(n):"carácter de control (no imprimible)";out.textContent=n+" → "+ch;steps.textContent="En binario de 8 bits: "+n.toString(2).padStart(8,"0")+"."}
+document.getElementById("encode").onclick=encode;document.getElementById("char").addEventListener("input",encode);
+document.getElementById("decode").onclick=decode;document.getElementById("decimal").addEventListener("input",decode);
+go(0);encode();decode();
+</script>
+</body>
+</html>
